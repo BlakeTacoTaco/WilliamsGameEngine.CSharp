@@ -6,6 +6,8 @@ namespace MyGame
     {
         public GameScene()
         {
+            Ship ship = new Ship();
+            AddGameObject(ship);
         }
     }
 }
