@@ -21,10 +21,7 @@ namespace MyGame
         public float angle = 0;
 
         //animations
-        private List<List<int>> animations = new List<List<int>>()
-        {
-            new List<int> { 0, 1 },
-        };
+        private List<List<int>> animations = new List<List<int>>();
 
         //current animation data
         private float lastFrame = 0; //time since last frame
@@ -32,33 +29,53 @@ namespace MyGame
         private int currentFrame;
         private float secondsPerFrame;
         public bool playing = false;
+        public int defaultFrame = 0;
+        private int frameInAnimation;
 
-        public SpriteRenderer(Sprite[] frames, Vector2f position)
+        public SpriteRenderer(Sprite[] frames, Vector2f position, int defaultFrame, Vector2f scale, Vector2f origin, List<List<int>> animations, float secondsPerFrame)
         {
             this.frames = frames;
-            this.currentFrame = 0;
             this.position = position;
+            this.defaultFrame = defaultFrame;
+            this.currentFrame = defaultFrame;
+            this.animations = animations;
+            this.secondsPerFrame = secondsPerFrame;
+            for(int i = 0; i < frames.Length; i++)//applies stuff to each frame that only needs to be applied once
+            {
+                frames[i].Scale = scale;
+                frames[i].Origin = origin;
+            }
         }
         public void Draw(float delta)
         {
-            if (playing)
+            if (playing && !(frameInAnimation + 1 >= animations[currentAnimation].Count))
             {
                 //animation logic
                 lastFrame += delta;
-                if (lastFrame >= secondsPerFrame) { currentFrame++; }
-                if (currentFrame > animations[currentAnimation].Count) { playing = false; }
+                if (lastFrame >= secondsPerFrame) { currentFrame = animations[currentAnimation][frameInAnimation + 1]; frameInAnimation++; }
             }
+            else { playing = false; currentFrame = defaultFrame; }
 
             //end render
             frames[currentFrame].Position = position;
             frames[currentFrame].Rotation = angle;
             Game.RenderWindow.Draw(frames[currentFrame]);
         }
-        public void PlayAnimation(int animationId)
+        public void PlayAnimation(int animationId, bool force)
         {
-            currentAnimation = animationId;
-            lastFrame = 0;
-            currentFrame = animations[animationId][0];//set first frame
+            if (!playing || force)
+            {
+                currentAnimation = animationId;
+                lastFrame = 0;
+                currentFrame = animations[animationId][0];//set first frame
+                frameInAnimation = 0;
+                playing = true;
+            }
+        }
+        public void SetFrame(int frame) //overrides current animation
+        {
+            playing = false;
+            currentFrame = frame;
         }
     }
 }
