@@ -22,7 +22,7 @@ namespace MyGame
         private float maxVelocity = 15;
         private float rotSpeed = 360;
         private float angle = 0;
-        private float edgeBuffer = 60;
+        private float edgeBuffer = 40;
         private float friction = 2f;
         private float delta = 0;
 
@@ -44,6 +44,9 @@ namespace MyGame
             for (int i = 0; i < 10 ; i++)
             {
                 animations[0].Add(i);
+                animations[0].Add(i);
+                animations[0].Add(i);
+                animations[0].Add(i);
             }
 
             _sprite = new SpriteRenderer(frameArray, new Vector2f(0, 0), 9, new Vector2f(4, 4), new Vector2f(16,16), animations,0.2f);
@@ -58,12 +61,12 @@ namespace MyGame
         {
             Vector2f pos = _sprite.position;
             delta = elapsed.AsSeconds();
-            bool input = false; //checks if any movement inputs were detected
+            bool input = false; //checks if any velocity inputs were detected
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.W)) { velocity += delta * acceleration; input = true; }
             if (Keyboard.IsKeyPressed(Keyboard.Key.S)) { velocity -= delta * acceleration; input = true; }
-            if (Keyboard.IsKeyPressed(Keyboard.Key.A)) { angle -= delta * rotSpeed; input = true; }
-            if (Keyboard.IsKeyPressed(Keyboard.Key.D)) { angle += delta * rotSpeed; input = true; }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.A)) { angle -= delta * rotSpeed; }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.D)) { angle += delta * rotSpeed; }
 
             //max speed
             if (velocity > maxVelocity) { velocity = maxVelocity; }
