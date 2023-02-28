@@ -61,7 +61,7 @@ namespace MyGame
             frames[currentFrame].Rotation = angle;
             Game.RenderWindow.Draw(frames[currentFrame]);
         }
-        public void PlayAnimation(int animationId, bool force)
+        public bool PlayAnimation(int animationId, bool force)
         {
             if (!playing || force)
             {
@@ -70,7 +70,9 @@ namespace MyGame
                 currentFrame = animations[animationId][0];//set first frame
                 frameInAnimation = 0;
                 playing = true;
+                return true;
             }
+            return false;
         }
         public void SetFrame(int frame) //overrides current animation
         {

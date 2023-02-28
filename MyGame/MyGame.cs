@@ -7,7 +7,7 @@ namespace MyGame
         public const int WindowWidth = 1600;
         public const int WindowHeight = 900;
 
-        private const string WindowTitle = "My Awesome Game";
+        private const string WindowTitle = "Asteroids but better";
 
         private static void Main(string[] args)
         {

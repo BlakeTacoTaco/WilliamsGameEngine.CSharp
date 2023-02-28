@@ -18,13 +18,14 @@ namespace MyGame
 
         //movement related stuff
         private float velocity = 0;
-        private float acceleration = 20;
-        private float maxVelocity = 15;
+        private float acceleration = 30;
+        private float maxVelocity = 25;
         private float rotSpeed = 360;
         private float angle = 0;
         private float edgeBuffer = 40;
-        private float friction = 2f;
+        private float friction = 6f;
         private float delta = 0;
+        private float recoil = 10;
 
         // Constructors
         public Ship()
@@ -44,12 +45,12 @@ namespace MyGame
             for (int i = 0; i < 10 ; i++)
             {
                 animations[0].Add(i);
-                animations[0].Add(i);
-                animations[0].Add(i);
-                animations[0].Add(i);
+                //animations[0].Add(i);
+                //animations[0].Add(i);
+                //animations[0].Add(i);
             }
 
-            _sprite = new SpriteRenderer(frameArray, new Vector2f(0, 0), 9, new Vector2f(4, 4), new Vector2f(16,16), animations,0.2f);
+            _sprite = new SpriteRenderer(frameArray, new Vector2f(0, 0), 9, new Vector2f(4, 4), new Vector2f(16,16), animations,0.1f);
             _sprite.position = new Vector2f(100, 100);
         }
         // functions overridden from GameObject:
@@ -68,6 +69,9 @@ namespace MyGame
             if (Keyboard.IsKeyPressed(Keyboard.Key.A)) { angle -= delta * rotSpeed; }
             if (Keyboard.IsKeyPressed(Keyboard.Key.D)) { angle += delta * rotSpeed; }
 
+            //makes angle go back down if you do a bunch of sequential turns
+            angle %= 360;
+
             //max speed
             if (velocity > maxVelocity) { velocity = maxVelocity; }
             if (velocity < -maxVelocity) { velocity = -maxVelocity; }
@@ -75,8 +79,7 @@ namespace MyGame
             //drag
             if (friction != 0 && !input) 
             { 
-                if (velocity > 0) { velocity -= friction * delta * maxVelocity; }
-                if (velocity < 0) { velocity += friction * delta * maxVelocity; }
+                if (velocity != 0) { velocity -= friction * delta * velocity; }
 
                 //if velocity is super low it sets it to 0
                 if (Math.Abs(velocity) <= 1) { velocity = 0; }
@@ -102,8 +105,17 @@ namespace MyGame
 
 
             //shooting
-            if(Keyboard.IsKeyPressed(Keyboard.Key.Space)) { _sprite.PlayAnimation(0, false); }
-
+            bool shot = false;
+            if(Keyboard.IsKeyPressed(Keyboard.Key.Space)) 
+            {
+                shot = _sprite.PlayAnimation(0, false);
+                if (shot)
+                {
+                    velocity -= recoil;
+                    Missile missile = new Missile(angle + 180, 10, pos);
+                    Game.CurrentScene.AddGameObject(missile);
+                }
+            }
         }
     }
 }
