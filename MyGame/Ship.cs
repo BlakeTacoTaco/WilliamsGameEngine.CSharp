@@ -18,14 +18,14 @@ namespace MyGame
 
         //movement related stuff
         private float velocity = 0;
-        private float acceleration = 30;
-        private float maxVelocity = 25;
+        private float acceleration = 1800;
+        private float maxVelocity = 900;
         private float rotSpeed = 360;
         private float angle = 0;
-        private float edgeBuffer = 40;
+        private float edgeBuffer = MyGame.edgeBuffer;
         private float friction = 6f;
         private float delta = 0;
-        private float recoil = 10;
+        private float recoil = 600;
 
         // Constructors
         public Ship()
@@ -65,7 +65,7 @@ namespace MyGame
             bool input = false; //checks if any velocity inputs were detected
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.W)) { velocity += delta * acceleration; input = true; }
-            if (Keyboard.IsKeyPressed(Keyboard.Key.S)) { velocity -= delta * acceleration; input = true; }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.S)) { velocity -= delta * acceleration /2 ; input = true; }
             if (Keyboard.IsKeyPressed(Keyboard.Key.A)) { angle -= delta * rotSpeed; }
             if (Keyboard.IsKeyPressed(Keyboard.Key.D)) { angle += delta * rotSpeed; }
 
@@ -74,7 +74,7 @@ namespace MyGame
 
             //max speed
             if (velocity > maxVelocity) { velocity = maxVelocity; }
-            if (velocity < -maxVelocity) { velocity = -maxVelocity; }
+            if (velocity < -maxVelocity / 2) { velocity = -maxVelocity / 2; }
 
             //drag
             if (friction != 0 && !input) 
@@ -90,7 +90,7 @@ namespace MyGame
             Vector2f finalVelocity = new Vector2f((float)Math.Cos(radAngle) * velocity, (float)Math.Sin(radAngle) * velocity);
 
             //aplies the velocity
-            pos -= finalVelocity;
+            pos -= finalVelocity * delta;
 
             //keeps player in bounds
             if (pos.X < 0 - edgeBuffer) { pos.X = MyGame.WindowWidth + edgeBuffer; }
@@ -111,8 +111,8 @@ namespace MyGame
                 shot = _sprite.PlayAnimation(0, false);
                 if (shot)
                 {
+                    Missile missile = new Missile(angle + 180, 600, pos);
                     velocity -= recoil;
-                    Missile missile = new Missile(angle + 180, 10, pos);
                     Game.CurrentScene.AddGameObject(missile);
                 }
             }

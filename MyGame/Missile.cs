@@ -15,8 +15,10 @@ namespace MyGame
         private float existedFor = 0;
         private Vector2f velocity;
         private readonly Sprite _sprite = new Sprite();
-        private float edgeBuffer = 20;
+        private float edgeBuffer = MyGame.edgeBuffer;
         private Vector2f position;
+        private float friction = 0;
+
         public Missile(float angle, float velocity, Vector2f position)
         {
             this.position = position;
@@ -30,6 +32,12 @@ namespace MyGame
         {
             Game.RenderWindow.Draw(_sprite);
         }
+        private void Detonate()
+        {
+            Explosion explosion = new Explosion(position);
+            Game.CurrentScene.AddGameObject(explosion);
+            this.MakeDead();
+        }
         public override void Update(Time elapsed)
         {
             float delta = elapsed.AsSeconds();
@@ -42,9 +50,19 @@ namespace MyGame
 
             //makes it detonate after it exists for long enough
             existedFor += delta;
-            if(existedFor > 0.5) { this.MakeDead(); }
+            if(existedFor > 0.75) { Detonate(); }
 
-            position += velocity;
+            //friction
+            if (friction != 0)
+            {
+                velocity -= friction * delta * velocity; 
+
+                //if velocity is super low it sets it to 0
+                if (Math.Abs(velocity.X) <= 1) { velocity.X = 0; }
+                if (Math.Abs(velocity.Y) <= 1) { velocity.Y = 0; }
+            }
+
+            position += velocity * delta;
             _sprite.Position = position;
         }
     }
