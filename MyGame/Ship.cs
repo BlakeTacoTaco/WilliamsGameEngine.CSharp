@@ -50,7 +50,7 @@ namespace MyGame
                 //animations[0].Add(i);
             }
 
-            _sprite = new SpriteRenderer(frameArray, new Vector2f(0, 0), 9, new Vector2f(4, 4), new Vector2f(16,16), animations,0.1f);
+            _sprite = new SpriteRenderer(frameArray, new Vector2f(0, 0), 9, new Vector2f(4, 4), new Vector2f(16,16), animations,0.4f);
             _sprite.position = new Vector2f(100, 100);
         }
         // functions overridden from GameObject:
