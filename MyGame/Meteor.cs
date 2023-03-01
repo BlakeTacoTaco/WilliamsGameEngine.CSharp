@@ -22,6 +22,7 @@ namespace MyGame
             this.velocity = velocity;
             this.position = position;
             AssignTag("meteor");
+            SetCollisionCheckEnabled(true);
         }
         public override void Draw()
         {
@@ -38,6 +39,14 @@ namespace MyGame
             if (position.X > MyGame.WindowWidth + edgeBuffer) { position.X = -edgeBuffer; }
             if (position.Y < 0 - edgeBuffer) { position.Y = MyGame.WindowHeight + edgeBuffer; }
             if (position.Y > MyGame.WindowHeight + edgeBuffer) { position.Y = -edgeBuffer; }
+        }
+        public override FloatRect GetCollisionRect()
+        {
+            return _sprite.GetGlobalBounds();
+        }
+        public override void HandleCollision(GameObject otherGameObject)
+        {
+            return;
         }
     }
 }

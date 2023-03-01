@@ -1,47 +1,47 @@
 ﻿using GameEngine;
 using SFML.Graphics;
 using SFML.System;
-using SFML.Window;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace MyGame
 {
-    internal class Explosion : GameObject
+    class Explosion : AnimatedSprite
     {
-        private float delta = 0;
-        private SpriteRenderer _sprite;
-        public Explosion(Vector2f position)
+        public Explosion(Vector2f pos) : base(pos)
         {
-            Sprite[] frames = new Sprite[9];
-            for (int i = 1; i < frames.Length; i++)
-            {
-                frames[i] = new Sprite();
-                frames[i].Texture = Game.GetTexture("../../../Resources/explosion0" + i + ".png");
-            }
-
-            List<List<int>> animations = new List<List<int>> { new List<int>()};
-            for(int i = 0; i < frames.Length - 1; i++)
-            {
-                animations[0].Add(i);
-            }
-
-            _sprite = new SpriteRenderer(frames, position, 0, new Vector2f(1,1),new Vector2f(32,32), animations, 0.1f);
-
-            _sprite.PlayAnimation(1,true);
-        }
-        public override void Draw()
-        {
-            _sprite.Draw(delta);
+            Texture = Game.GetTexture("Resources/explosion-spritesheet.png");
+            SetUpExplosionAnimation();
+            PlayAnimation("explosion", AnimationMode.OnceForwards);
         }
         public override void Update(Time elapsed)
         {
-            delta = elapsed.AsSeconds();
-            if(!_sprite.playing) { this.MakeDead(); }
+            base.Update(elapsed);
+            if (!IsPlaying())
+            {
+                MakeDead();
+            }
+        }
+        private void SetUpExplosionAnimation()
+        {
+            var frames = new List<IntRect>
+            {
+                new IntRect( 0, 0, 256, 256), // frame 1
+                new IntRect( 256, 0, 256, 256), // frame 2
+                new IntRect(512, 0, 256, 256), // frame 3
+                new IntRect(768, 0, 256, 256), // frame 4
+                new IntRect(1024, 0, 256, 256), // frame 5
+                new IntRect(1280, 0, 256, 256), // frame 6
+                new IntRect(1536, 0, 256, 256), // frame 7
+                new IntRect(1792, 0, 256, 256), // frame 8
+                new IntRect(2048, 0, 256, 256) // frame 9
+            };
+            AddAnimation("explosion", frames);
+        }
+        public override void HandleCollision(GameObject otherGameObject)
+        {
+            if (otherGameObject.HasTag("meteor"))
+            {
+                otherGameObject.MakeDead();
+            }
         }
     }
 }

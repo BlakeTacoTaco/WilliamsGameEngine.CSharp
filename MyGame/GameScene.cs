@@ -8,10 +8,14 @@ namespace MyGame
         public GameScene()
         {
             Ship ship = new Ship();
-            AddGameObject(ship);
+            AddGameObject(new Ship());
+            AddGameObject(new Ship());
 
-            Meteor meteor = new Meteor(new Vector2f(10, 40), new Vector2f(600, 600));
-            AddGameObject(meteor);
+            for (int i = 0; i < 100; i++)
+            {
+                Meteor meteor = new Meteor(new Vector2f(Game.Random.Next((int)Game.RenderWindow.Size.X), Game.Random.Next((int)Game.RenderWindow.Size.X)), new Vector2f(Game.Random.Next(600) - 300, Game.Random.Next(600) - 300));
+                AddGameObject(meteor);
+            }
         }
     }
 }

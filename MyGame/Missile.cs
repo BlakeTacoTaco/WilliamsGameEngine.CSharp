@@ -3,6 +3,7 @@ using SFML.Graphics;
 using SFML.System;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -64,6 +65,17 @@ namespace MyGame
 
             position += velocity * delta;
             _sprite.Position = position;
+        }
+        public override FloatRect GetCollisionRect()
+        {
+            return _sprite.GetGlobalBounds();
+        }
+        public override void HandleCollision(GameObject otherGameObject)
+        {
+            if (otherGameObject.HasTag("meteor"))
+            {
+                Detonate();
+            }
         }
     }
 }
