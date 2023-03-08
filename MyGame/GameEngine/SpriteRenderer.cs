@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 //add default animation/frame
 //set frame
 
-namespace MyGame
+namespace MyGame.GameEngine
 {
     internal class SpriteRenderer
     {
@@ -37,10 +37,10 @@ namespace MyGame
             this.frames = frames;
             this.position = position;
             this.defaultFrame = defaultFrame;
-            this.currentFrame = defaultFrame;
+            currentFrame = defaultFrame;
             this.animations = animations;
             this.secondsPerFrame = secondsPerFrame;
-            for(int i = 0; i < frames.Length; i++)//applies stuff to each frame that only needs to be applied once
+            for (int i = 0; i < frames.Length; i++)//applies stuff to each frame that only needs to be applied once
             {
                 frames[i].Scale = scale;
                 frames[i].Origin = origin;
