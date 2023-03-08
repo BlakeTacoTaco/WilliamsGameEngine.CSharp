@@ -5,7 +5,7 @@ using SFML.System;
 namespace GameEngine
 {
     // A sprite that can have multiple animations and play them with different AnimationModes.
-    class AnimatedSprite : GameObject
+    class BasicSpriteRenderer : GameObject
     {
         // Specifies how to play an animation.
         public enum AnimationMode
@@ -83,7 +83,7 @@ namespace GameEngine
 
         // Constructs the sprite with a specified location and frame rate.
         // If you don't provide a frame rate, the default frame rate is used.
-        public AnimatedSprite(Vector2f position, int msPerFrame = DefaultMsPerFrame)
+        public BasicSpriteRenderer(Vector2f position, int msPerFrame = DefaultMsPerFrame)
         {
             _msPerFrame = msPerFrame;
             Position = position;

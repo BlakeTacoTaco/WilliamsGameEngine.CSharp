@@ -7,6 +7,11 @@ namespace MyGame
     {
         public GameScene()
         {
+            MouseObj mouseObj = new MouseObj();
+            AddGameObject(mouseObj);
+
+            TestKinematic testKinematic = new TestKinematic();
+            AddGameObject(testKinematic);
         }
     }
 }

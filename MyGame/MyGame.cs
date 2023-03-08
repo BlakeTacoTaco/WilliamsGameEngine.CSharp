@@ -6,9 +6,8 @@ namespace MyGame
     {
         public const int WindowWidth = 1600;
         public const int WindowHeight = 900;
-        public const float edgeBuffer = 40;
 
-        private const string WindowTitle = "Asteroids but better";
+        private const string WindowTitle = "Rare Fishe Market";
 
         private static void Main(string[] args)
         {

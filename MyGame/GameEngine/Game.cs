@@ -139,5 +139,10 @@ namespace GameEngine
                 _currentScene.Update(time);
             }
         }
+        public static Vector2f GetMousePos()
+        {
+
+            return (Vector2f)Mouse.GetPosition(_window);
+        }
     }
 }

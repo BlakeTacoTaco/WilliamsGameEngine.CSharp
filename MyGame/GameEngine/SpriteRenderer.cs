@@ -25,12 +25,12 @@ namespace MyGame.GameEngine
 
         //current animation data
         private float lastFrame = 0; //time since last frame
-        private int currentAnimation = 0;
-        private int currentFrame;
-        private float secondsPerFrame;
-        public bool playing = false;
-        public int defaultFrame = 0;
-        private int frameInAnimation;
+        private int currentAnimation = 0;//current animation ID (based on animations list
+        private int currentFrame;//id of current frame
+        private float secondsPerFrame;//how many seconds are in beteween each frame
+        public bool playing = false;//if there is currently an animation playing
+        public int defaultFrame = 0;//frame that is set to when animations are over
+        private int frameInAnimation;//frame based on animation data
 
         public SpriteRenderer(Sprite[] frames, Vector2f position, int defaultFrame, Vector2f scale, Vector2f origin, List<List<int>> animations, float secondsPerFrame)
         {
