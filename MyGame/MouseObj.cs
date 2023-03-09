@@ -16,6 +16,8 @@ namespace MyGame
         public MouseObj()
         {
             _sprite.Texture = Game.GetTexture("../../../Resources/mouse test.png");
+            _sprite.Origin = new Vector2f(16, 16);
+            _sprite.Scale = new Vector2f(4, 4);
         }
         public override void Draw()
         {
