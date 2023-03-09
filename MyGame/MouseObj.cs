@@ -24,6 +24,15 @@ namespace MyGame
         public override void Update(Time elapsed)
         {
             _sprite.Position = Game.GetMousePos();
+            if (Keyboard.IsKeyPressed(Keyboard.Key.B))
+            {
+                Console.Clear();
+                Console.WriteLine("window size" + Game.RenderWindow.Size);
+                Console.WriteLine("window width/size " + MyGameb.WindowWidth + "," + MyGameb.WindowHeight);
+                Console.WriteLine("local mouspos" + _sprite.Position);
+                Console.WriteLine("global mouspos" + Mouse.GetPosition());
+                Console.WriteLine("window pos " + Game.RenderWindow.Position);
+            }
         }
     }
 }

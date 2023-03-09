@@ -2,7 +2,7 @@
 
 namespace MyGame
 {
-    static class MyGame
+    static class MyGameb
     {
         public const int WindowWidth = 1600;
         public const int WindowHeight = 900;
