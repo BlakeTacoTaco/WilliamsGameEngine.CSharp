@@ -12,14 +12,20 @@ namespace MyGame.GameEngine
     {
         public Vector2f position = new Vector2f();
         internal Vector2f velocity = new Vector2f();
-        internal float friction = 20;
+        internal float friction = 1;
         public void Move(Time elapsed)//moves the object and applies friction
         {
             float delta = elapsed.AsSeconds();
-            
+
             //friction
-            velocity -= new Vector2f(friction * delta,friction * delta);
-            
+            if (Math.Abs(velocity.X) < 1) { velocity.X = 0; }
+            else if (velocity.X > 0) { velocity.X += -friction * delta; }
+            else if (velocity.X < 0) { velocity.X += friction * delta; }
+
+            if (Math.Abs(velocity.Y) < 1) { velocity.Y = 0; }
+            else if (velocity.Y > 0) { velocity.Y += -friction * delta; }
+            else if (velocity.Y < 0) { velocity.Y += friction * delta; }
+
             //velocity
             position += velocity * delta;
         }

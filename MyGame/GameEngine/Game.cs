@@ -5,6 +5,8 @@ using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
 using MyGame;
+using System.Reflection;
+using MyGame.GameEngine;
 
 namespace GameEngine
 {
@@ -30,6 +32,9 @@ namespace GameEngine
         // The window we will draw to.
         private static RenderWindow _window;
 
+        // the camera
+        public static Camera Camera;
+
         // A flag to prevent being initialized twice.
         private static bool _initialized;
 
@@ -51,6 +56,9 @@ namespace GameEngine
 
             // Add a method to be called whenever the "Closed" event fires.
             _window.Closed += ClosedEventHandler;
+
+            // initializes camera
+            Camera = new Camera();
         }
 
         // Called whenever you try to close the game window.
@@ -77,7 +85,6 @@ namespace GameEngine
             Textures[fileName] = texture;
             return texture;
         }
-
         // Get a sound from a file
         public static SoundBuffer GetSoundBuffer(string fileName)
         {
@@ -144,7 +151,7 @@ namespace GameEngine
         {
             Vector2f mousPos = (Vector2f)Mouse.GetPosition();
             Vector2f windowPos = (Vector2f)_window.Position;
-            return new Vector2f((mousPos.X - windowPos.X - 7) * ((float)MyGameb.WindowWidth / (float)_window.Size.X), ((mousPos.Y - windowPos.Y - 30) * ((float)MyGameb.WindowHeight / (float)_window.Size.Y)));
+            return new Vector2f((mousPos.X - windowPos.X - 10) * ((float)MyGameb.WindowWidth / (float)_window.Size.X), ((mousPos.Y - windowPos.Y - 45) * ((float)MyGameb.WindowHeight / (float)_window.Size.Y)));
         }
     }
 }

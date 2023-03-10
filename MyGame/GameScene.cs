@@ -1,4 +1,5 @@
 ﻿using GameEngine;
+using MyGame.GameEngine;
 using SFML.System;
 
 namespace MyGame
@@ -12,6 +13,12 @@ namespace MyGame
 
             TestKinematic testKinematic = new TestKinematic();
             AddGameObject(testKinematic);
+
+            Player player = new Player();
+            AddGameObject(player);
+
+            Chunk chunk = new Chunk();
+            AddGameObject(chunk);
         }
     }
 }
