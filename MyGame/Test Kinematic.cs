@@ -22,12 +22,12 @@ namespace MyGame
         }
         public override void Draw()
         {
+            _sprite.Position = Game.Camera.ToLocalPos(position);
             Game.RenderWindow.Draw(_sprite);
         }
         public override void Update(Time elapsed)
         {
             Move(elapsed);
-            _sprite.Position = Game.Camera.ToLocalPos(position);
             //Game.RenderWindow.Position += (Vector2i)(new Vector2f(velocity.X * elapsed.AsSeconds(), velocity.Y * elapsed.AsSeconds()));
         }
     }
