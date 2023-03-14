@@ -33,7 +33,10 @@ namespace GameEngine
         private static RenderWindow _window;
 
         // the camera
-        public static Camera Camera;
+        public static Camera _Camera;
+
+        //the mouse
+        public static MouseObj _Mouse;
 
         // A flag to prevent being initialized twice.
         private static bool _initialized;
@@ -58,7 +61,10 @@ namespace GameEngine
             _window.Closed += ClosedEventHandler;
 
             // initializes camera
-            Camera = new Camera();
+            _Camera = new Camera();
+
+            //initializes mouse
+            _Mouse = new MouseObj();
         }
 
         // Called whenever you try to close the game window.
@@ -151,6 +157,7 @@ namespace GameEngine
         {
             Vector2f mousPos = (Vector2f)Mouse.GetPosition();
             Vector2f windowPos = (Vector2f)_window.Position;
+
             return new Vector2f((mousPos.X - windowPos.X - 10) * ((float)MyGameb.WindowWidth / (float)_window.Size.X), ((mousPos.Y - windowPos.Y - 45) * ((float)MyGameb.WindowHeight / (float)_window.Size.Y)));
         }
     }

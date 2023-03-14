@@ -2,6 +2,7 @@
 using MyGame.GameEngine.TileMap;
 using SFML.System;
 using SFML.Graphics;
+using MyGame.GameEngine;
 
 namespace MyGame
 {
@@ -15,9 +16,6 @@ namespace MyGame
                 Game.GetTexture("../../../Resources/high quality grass.png")    
             });
             AddGameObject(chunk);
-
-            MouseObj mouseObj = new MouseObj();
-            AddGameObject(mouseObj);
 
             TestKinematic testKinematic = new TestKinematic();
             AddGameObject(testKinematic);

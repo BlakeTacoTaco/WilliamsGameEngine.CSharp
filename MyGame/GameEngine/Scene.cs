@@ -8,14 +8,22 @@ namespace GameEngine
     // The Scene manages all the GameObjects currently in the game.
     class Scene
     {
-        // This holds our game objects.
+        // @TODO I need to make a function for removing dead UI elements
+        // the distinction between gameobject and ui is made so the UI draws on top
         private readonly List<GameObject> _gameObjects = new List<GameObject>();
+
+        private readonly List<GameObject> _uiElements = new List<GameObject>();
 
         // Puts a GameObject into the scene.
         public void AddGameObject(GameObject gameObject)
         {
-            // This adds the game object onto the back (the end) of the list of game objects.
             _gameObjects.Add(gameObject);
+        }
+
+        //puts a Ui element into the scene
+        public void AddUiElement(GameObject gameObject)
+        {
+            _uiElements.Add(gameObject);
         }
 
         // Called by the Game instance once per frame.
@@ -76,13 +84,17 @@ namespace GameEngine
         // This function calls update on each of our game objects.
         private void UpdateGameObjects(Time time)
         {
-            for (int i = 0; i < _gameObjects.Count; i++) _gameObjects[i].Update(time);
+            Game._Mouse.Update(time);
+            for (int i = 0; i < _gameObjects.Count; i++) { _gameObjects[i].Update(time); }
+            for (int i = 0; i < _uiElements.Count;  i++) { _uiElements[i].Update(time);  }
         }
 
         // This function calls draw on each of our game objects.
         private void DrawGameObjects()
         {
-            foreach (var gameObject in _gameObjects) gameObject.Draw();
+            foreach (var gameObject in _gameObjects) { gameObject.Draw(); }
+            foreach (var gameObject in _uiElements ) { gameObject.Draw(); }
+            Game._Mouse.Draw();
         }
 
         // This function removes objects that indicate they are dead from the scene.
@@ -92,13 +104,14 @@ namespace GameEngine
             // It's "anonymous" because it doesn't have a name. We've declared a variable
             // named "isDead", and that variable can be used to call the function, but the
             // function itself is nameless.
-            Predicate<GameObject> isDead = gameObject => gameObject.IsDead();
+            Predicate<GameObject> isDead = g => g.IsDead();
 
             // Here we use the lambda declared above by passing it to the standard RemoveAll
             // method on List<T>, which calls our lambda once for each element in
             // gameObjects. If our lambda returns true, that game object ends up being
             // removed from our list.
             _gameObjects.RemoveAll(isDead);
+            _uiElements.RemoveAll(isDead);
         }
     }
 }

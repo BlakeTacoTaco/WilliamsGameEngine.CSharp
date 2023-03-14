@@ -22,7 +22,7 @@ namespace MyGame
         }
         public override void Draw()
         {
-            _sprite.Position = Game.Camera.ToLocalPos(position);
+            _sprite.Position = Game._Camera.ToLocalPos(position);
             Game.RenderWindow.Draw(_sprite);
         }
         public override void Update(Time elapsed)

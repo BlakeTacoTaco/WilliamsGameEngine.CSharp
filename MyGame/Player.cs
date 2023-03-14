@@ -8,13 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SFML.Window;
+using System.Transactions;
 
 namespace MyGame
 {
     internal class Player : GameObject
     {
         Sprite _sprite = new Sprite();
-        float speed = 200;
+        float speed = 1000;
         Vector2f position;
         public Player()
         {
@@ -22,7 +23,7 @@ namespace MyGame
         }
         public override void Draw()
         {
-            _sprite.Position = Game.Camera.ToLocalPos(position);
+            _sprite.Position = Game._Camera.ToLocalPos(position);
             Game.RenderWindow.Draw(_sprite);
         }
         public override void Update(Time elapsed) 
@@ -34,7 +35,7 @@ namespace MyGame
             if (Keyboard.IsKeyPressed(Keyboard.Key.A)) { position.X -= speed * delta; }
             if (Keyboard.IsKeyPressed(Keyboard.Key.D)) { position.X += speed * delta; }
 
-            Game.Camera.position = position - new Vector2f(800, 450);
+            Game._Camera.position = position - new Vector2f(800, 450);
         }
     }
 }
