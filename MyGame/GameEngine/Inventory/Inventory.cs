@@ -23,7 +23,7 @@ namespace MyGame.GameEngine.Inventory
             for(int i = 0; i < sizex * sizey; i++)
             {
                 backgrounds[i] = new ItemSlot(this, i, scale, new Vector2f((i % sizex) * scale.X * 20, (i / sizex) * scale.Y * 20));
-                backgrounds[i].SetItem(new Item(Game.Random.Next(4) - 1, Game.Random.Next(4) + 1));
+                backgrounds[i].SetItem(new Item(Game.Random.Next(4) - 1, Game.Random.Next(80) + 1));
                 scene.AddUiElement(backgrounds[i]);
             }
         }
@@ -37,9 +37,22 @@ namespace MyGame.GameEngine.Inventory
         public override void Update(Time elapsed) { }
         public void SlotClicked(int ID)
         {
-            Item temp = backgrounds[ID]._item;
-            backgrounds[ID].SetItem(Game._Mouse.item);
-            Game._Mouse.SetItem(temp);
+            if (backgrounds[ID]._item.ID != Game._Mouse.item.ID)
+            {
+                Item temp = backgrounds[ID]._item;
+                backgrounds[ID].SetItem(Game._Mouse.item);
+                Game._Mouse.SetItem(temp);
+            }
+            else if (ItemDat.GetStackSize(backgrounds[ID]._item.ID) >= backgrounds[ID]._item.amount + Game._Mouse.item.amount)
+            {
+                backgrounds[ID].SetItem(new Item(backgrounds[ID]._item.ID, backgrounds[ID]._item.amount + Game._Mouse.item.amount));
+                Game._Mouse.SetItem(new Item(-1, 0));
+            }
+            else
+            {
+                Game._Mouse.SetItem(new Item(Game._Mouse.item.ID, (Game._Mouse.item.amount + backgrounds[ID]._item.amount) % ItemDat.GetStackSize(Game._Mouse.item.ID)));
+                backgrounds[ID].SetItem(new Item(Game._Mouse.item.ID, ItemDat.GetStackSize(Game._Mouse.item.ID)));
+            }
         }
     }
 }

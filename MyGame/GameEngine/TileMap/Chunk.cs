@@ -53,19 +53,6 @@ namespace MyGame.GameEngine.TileMap
                 }
             }
         }
-        public override void Update(Time elapsed)
-        {
-            if (Game._Mouse.IsMouseJustPressed())
-            {
-                for (int i = 0; i < tiles.Length; ++i)
-                {
-                    for (int j = 0; j < tiles[i].Length; ++j)
-                    {
-                        if (tiles[i][j]._type == 0) { setTile(i, j, 1); }
-                        else if (tiles[i][j]._type == 1) { setTile(i, j, 0); }
-                    }
-                }
-            }
-        }
+        public override void Update(Time elapsed) { }
     }
 }

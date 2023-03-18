@@ -19,5 +19,11 @@ namespace MyGame.GameEngine.Inventory
             this.ID = ID;
             this.amount = amount;
         }
+        //makes sure the item isnt 3 airs or 0 rocks or something
+        public void MakeValid()
+        {
+            if (ID == -1) { amount = 0; }
+            else if (amount == 0) { ID = -1; }
+        }
     }
 }

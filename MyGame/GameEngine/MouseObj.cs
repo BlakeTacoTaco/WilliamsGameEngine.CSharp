@@ -8,6 +8,8 @@ using MyGame.GameEngine.Inventory;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
+using static System.Formats.Asn1.AsnWriter;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace MyGame.GameEngine
 {
@@ -20,15 +22,24 @@ namespace MyGame.GameEngine
                                           //the world it will have the button eat the input so it doesn't click two things at once.
         public Item item;
         private readonly Sprite itemSprite;
+        private readonly SFML.Graphics.Text text;
         public MouseObj()
         {
             itemSprite = new Sprite();
             itemSprite.Scale = new Vector2f(4, 4);
-            SetItem(new Item(-1,0));
+            text = new SFML.Graphics.Text();
+            text.Font = Game.GetFont("../../../Resources/Courneuf-Regular.ttf");
+            text.Position = position + new Vector2f(4 * 13, 4 * 12);
+            text.CharacterSize = 20;
+            text.FillColor = Color.White;
+            text.OutlineColor = Color.Black;
+            text.OutlineThickness = 4;
+            SetItem(new Item(-1, 0));
         }
         public override void Draw()
         {
             Game.RenderWindow.Draw(itemSprite);
+            Game.RenderWindow.Draw(text);
         }
         public override void Update(Time elapsed)
         {
@@ -37,6 +48,7 @@ namespace MyGame.GameEngine
 
             position = Game.GetMousePos();
             itemSprite.Position = position;
+            text.Position = position + new Vector2f(4 * 13, 4 * 12);
 
             //old mouse status
             clickedLast = isClicked;
@@ -52,7 +64,10 @@ namespace MyGame.GameEngine
         public void SetItem(Item item)
         {
             this.item = item;
+            item.MakeValid();
             itemSprite.Texture = ItemDat.GetTexture(item.ID);
+            if (item.amount > 0) { text.DisplayedString = Convert.ToString(item.amount); }
+            else { text.DisplayedString = " "; }
         }
 
 
