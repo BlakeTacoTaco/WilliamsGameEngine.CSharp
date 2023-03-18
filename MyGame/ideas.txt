@@ -39,3 +39,6 @@ Fish Ideas
 	-sick
 	-puffer poison
 	-oh the misery
+-fish that steadily rises in price but crashes every once and a while (risk/reward)
+-carpenter fish
+	-crafts things for you

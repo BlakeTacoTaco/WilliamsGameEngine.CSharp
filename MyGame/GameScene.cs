@@ -3,6 +3,7 @@ using MyGame.GameEngine.TileMap;
 using SFML.System;
 using SFML.Graphics;
 using MyGame.GameEngine;
+using MyGame.GameEngine.Inventory;
 
 namespace MyGame
 {
@@ -22,6 +23,12 @@ namespace MyGame
 
             Player player = new Player();
             AddGameObject(player);
+
+            TestButton testButton = new TestButton();
+            AddUiElement(testButton);
+
+            Inventory inventory = new Inventory(this);
+            AddUiElement(inventory);
         }
     }
 }

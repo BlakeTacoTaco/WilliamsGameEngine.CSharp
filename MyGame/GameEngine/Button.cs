@@ -9,23 +9,15 @@ using SFML.System;
 
 namespace MyGame.GameEngine
 {
-    internal class Button : GameObject, MouseInterface
+    internal abstract class Button : GameObject, MouseInterface
     {
-        Sprite _sprite = new Sprite();
+        internal Sprite _sprite = new Sprite();
         public override void Draw()
         {
             Game.RenderWindow.Draw(_sprite);
         }
-        public override void Update(Time elapsed)
-        {
-        }
-        public void Hover()
-        {
-
-        }
-        public void Clicked()
-        {
-
-        }
+        public override void Update(Time elapsed) { }
+        public virtual void Hover() { }
+        public abstract void Clicked();
     }
 }

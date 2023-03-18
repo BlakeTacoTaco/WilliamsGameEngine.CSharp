@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MyGame.GameEngine;
 using SFML.Graphics;
 using SFML.System;
 
@@ -39,6 +40,7 @@ namespace GameEngine
 
             HandleCollisions();
             UpdateGameObjects(time);
+            ClickCheck();
             RemoveDeadGameObjects();
             DrawGameObjects();
 
@@ -86,14 +88,14 @@ namespace GameEngine
         {
             Game._Mouse.Update(time);
             for (int i = 0; i < _gameObjects.Count; i++) { _gameObjects[i].Update(time); }
-            for (int i = 0; i < _uiElements.Count;  i++) { _uiElements[i].Update(time);  }
+            for (int i = 0; i < _uiElements.Count; i++) { _uiElements[i].Update(time); }
         }
 
         // This function calls draw on each of our game objects.
         private void DrawGameObjects()
         {
             foreach (var gameObject in _gameObjects) { gameObject.Draw(); }
-            foreach (var gameObject in _uiElements ) { gameObject.Draw(); }
+            foreach (var gameObject in _uiElements) { gameObject.Draw(); }
             Game._Mouse.Draw();
         }
 
@@ -112,6 +114,24 @@ namespace GameEngine
             // removed from our list.
             _gameObjects.RemoveAll(isDead);
             _uiElements.RemoveAll(isDead);
+        }
+        //checks to see if anything has been clicked
+        private void ClickCheck()
+        {
+            foreach (var gameObject in _uiElements) 
+            {
+                if(gameObject is MouseInterface)
+                {
+                    if(gameObject.GetCollisionRect().Contains(Game._Mouse.position.X, Game._Mouse.position.Y))
+                    {
+                        //type casts the object reference as a mouseinterface so it can call the coresponding functions
+                        MouseInterface gameObject2 = (MouseInterface)gameObject;
+
+                        if (Game._Mouse.IsMouseJustReleased()) { gameObject2.Clicked(); }
+                        else { gameObject2.Hover(); }
+                    }
+                }
+            }
         }
     }
 }

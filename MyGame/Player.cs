@@ -20,6 +20,7 @@ namespace MyGame
         public Player()
         {
             _sprite.Texture = Game.GetTexture("../../../Resources/mouse test.png");
+            _sprite.Scale = new Vector2f(4, 4);
         }
         public override void Draw()
         {

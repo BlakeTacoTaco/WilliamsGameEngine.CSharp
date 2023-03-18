@@ -7,6 +7,7 @@ using SFML.Window;
 using MyGame;
 using System.Reflection;
 using MyGame.GameEngine;
+using MyGame.GameEngine.Inventory;
 
 namespace GameEngine
 {
@@ -44,7 +45,7 @@ namespace GameEngine
         // A Random number generator we can use throughout the game. Seeded with a constant so 
         // the game plays the same every time for easy debugging.
         // @TODO: provide a method to randomize this for when they want variety.
-        public static Random Random = new Random(42);
+        public static Random Random = new Random();
 
         // Creates our render window. Must be called once at startup.
         public static void Initialize(uint windowWidth, uint windowHeight, string windowTitle)
@@ -65,6 +66,8 @@ namespace GameEngine
 
             //initializes mouse
             _Mouse = new MouseObj();
+
+            ItemDat.Initialize();
         }
 
         // Called whenever you try to close the game window.
