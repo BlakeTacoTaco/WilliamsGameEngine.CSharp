@@ -18,6 +18,16 @@ namespace MyGame.GameEngine
         }
         public override void Update(Time elapsed) { }
         public virtual void Hover() { }
-        public abstract void Clicked();
+
+        //left mouse
+        public virtual void ReleaseLeft() { }
+        public virtual void PressLeft() { }
+        public virtual void HoldLeft() { }
+
+        //right mouse
+        public virtual void ReleaseRight() { }
+        public virtual void PressRight() { }
+        public virtual void HoldRight() { }
+
     }
 }

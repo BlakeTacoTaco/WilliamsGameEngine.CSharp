@@ -47,7 +47,7 @@ namespace MyGame.GameEngine.Inventory
             Game.RenderWindow.Draw(_itemSprite);
             Game.RenderWindow.Draw(text);
         }
-        public override void Clicked()
+        public override void ReleaseLeft()
         {
             parent.SlotClicked(ID);
         }

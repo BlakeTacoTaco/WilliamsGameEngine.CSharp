@@ -10,6 +10,15 @@ namespace MyGame.GameEngine
     {
 
         public abstract void Hover();
-        public abstract void Clicked();
+
+        //left mouse
+        public abstract void ReleaseLeft();
+        public abstract void PressLeft();
+        public abstract void HoldLeft();
+
+        //right mouse
+        public abstract void ReleaseRight();
+        public abstract void PressRight();
+        public abstract void HoldRight();
     }
 }

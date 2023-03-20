@@ -25,7 +25,7 @@ namespace MyGame
         {
 
         }
-        public override void Clicked()
+        public override void ReleaseLeft()
         {
             Game._Mouse.inputEaten = true;
         }

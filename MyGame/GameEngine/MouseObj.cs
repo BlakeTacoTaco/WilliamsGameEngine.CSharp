@@ -16,8 +16,10 @@ namespace MyGame.GameEngine
     internal class MouseObj : GameObject
     {
         public Vector2f position = new Vector2f(0,0);
-        private bool clickedLast = false; //if the mouse was clicked last frame
-        private bool isClicked = false;   //if the left mouse button is currently pressed
+        private bool leftLast = false;    //if the left mouse was clicked last frame
+        private bool leftClicked = false; //if the left mouse button is currently pressed
+        private bool rightLast = false;    //if the right mouse was clicked last frame
+        private bool rightClicked = false; //if the right mouse button is currently pressed
         public bool inputEaten = false;   //keeps track of if the input was eaten or not. for example if you have a button on top of a clickable object in
                                           //the world it will have the button eat the input so it doesn't click two things at once.
         public Item item;
@@ -51,11 +53,11 @@ namespace MyGame.GameEngine
             text.Position = position + new Vector2f(4 * 13, 4 * 12);
 
             //old mouse status
-            clickedLast = isClicked;
+            leftLast = leftClicked;
 
             //current mouse status
-            if (Mouse.IsButtonPressed(Mouse.Button.Left)) { isClicked = true; }
-            else { isClicked = false; }
+            if (Mouse.IsButtonPressed(Mouse.Button.Left)) { leftClicked = true; }
+            else { leftClicked = false; }
 
             //makes render window follow mouse cursor
             //Game.RenderWindow.Position = Mouse.GetPosition() - new Vector2i(800,450);
@@ -70,21 +72,38 @@ namespace MyGame.GameEngine
             else { text.DisplayedString = " "; }
         }
 
-
+        //LEFT
         //returns true if the mouse button just got pressed
-        public bool IsMouseJustPressed()
+        public bool IsLeftJustPressed()
         {
-            return (clickedLast == false && isClicked == true);
+            return (leftLast == false && leftClicked == true);
         }
         //returns true if the mouse button just got released
-        public bool IsMouseJustReleased()
+        public bool IsLeftJustReleased()
         {
-            return (clickedLast == true && isClicked == false);
+            return (leftLast == true && leftClicked == false);
         }
         //returns true if the mouse button is currently held
-        public bool IsMousePressed()
+        public bool IsLeftPressed()
         {
-            return isClicked;
+            return leftClicked;
+        }
+
+        //RIGHT
+        //returns true if the mouse button just got pressed
+        public bool IsRightJustPressed()
+        {
+            return (rightLast == false && rightClicked == true);
+        }
+        //returns true if the mouse button just got released
+        public bool IsRightJustReleased()
+        {
+            return (rightLast == true && rightClicked == false);
+        }
+        //returns true if the mouse button is currently held
+        public bool IsRightPressed()
+        {
+            return rightClicked;
         }
     }
 }

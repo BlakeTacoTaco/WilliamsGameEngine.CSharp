@@ -127,7 +127,16 @@ namespace GameEngine
                         //type casts the object reference as a mouseinterface so it can call the coresponding functions
                         MouseInterface gameObject2 = (MouseInterface)gameObject;
 
-                        if (Game._Mouse.IsMouseJustReleased()) { gameObject2.Clicked(); }
+                        //Right
+                        if (Game._Mouse.IsRightJustReleased())     { gameObject2.ReleaseRight(); }
+                        else if (Game._Mouse.IsRightJustPressed()) { gameObject2.PressRight(); }
+                        else if (Game._Mouse.IsRightPressed())     { gameObject2.HoldRight(); }
+
+                        //left
+                        else if (Game._Mouse.IsLeftJustReleased()) { gameObject2.ReleaseLeft(); }
+                        else if (Game._Mouse.IsLeftJustPressed()) { gameObject2.PressLeft(); }
+                        else if (Game._Mouse.IsLeftPressed()) { gameObject2.HoldLeft(); }
+
                         else { gameObject2.Hover(); }
                     }
                 }

@@ -1,0 +1,5 @@
+﻿make it so you can drag mouse across inventory slots adding them to a list and when you release it evenly spreads the amount of items across all of the slots (if it can)
+add right clicking an inventory slot to take half or to deposit one
+add opening and closing the inventory
+make real sprites lol
+make tile colisions
