@@ -16,7 +16,7 @@ namespace MyGame.GameEngine.Inventory
         private static int[] stackSizes;
         private static string[] names;
         private static string[] descriptions;
-        private const int itemCount = 2;
+        public const int itemCount = 2;
         public static void Initialize()
         {
             //textures

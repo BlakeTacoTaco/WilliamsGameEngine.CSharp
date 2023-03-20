@@ -61,7 +61,7 @@ namespace MyGame.GameEngine
             else { leftClicked = false; }
 
             if (Mouse.IsButtonPressed(Mouse.Button.Right)) { rightClicked = true; }
-            else { rightClicked = false; }
+            else { rightClicked = false; };
 
             //makes render window follow mouse cursor
             //Game.RenderWindow.Position = Mouse.GetPosition() - new Vector2i(800,450);

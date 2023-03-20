@@ -8,6 +8,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using SFML.Window;
 
 namespace MyGame.GameEngine.Inventory
 {
@@ -32,38 +33,40 @@ namespace MyGame.GameEngine.Inventory
         {
             if (Game._Mouse.IsLeftJustReleased())
             {
+                //making a list of all slots that were selected
                 List<ItemSlot> selected = new List<ItemSlot>() { };
                 foreach (ItemSlot slot in slots) 
                 {
                     if (slot.selected) { selected.Add(slot); slot.Deselect(); }
                 }
+
+                //if only one slot was selected it does one function but if multiple were it calls a different one
                 if(selected.Count == 1) { SlotClicked(selected[0].ID); }
                 else { SlotsClicked(selected); }
+            }
+            if(Keyboard.IsKeyPressed(Keyboard.Key.S))
+            {
+                Sort();
             }
         }
         public void SlotsClicked(List<ItemSlot> selected)//when more than one slot is selected
         {
             if (Game._Mouse.item.ID != -1)
             {
-                List<ItemSlot> trash = new List<ItemSlot>() { };
-                foreach (ItemSlot slot in selected)
-                {
-                    if (slot._item.ID != Game._Mouse.item.ID && slot._item.ID != -1)
-                    {
-                        trash.Add(slot);
-                    }
-                }
-                for (int i = 0; i < trash.Count; i++) { selected.Remove(trash[i]); }
-                trash = new List<ItemSlot>() { };
+                //remove things that cant have things put in them
+                Predicate<ItemSlot> removeStuff = g => (g._item.ID != Game._Mouse.item.ID && g._item.ID != -1);
+                selected.RemoveAll(removeStuff);
 
-                if(selected.Count == 0) { return; }
+                //stop going if there are no slots left to put anything in
+                if (selected.Count == 0) { return; }
 
+                //tries to put items in slots evenly and leaves the rest in the mouse cursor
                 int itemsPerSlot = Game._Mouse.item.amount / selected.Count;
                 int remainingItems = Game._Mouse.item.amount % selected.Count;
                 foreach(ItemSlot slot in selected)
                 {
-                    if(slot._item.amount + itemsPerSlot <= ItemDat.GetStackSize(slot._item.ID)) { slot.AddItem(new Item(Game._Mouse.item.ID, itemsPerSlot)); }
-                    else { remainingItems += Math.Abs(ItemDat.GetStackSize(slot._item.ID) - slot._item.amount); slot.AddItem(new Item(Game._Mouse.item.ID, itemsPerSlot)); /*trash.Add(slot)*/; }
+                    if(slot._item.amount + itemsPerSlot >= ItemDat.GetStackSize(Game._Mouse.item.ID)) { remainingItems += (slot._item.amount + itemsPerSlot - ItemDat.GetStackSize(Game._Mouse.item.ID)); slot.AddItem(new Item(Game._Mouse.item.ID, itemsPerSlot)); }
+                    else { slot.AddItem(new Item(Game._Mouse.item.ID, itemsPerSlot)); }
                 }
                 //for (int i = 0; i < trash.Count; i++) { selected.Remove(trash[i]); }
                 Game._Mouse.SetItem(new Item(Game._Mouse.item.ID, remainingItems));
@@ -89,6 +92,32 @@ namespace MyGame.GameEngine.Inventory
             {
                 Game._Mouse.SetItem(new Item(Game._Mouse.item.ID, (Game._Mouse.item.amount + slots[ID]._item.amount) % ItemDat.GetStackSize(Game._Mouse.item.ID)));
                 slots[ID].SetItem(new Item(Game._Mouse.item.ID, ItemDat.GetStackSize(Game._Mouse.item.ID)));
+            }
+        }
+        public void Sort()
+        {
+            int[] items = new int[ItemDat.itemCount];
+
+            //counts up how many of each item there are and clears the inventory
+            for (int i = 0; i < slots.Length; i++)
+            {
+                if (slots[i]._item.ID >= 0 && slots[i]._item.ID < ItemDat.itemCount)
+                {
+                    items[slots[i]._item.ID] += slots[i]._item.amount;
+                }
+                slots[i].SetItem(new Item(-1,0));
+            }
+
+            //goes through every item type in order and adds it back to the inventory
+            int currentSlot = 0;
+            for(int i = 0; i < items.Length; i++)
+            {
+                while (items[i] > 0)
+                {
+                    slots[currentSlot].SetItem(new Item(i, items[i]));
+                    items[i] -= ItemDat.GetStackSize(i);
+                    currentSlot++;
+                }
             }
         }
     }
