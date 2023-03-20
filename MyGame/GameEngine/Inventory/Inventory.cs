@@ -65,10 +65,15 @@ namespace MyGame.GameEngine.Inventory
                 int remainingItems = Game._Mouse.item.amount % selected.Count;
                 foreach(ItemSlot slot in selected)
                 {
-                    if(slot._item.amount + itemsPerSlot >= ItemDat.GetStackSize(Game._Mouse.item.ID)) { remainingItems += (slot._item.amount + itemsPerSlot - ItemDat.GetStackSize(Game._Mouse.item.ID)); slot.AddItem(new Item(Game._Mouse.item.ID, itemsPerSlot)); }
+                    //if it hits the maximum items per slot it puts the rest in remainingItems
+                    if(slot._item.amount + itemsPerSlot >= ItemDat.GetStackSize(Game._Mouse.item.ID)) 
+                    { 
+                        remainingItems += (slot._item.amount + itemsPerSlot - ItemDat.GetStackSize(Game._Mouse.item.ID));
+                        slot.AddItem(new Item(Game._Mouse.item.ID, itemsPerSlot));
+                    }
+                    //otherwise it just adds the item to the slot
                     else { slot.AddItem(new Item(Game._Mouse.item.ID, itemsPerSlot)); }
                 }
-                //for (int i = 0; i < trash.Count; i++) { selected.Remove(trash[i]); }
                 Game._Mouse.SetItem(new Item(Game._Mouse.item.ID, remainingItems));
             }
         }
