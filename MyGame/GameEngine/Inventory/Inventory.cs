@@ -16,42 +16,79 @@ namespace MyGame.GameEngine.Inventory
         private Vector2f scale = new Vector2f(4, 4);
         private const int sizex = 9;
         private const int sizey = 4;
-        private ItemSlot[] backgrounds;
+        private ItemSlot[] slots;
         public Inventory(Scene scene)
         {
-            backgrounds = new ItemSlot[sizex * sizey];
+            slots = new ItemSlot[sizex * sizey];
             for(int i = 0; i < sizex * sizey; i++)
             {
-                backgrounds[i] = new ItemSlot(this, i, scale, new Vector2f((i % sizex) * scale.X * 20, (i / sizex) * scale.Y * 20));
-                backgrounds[i].SetItem(new Item(Game.Random.Next(4) - 1, Game.Random.Next(80) + 1));
-                scene.AddUiElement(backgrounds[i]);
+                slots[i] = new ItemSlot(this, i, scale, new Vector2f((i % sizex) * scale.X * 20, (i / sizex) * scale.Y * 20));
+                slots[i].SetItem(new Item(Game.Random.Next(4) - 1, Game.Random.Next(80) + 1));
+                scene.AddUiElement(slots[i]);
             }
         }
-        public override void Draw()
+        public override void Draw() { }
+        public override void Update(Time elapsed)
         {
-            for (int i = 0; i < backgrounds.Length; i++)
+            if (Game._Mouse.IsLeftJustReleased())
             {
-                backgrounds[i].Draw();
+                List<ItemSlot> selected = new List<ItemSlot>() { };
+                foreach (ItemSlot slot in slots) 
+                {
+                    if (slot.selected) { selected.Add(slot); slot.Deselect(); }
+                }
+                if(selected.Count == 1) { SlotClicked(selected[0].ID); }
+                else { SlotsClicked(selected); }
             }
         }
-        public override void Update(Time elapsed) { }
-        public void SlotClicked(int ID)
+        public void SlotsClicked(List<ItemSlot> selected)//when more than one slot is selected
         {
-            if (backgrounds[ID]._item.ID != Game._Mouse.item.ID)
+            if (Game._Mouse.item.ID != -1)
             {
-                Item temp = backgrounds[ID]._item;
-                backgrounds[ID].SetItem(Game._Mouse.item);
+                List<ItemSlot> trash = new List<ItemSlot>() { };
+                foreach (ItemSlot slot in selected)
+                {
+                    if (slot._item.ID != Game._Mouse.item.ID && slot._item.ID != -1)
+                    {
+                        trash.Add(slot);
+                    }
+                }
+                for (int i = 0; i < trash.Count; i++) { selected.Remove(trash[i]); }
+                trash = new List<ItemSlot>() { };
+
+                if(selected.Count == 0) { return; }
+
+                int itemsPerSlot = Game._Mouse.item.amount / selected.Count;
+                int remainingItems = Game._Mouse.item.amount % selected.Count;
+                foreach(ItemSlot slot in selected)
+                {
+                    if(slot._item.amount + itemsPerSlot <= ItemDat.GetStackSize(slot._item.ID)) { slot.AddItem(new Item(Game._Mouse.item.ID, itemsPerSlot)); }
+                    else { remainingItems += Math.Abs(ItemDat.GetStackSize(slot._item.ID) - slot._item.amount); slot.AddItem(new Item(Game._Mouse.item.ID, itemsPerSlot)); /*trash.Add(slot)*/; }
+                }
+                //for (int i = 0; i < trash.Count; i++) { selected.Remove(trash[i]); }
+                Game._Mouse.SetItem(new Item(Game._Mouse.item.ID, remainingItems));
+            }
+        }
+        public void SlotClicked(int ID) //for when one slot is clicked
+        {
+            //swaps slots if they are dissimilar
+            if (slots[ID]._item.ID != Game._Mouse.item.ID)
+            {
+                Item temp = slots[ID]._item;
+                slots[ID].SetItem(Game._Mouse.item);
                 Game._Mouse.SetItem(temp);
             }
-            else if (ItemDat.GetStackSize(backgrounds[ID]._item.ID) >= backgrounds[ID]._item.amount + Game._Mouse.item.amount)
+            //merges slots into 1 if they fit
+            else if (ItemDat.GetStackSize(slots[ID]._item.ID) >= slots[ID]._item.amount + Game._Mouse.item.amount)
             {
-                backgrounds[ID].SetItem(new Item(backgrounds[ID]._item.ID, backgrounds[ID]._item.amount + Game._Mouse.item.amount));
+                slots[ID].SetItem(new Item(slots[ID]._item.ID, slots[ID]._item.amount + Game._Mouse.item.amount));
                 Game._Mouse.SetItem(new Item(-1, 0));
             }
+            //fills up slot an puts rest in mouse if they don't fit in one slot
             else
             {
-                Game._Mouse.SetItem(new Item(Game._Mouse.item.ID, (Game._Mouse.item.amount + backgrounds[ID]._item.amount) % ItemDat.GetStackSize(Game._Mouse.item.ID)));
-                backgrounds[ID].SetItem(new Item(Game._Mouse.item.ID, ItemDat.GetStackSize(Game._Mouse.item.ID)));
+                Game._Mouse.SetItem(new Item(Game._Mouse.item.ID, (Game._Mouse.item.amount + slots[ID]._item.amount) % ItemDat.GetStackSize(Game._Mouse.item.ID)));
+                slots[ID].SetItem(new Item(Game._Mouse.item.ID, ItemDat.GetStackSize(Game._Mouse.item.ID)));
             }
         }
     }

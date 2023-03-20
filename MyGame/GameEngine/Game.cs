@@ -42,9 +42,7 @@ namespace GameEngine
         // A flag to prevent being initialized twice.
         private static bool _initialized;
 
-        // A Random number generator we can use throughout the game. Seeded with a constant so 
-        // the game plays the same every time for easy debugging.
-        // @TODO: provide a method to randomize this for when they want variety.
+        // A Random number generator we can use throughout the game. S
         public static Random Random = new Random();
 
         // Creates our render window. Must be called once at startup.
@@ -161,7 +159,7 @@ namespace GameEngine
             Vector2f mousPos = (Vector2f)Mouse.GetPosition();
             Vector2f windowPos = (Vector2f)_window.Position;
 
-            return new Vector2f((mousPos.X - windowPos.X - 7) * ((float)MyGameb.WindowWidth / (float)_window.Size.X), ((mousPos.Y - windowPos.Y - 30) * ((float)MyGameb.WindowHeight / (float)_window.Size.Y)));
+            return new Vector2f((mousPos.X - windowPos.X - 11) * ((float)MyGameb.WindowWidth / (float)_window.Size.X), ((mousPos.Y - windowPos.Y - 45) * ((float)MyGameb.WindowHeight / (float)_window.Size.Y)));
         }
     }
 }

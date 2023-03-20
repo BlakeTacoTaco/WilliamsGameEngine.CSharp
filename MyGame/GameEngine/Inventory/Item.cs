@@ -24,6 +24,7 @@ namespace MyGame.GameEngine.Inventory
         {
             if (ID == -1) { amount = 0; }
             else if (amount == 0) { ID = -1; }
+            if(amount >= ItemDat.GetStackSize(ID)) { amount = ItemDat.GetStackSize(ID); }
         }
     }
 }

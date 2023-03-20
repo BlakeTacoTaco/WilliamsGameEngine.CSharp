@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.AccessControl;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,13 +19,18 @@ namespace MyGame.GameEngine.Inventory
         public Item _item;
         private readonly Sprite _itemSprite;
         private readonly Text text;
+        public bool selected = false;
+        private Texture selectedTexture;
+        private Texture defaultTexture;
 
         public ItemSlot(Inventory parent, int ID, Vector2f scale, Vector2f position)
         {
             this.parent = parent;
             this.ID = ID;
+            selectedTexture = Game.GetTexture("../../../Resources/selected item slot.png");
+            defaultTexture = Game.GetTexture("../../../Resources/item slot.png");
             _sprite = new Sprite();
-            _sprite.Texture = Game.GetTexture("../../../Resources/item slot.png");
+            _sprite.Texture = defaultTexture;
             _sprite.Scale = scale;
             _item = new Item(-1, 0);
             _sprite.Position = position;
@@ -47,9 +53,9 @@ namespace MyGame.GameEngine.Inventory
             Game.RenderWindow.Draw(_itemSprite);
             Game.RenderWindow.Draw(text);
         }
-        public override void ReleaseLeft()
+        public override void HoldLeft()
         {
-            parent.SlotClicked(ID);
+            Select();
         }
         public void SetItem(Item item)
         {
@@ -62,6 +68,20 @@ namespace MyGame.GameEngine.Inventory
         public override FloatRect GetCollisionRect()
         {
             return _sprite.GetGlobalBounds();
+        }
+        public void AddItem(Item item)
+        {
+            SetItem(new Item(item.ID, item.amount + _item.amount));
+        }
+        public void Deselect()
+        {
+            selected = false;
+            _sprite.Texture = defaultTexture;
+        }
+        public void Select()
+        {
+            selected = true;
+            _sprite.Texture = selectedTexture;
         }
     }
 }

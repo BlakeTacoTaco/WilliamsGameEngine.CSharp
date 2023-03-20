@@ -133,7 +133,7 @@ namespace GameEngine
                         else if (Game._Mouse.IsRightPressed())     { gameObject2.HoldRight(); }
 
                         //left
-                        else if (Game._Mouse.IsLeftJustReleased()) { gameObject2.ReleaseLeft(); }
+                        if (Game._Mouse.IsLeftJustReleased()) { gameObject2.ReleaseLeft(); }
                         else if (Game._Mouse.IsLeftJustPressed()) { gameObject2.PressLeft(); }
                         else if (Game._Mouse.IsLeftPressed()) { gameObject2.HoldLeft(); }
 
