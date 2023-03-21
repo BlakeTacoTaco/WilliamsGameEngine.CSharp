@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MyGame.GameEngine;
+using MyGame.GameEngine.General_UI;
 using SFML.Graphics;
 using SFML.System;
 
@@ -86,6 +87,7 @@ namespace GameEngine
         // This function calls update on each of our game objects.
         private void UpdateGameObjects(Time time)
         {
+            BetterKeyboard.Update();
             Game._Mouse.Update(time);
             for (int i = 0; i < _gameObjects.Count; i++) { _gameObjects[i].Update(time); }
             for (int i = 0; i < _uiElements.Count; i++) { _uiElements[i].Update(time); }

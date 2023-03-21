@@ -49,13 +49,16 @@ namespace MyGame.GameEngine.Inventory
         }
         public override void Draw()
         {
-            Game.RenderWindow.Draw(_sprite);
-            Game.RenderWindow.Draw(_itemSprite);
-            Game.RenderWindow.Draw(text);
+            if (parent.open)
+            {
+                Game.RenderWindow.Draw(_sprite);
+                Game.RenderWindow.Draw(_itemSprite);
+                Game.RenderWindow.Draw(text);
+            }
         }
         public override void HoldLeft()
         {
-            Select();
+            if (parent.open) { Select(); }
         }
         public void SetItem(Item item)
         {

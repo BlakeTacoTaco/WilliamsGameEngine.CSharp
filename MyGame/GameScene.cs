@@ -24,9 +24,6 @@ namespace MyGame
             Player player = new Player();
             AddGameObject(player);
 
-            TestButton testButton = new TestButton();
-            AddUiElement(testButton);
-
             Inventory inventory = new Inventory(this);
             AddUiElement(inventory);
         }
