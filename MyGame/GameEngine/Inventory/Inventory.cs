@@ -19,6 +19,8 @@ namespace MyGame.GameEngine.Inventory
         private const int sizex = 9;
         private const int sizey = 4;
         private ItemSlot[] slots;
+        private TrashSlot trash;
+        private SortButton sort;
         public bool open = false;
         public Inventory(Scene scene)
         {
@@ -29,6 +31,15 @@ namespace MyGame.GameEngine.Inventory
                 slots[i].SetItem(new Item(Game.Random.Next(4) - 1, Game.Random.Next(80) + 1));
                 scene.AddUiElement(slots[i]);
             }
+            trash = new TrashSlot(this);
+            trash._sprite.Scale = scale;
+            trash._sprite.Position = new Vector2f(((sizex * 20) + 2) * scale.X, (sizey - 1) * 20 * scale.Y);
+            scene.AddUiElement(trash);
+
+            sort = new SortButton(this);
+            sort._sprite.Scale = scale;
+            sort._sprite.Position = new Vector2f(((sizex * 20) + 2) * scale.X, (sizey - 2) * 20 * scale.Y);
+            scene.AddUiElement(sort);
         }
         public override void Draw() { }
         public override void Update(Time elapsed)
@@ -52,6 +63,10 @@ namespace MyGame.GameEngine.Inventory
             if (BetterKeyboard.IsKeyJustReleased(Keyboard.Key.E))
             {
                 open = !open;
+                for (int i = 0; i < slots.Length; i++)
+                {
+                    slots[i].Deselect();
+                }
             }
         }
         public void SlotsClicked(List<ItemSlot> selected)//when more than one slot is selected

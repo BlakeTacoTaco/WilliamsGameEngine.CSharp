@@ -15,7 +15,6 @@ namespace MyGame.GameEngine.Inventory
     {
         private Inventory parent;
         public int ID;
-        private readonly Sprite _sprite;
         public Item _item;
         private readonly Sprite _itemSprite;
         private readonly Text text;
@@ -67,10 +66,6 @@ namespace MyGame.GameEngine.Inventory
             _itemSprite.Texture = ItemDat.GetTexture(_item.ID);
             if (item.amount > 0) { text.DisplayedString = Convert.ToString(item.amount); }
             else { text.DisplayedString = " "; }
-        }
-        public override FloatRect GetCollisionRect()
-        {
-            return _sprite.GetGlobalBounds();
         }
         public void AddItem(Item item)
         {

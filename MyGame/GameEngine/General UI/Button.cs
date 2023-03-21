@@ -29,5 +29,9 @@ namespace MyGame.GameEngine
         public virtual void PressRight() { }
         public virtual void HoldRight() { }
 
+        public override FloatRect GetCollisionRect()
+        {
+            return _sprite.GetGlobalBounds();
+        }
     }
 }
