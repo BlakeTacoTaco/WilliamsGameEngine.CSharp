@@ -63,13 +63,18 @@ namespace MyGame.GameEngine.Inventory
         {
             this._item = item;
             _item.MakeValid();
-            _itemSprite.Texture = ItemDat.GetTexture(_item.ID);
-            if (item.amount > 0) { text.DisplayedString = Convert.ToString(item.amount); }
-            else { text.DisplayedString = " "; }
+            UpdateSlot();
         }
         public void AddItem(Item item)
         {
-            SetItem(new Item(item.ID, item.amount + _item.amount));
+            _item.AddItem(item);
+            UpdateSlot();
+        }
+        public void UpdateSlot()
+        {
+            _itemSprite.Texture = ItemDat.GetTexture(_item.ID);
+            if (_item.amount > 0) { text.DisplayedString = Convert.ToString(_item.amount); }
+            else { text.DisplayedString = " "; }
         }
         public void Deselect()
         {

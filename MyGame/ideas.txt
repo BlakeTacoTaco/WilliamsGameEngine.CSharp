@@ -24,6 +24,7 @@ fish happiness
 
 Fish Ideas
 -electric eels
+	-toss car battery into ocean
 -samon
 -salmon
 -killer fish from sandy eggo
@@ -42,3 +43,4 @@ Fish Ideas
 -fish that steadily rises in price but crashes every once and a while (risk/reward)
 -carpenter fish
 	-crafts things for you
+-you build your boat and sail around catching fish and shipping them around

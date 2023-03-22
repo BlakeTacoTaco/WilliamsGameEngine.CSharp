@@ -1,6 +1,5 @@
 ﻿add right clicking an inventory slot to take half or to deposit one
 add ground items
-add opening/closing inventory
-add sort button
 make real sprites lol
 make tile colisions
+add tile entities

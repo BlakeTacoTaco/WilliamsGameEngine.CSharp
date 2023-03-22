@@ -21,11 +21,12 @@ namespace MyGame
             TestKinematic testKinematic = new TestKinematic();
             AddGameObject(testKinematic);
 
-            Player player = new Player();
+            Inventory inventory = new Inventory(this);
+            Player player = new Player(inventory, this);
             AddGameObject(player);
 
-            Inventory inventory = new Inventory(this);
-            AddUiElement(inventory);
+            FloorItem flooritem = new FloorItem(new Item(0, 3), new Vector2f(400, 400));
+            AddGameObject(flooritem);
         }
     }
 }

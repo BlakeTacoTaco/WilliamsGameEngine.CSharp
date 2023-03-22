@@ -60,14 +60,6 @@ namespace MyGame.GameEngine.Inventory
                     else { SlotsClicked(selected); }
                 }
             }
-            if (BetterKeyboard.IsKeyJustReleased(Keyboard.Key.E))
-            {
-                open = !open;
-                for (int i = 0; i < slots.Length; i++)
-                {
-                    slots[i].Deselect();
-                }
-            }
         }
         public void SlotsClicked(List<ItemSlot> selected)//when more than one slot is selected
         {
@@ -143,6 +135,24 @@ namespace MyGame.GameEngine.Inventory
                     items[i] -= ItemDat.GetStackSize(i);
                     currentSlot++;
                 }
+            }
+        }
+        public void AddItem(Item item)
+        {
+            int i = 0;
+            while(i < slots.Length && item.amount >= 0)
+            {
+                slots[i].AddItem(item);
+                i++;
+            }
+            
+        }
+        public void ToggleOpen()
+        {
+            open = !open;
+            for (int i = 0; i < slots.Length; i++)
+            {
+                slots[i].Deselect();
             }
         }
     }

@@ -23,8 +23,19 @@ namespace MyGame.GameEngine.Inventory
         public void MakeValid()
         {
             if (ID == -1) { amount = 0; }
-            else if (amount <= 0) { ID = -1; }
+            if (amount <= 0) { ID = -1; }
             if(amount >= ItemDat.GetStackSize(ID)) { amount = ItemDat.GetStackSize(ID); }
+        }
+        public void AddItem(Item item)
+        {
+            if(item.ID == this.ID || this.ID == -1)
+            {
+                this.ID = item.ID;
+                if (item.amount + amount <= ItemDat.GetStackSize(ID)) { this.amount += item.amount; item.amount = 0; }
+                else { item.amount -= (ItemDat.GetStackSize(ID) - amount); amount = ItemDat.GetStackSize(ID); }
+            }
+            item.MakeValid();
+            MakeValid();
         }
     }
 }
