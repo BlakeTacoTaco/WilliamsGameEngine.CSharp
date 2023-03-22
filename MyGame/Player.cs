@@ -47,7 +47,7 @@ namespace MyGame
             Game._Camera.position = position - new Vector2f(800, 450);
 
             //inventory
-            if (BetterKeyboard.IsKeyJustReleased(Keyboard.Key.I))
+            if (BetterKeyboard.IsKeyJustReleased(Keyboard.Key.E))
             {
                 inventory.ToggleOpen();
             }
@@ -55,6 +55,10 @@ namespace MyGame
         public override FloatRect GetCollisionRect()
         {
             return _sprite.GetGlobalBounds();
+        }
+        public void GiveItem(Item item)
+        {
+            inventory.AddItem(item);
         }
     }
 }

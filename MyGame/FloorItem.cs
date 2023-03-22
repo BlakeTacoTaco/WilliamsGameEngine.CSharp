@@ -1,4 +1,5 @@
 ﻿using GameEngine;
+using Microsoft.VisualBasic.FileIO;
 using MyGame.GameEngine;
 using MyGame.GameEngine.Inventory;
 using SFML.Graphics;
@@ -15,11 +16,11 @@ namespace MyGame
     internal class FloorItem : KinematicBody
     {
         public Item _item;
-        public Sprite _sprite;
+        private Sprite _sprite;
         public Player player = null;
         private FloatRect _Detection;
-        private const float range = 180;
-        private const float speed = 20;
+        private const float range = 300f;
+        private const float speed = 2000f;
         public FloorItem(Item item, Vector2f position)
         {
             _item = item;
@@ -29,7 +30,7 @@ namespace MyGame
             this.position = position;
             _Detection = new FloatRect(position, new Vector2f(range, range));
             _sprite.Origin = new Vector2f(8, 8);
-            friction = 100;
+            friction = 500;
         }
         public override void Draw()
         {
@@ -40,10 +41,32 @@ namespace MyGame
         {
             if (player != null)
             {
-                velocity += (player.position - position) * elapsed.AsSeconds() * speed;
-                //velocity.X += (range / (player.position.X - position.X)) * elapsed.AsSeconds() * speed;
+                //adds item to inventory if gets close enough
+                if(player.GetCollisionRect().Intersects(_sprite.GetGlobalBounds())) 
+                {
+                    player.GiveItem(_item);
+                    if(_item.amount <= 0)
+                    {
+                        this.MakeDead();
+                        return;
+                    }
+                }
+
+                //moves item towards player
+                Vector2f tempVelocity = new Vector2f(0, 0);
+                Vector2f distanceToPlayer = new Vector2f(player.position.X - position.X, player.position.Y - position.Y);
+
+                if(distanceToPlayer.X > 0) { tempVelocity.X = 1; }
+                else { tempVelocity.X = -1; }
+                if (distanceToPlayer.Y > 0) { tempVelocity.Y = 1; }
+                else { tempVelocity.Y = -1; }
+
+                velocity += tempVelocity * elapsed.AsSeconds() * speed;
             }
             Move(elapsed);
+
+
+            player = null;
         }
         public override void HandleCollision(GameObject otherGameObject)
         {
@@ -51,14 +74,10 @@ namespace MyGame
             {
                 player = (Player)otherGameObject;
             }
-            else
-            {
-                player = null;
-            }
         }
         public override FloatRect GetCollisionRect()
         {
-            Vector2f localCorner = Game._Camera.ToLocalPos(new Vector2f (position.Y - range / 2, position.X - range / 2));
+            Vector2f localCorner = Game._Camera.ToLocalPos(new Vector2f (position.X - (range / 2), position.Y - (range / 2)));
             _Detection.Top = localCorner.Y;
             _Detection.Left = localCorner.X;
             return _Detection;

@@ -25,8 +25,11 @@ namespace MyGame
             Player player = new Player(inventory, this);
             AddGameObject(player);
 
-            FloorItem flooritem = new FloorItem(new Item(0, 3), new Vector2f(400, 400));
-            AddGameObject(flooritem);
+            for (int i = 0; i < 30; i++)
+            {
+                FloorItem flooritem = new FloorItem(new Item(0, 99), new Vector2f(Game.Random.Next(800), Game.Random.Next(800)));
+                AddGameObject(flooritem);
+            }
         }
     }
 }
