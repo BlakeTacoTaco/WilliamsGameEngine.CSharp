@@ -4,6 +4,7 @@ using SFML.System;
 using SFML.Graphics;
 using MyGame.GameEngine;
 using MyGame.GameEngine.Inventory;
+using MyGame.GameEngine.General_UI;
 
 namespace MyGame
 {
@@ -27,9 +28,12 @@ namespace MyGame
 
             for (int i = 0; i < 30; i++)
             {
-                FloorItem flooritem = new FloorItem(new Item(0, 99), new Vector2f(Game.Random.Next(800), Game.Random.Next(800)));
+                FloorItem flooritem = new FloorItem(new Item(Game.Random.Next(2), 99), new Vector2f(Game.Random.Next(800), Game.Random.Next(800)));
                 AddGameObject(flooritem);
             }
+
+            NinePatch ninepatch = new NinePatch(Game.GetTexture("../../../Resources/item slot.png"), 2,2,2,2, new Vector2f(100, 100), new Vector2f(4, 4), new Vector2f(4,4));
+            AddGameObject(ninepatch);
         }
     }
 }

@@ -21,6 +21,7 @@ namespace MyGame.GameEngine.Inventory
         public bool selected = false;
         private Texture selectedTexture;
         private Texture defaultTexture;
+        private bool hovered = false;
 
         public ItemSlot(Inventory parent, int ID, Vector2f scale, Vector2f position)
         {
@@ -53,6 +54,10 @@ namespace MyGame.GameEngine.Inventory
                 Game.RenderWindow.Draw(_sprite);
                 Game.RenderWindow.Draw(_itemSprite);
                 Game.RenderWindow.Draw(text);
+                if(hovered)
+                {
+                    //draw description and name of item
+                }
             }
         }
         public override void HoldLeft()
@@ -85,6 +90,10 @@ namespace MyGame.GameEngine.Inventory
         {
             selected = true;
             _sprite.Texture = selectedTexture;
+        }
+        public override void Hover()
+        {
+            hovered = true;
         }
     }
 }

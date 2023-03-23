@@ -17,6 +17,7 @@ namespace MyGame
     {
         public Item _item;
         private Sprite _sprite;
+        private Sprite _shadow;
         public Player player = null;
         private FloatRect _Detection;
         private const float range = 300f;
@@ -30,10 +31,18 @@ namespace MyGame
             this.position = position;
             _Detection = new FloatRect(position, new Vector2f(range, range));
             _sprite.Origin = new Vector2f(8, 8);
+            _shadow = new Sprite();
+            _shadow.Texture = ItemDat.GetTexture(item.ID);
+            _shadow.Position = position + new Vector2f(4, 4);
+            _shadow.Scale = new Vector2f(2, 2);
+            _shadow.Origin = new Vector2f(8, 8);
+            _shadow.Color = Color.Black;
             friction = 500;
         }
         public override void Draw()
         {
+            _shadow.Position = Game._Camera.ToLocalPos(position + new Vector2f(2, 2));
+            Game.RenderWindow.Draw(_shadow);
             _sprite.Position = Game._Camera.ToLocalPos(position);
             Game.RenderWindow.Draw(_sprite);
         }

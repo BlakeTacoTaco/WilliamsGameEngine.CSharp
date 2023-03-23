@@ -8,7 +8,6 @@ namespace MyGame.GameEngine
 {
     internal interface MouseInterface
     {
-
         public abstract void Hover();
 
         //left mouse

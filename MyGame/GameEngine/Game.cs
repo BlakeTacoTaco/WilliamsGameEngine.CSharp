@@ -160,8 +160,8 @@ namespace GameEngine
             Vector2f mousPos = (Vector2f)Mouse.GetPosition();
             Vector2f windowPos = (Vector2f)_window.Position;
 
-            return new Vector2f((mousPos.X - windowPos.X - 11) * ((float)MyGameb.WindowWidth / (float)_window.Size.X), ((mousPos.Y - windowPos.Y - 45) * ((float)MyGameb.WindowHeight / (float)_window.Size.Y)));
-            //return new Vector2f((mousPos.X - windowPos.X - 7) * ((float)MyGameb.WindowWidth / (float)_window.Size.X), ((mousPos.Y - windowPos.Y - 30) * ((float)MyGameb.WindowHeight / (float)_window.Size.Y)));
+            //return new Vector2f((mousPos.X - windowPos.X - 11) * ((float)MyGameb.WindowWidth / (float)_window.Size.X), ((mousPos.Y - windowPos.Y - 45) * ((float)MyGameb.WindowHeight / (float)_window.Size.Y)));
+            return new Vector2f((mousPos.X - windowPos.X - 7) * ((float)MyGameb.WindowWidth / (float)_window.Size.X), ((mousPos.Y - windowPos.Y - 30) * ((float)MyGameb.WindowHeight / (float)_window.Size.Y)));
         }
     }
 }
