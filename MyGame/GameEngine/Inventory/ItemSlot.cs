@@ -57,6 +57,7 @@ namespace MyGame.GameEngine.Inventory
                 if(hovered)
                 {
                     //draw description and name of item
+                    hovered = false;
                 }
             }
         }

@@ -32,7 +32,7 @@ namespace MyGame
                 AddGameObject(flooritem);
             }
 
-            NinePatch ninepatch = new NinePatch(Game.GetTexture("../../../Resources/item slot.png"), 2,2,2,2, new Vector2f(100, 100), new Vector2f(4, 4), new Vector2f(4,4));
+            NinePatch ninepatch = new NinePatch(Game.GetTexture("../../../Resources/item slot.png"), 2,2,2,2, new Vector2f(100, 100), new Vector2f(20, 20), new Vector2f(4,4));
             AddGameObject(ninepatch);
         }
     }

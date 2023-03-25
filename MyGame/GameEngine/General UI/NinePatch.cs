@@ -19,7 +19,7 @@ namespace MyGame.GameEngine.General_UI
         private int bottomMargin;
         private int leftMargin;
         private int rightMargin;
-        private Vector2f scaleCoef;
+        private Vector2f[] localPositions;
         public NinePatch(Texture texture, int topMargin, int bottomMargin, int leftMargin, int rightMargin, Vector2f position, Vector2f size, Vector2f scale)
         {
             this.position = position;
@@ -31,6 +31,8 @@ namespace MyGame.GameEngine.General_UI
             this.scale = scale;
             patches = new Sprite[9];
 
+            localPositions = new Vector2f[9];
+
             for (int i = 0; i < patches.Length; i++)
             {
                 patches[i] = new Sprite();
@@ -38,9 +40,6 @@ namespace MyGame.GameEngine.General_UI
                 patches[i].Scale = scale;
             }
 
-            scaleCoef.X = ((float)texture.Size.X + (float)rightMargin + (float)leftMargin) / (float)texture.Size.X;
-            scaleCoef.Y = ((float)texture.Size.Y + (float)bottomMargin + (float)topMargin) / (float)texture.Size.Y;
-            Console.WriteLine(scaleCoef);
 
             //cut textures into appropriate peices
             patches[0].TextureRect = new IntRect(0, 0, leftMargin, topMargin);
@@ -54,41 +53,58 @@ namespace MyGame.GameEngine.General_UI
             patches[6].TextureRect = new IntRect(0, (int)texture.Size.Y - bottomMargin, leftMargin, bottomMargin);
             patches[7].TextureRect = new IntRect(leftMargin, (int)texture.Size.Y - bottomMargin, (int)texture.Size.X - rightMargin - leftMargin, bottomMargin);
             patches[8].TextureRect = new IntRect((int)texture.Size.X - rightMargin, (int)texture.Size.Y - bottomMargin, rightMargin, bottomMargin);
+
+            SetSize(size);
         }
         public override void Draw()
         {
-            //puts sprites in appropriate locations
-            patches[0].Position = new Vector2f(0,0);
-            patches[1].Position = new Vector2f((leftMargin * scale.X), 0);
-            patches[2].Position = new Vector2f(((patches[0].Texture.Size.X - rightMargin) * size.X), 0);
-
-            patches[3].Position = new Vector2f(0, (topMargin * scale.Y));
-            patches[4].Position = new Vector2f((rightMargin * scale.X), (topMargin * scale.Y));
-            patches[5].Position = new Vector2f(((patches[0].Texture.Size.X - rightMargin) * size.X), (topMargin * scale.Y));
-
-            patches[6].Position = new Vector2f(0, ((patches[0].Texture.Size.X - rightMargin) * size.Y));
-            patches[7].Position = new Vector2f((rightMargin * scale.X), ((patches[0].Texture.Size.X - rightMargin) * size.Y));
-            patches[8].Position = new Vector2f(((patches[0].Texture.Size.X - rightMargin) * size.X), ((patches[0].Texture.Size.X - rightMargin) * size.Y));
-
-            //scales sprites properly
-            patches[1].Scale = new Vector2f(size.X * scaleCoef.X, scale.Y);
-
-            patches[3].Scale = new Vector2f(scale.X, size.Y * scaleCoef.Y);
-            patches[4].Scale = new Vector2f(size.X * scaleCoef.X, size.Y * scaleCoef.Y);
-            patches[5].Scale = new Vector2f(scale.X, size.Y * scaleCoef.Y);
-
-            patches[7].Scale = new Vector2f(size.X * scaleCoef.X, scale.Y);
-
             for (int i =  0; i < patches.Length; i++)
             {
-                //patches[i].Position = new Vector2f(scale.X * patches[i].Position.X, scale.Y * patches[i].Position.Y);
-                patches[i].Position += position;
+                patches[i].Position = localPositions[i] + position;
                 Game.RenderWindow.Draw(patches[i]);
             }
         }
-        public override void Update(Time elapsed)
+        public override void Update(Time elapsed) 
+        { 
+            //sets size based on mouse position for debug purpouses
+            //SetSize(Game.GetMousePos() / 4);
+        }
+        public void SetSize(Vector2f size)
         {
-            size += new Vector2f(elapsed.AsSeconds(), elapsed.AsSeconds());
+            this.size = size;
+
+            //puts sprites in appropriate locations
+            localPositions[0] = new Vector2f(0, 0);
+            localPositions[1] = new Vector2f(leftMargin, 0);
+            localPositions[2] = new Vector2f(this.size.X - rightMargin, 0);
+
+            localPositions[3] = new Vector2f(0, topMargin);
+            localPositions[4] = new Vector2f(leftMargin, topMargin);
+            localPositions[5] = new Vector2f(this.size.X - rightMargin, topMargin);
+
+            localPositions[6] = new Vector2f(0, this.size.Y - bottomMargin);
+            localPositions[7] = new Vector2f(leftMargin, this.size.Y - bottomMargin);
+            localPositions[8] = new Vector2f(this.size.X - rightMargin, this.size.Y - bottomMargin);
+
+            //scales sprites
+            Vector2f scales = new Vector2f((float)(this.size.X - rightMargin - rightMargin) / (float)(patches[0].Texture.Size.X - rightMargin - leftMargin) * scale.X, (float)(this.size.Y - bottomMargin - topMargin) / (float)(patches[0].Texture.Size.Y - topMargin - bottomMargin) * scale.Y);
+            
+            patches[0].Scale = scale;
+            patches[1].Scale = new Vector2f(scales.X, scale.Y);
+            patches[2].Scale = scale;
+
+            patches[3].Scale = new Vector2f(scale.X, scales.Y);
+            patches[4].Scale = scales;
+            patches[5].Scale = new Vector2f(scale.X, scales.Y);
+
+            patches[6].Scale = scale;
+            patches[7].Scale = new Vector2f(scales.X, scale.Y);
+            patches[8].Scale = scale;
+
+            for(int i = 0; i < localPositions.Length; i++)
+            {
+                localPositions[i] = new Vector2f(localPositions[i].X * scale.X, localPositions[i].Y * scale.Y);
+            }
         }
     }
 }
