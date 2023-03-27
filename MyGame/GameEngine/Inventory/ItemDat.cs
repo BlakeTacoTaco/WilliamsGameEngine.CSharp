@@ -16,28 +16,34 @@ namespace MyGame.GameEngine.Inventory
         private static int[] stackSizes;
         private static string[] names;
         private static string[] descriptions;
-        public const int itemCount = 2;
+        public const int itemCount = 3;
         public static void Initialize()
         {
-            //textures
+            //initialize data
             textures = new Texture[itemCount];
-            textures[0] = Game.GetTexture("../../../Resources/mouse test.png");
-            textures[1] = Game.GetTexture("../../../Resources/high quality grass.png");
-
-            //stack size
             stackSizes = new int[itemCount];
-            stackSizes[0] = defaultStackSize;
-            stackSizes[1] = defaultStackSize;
-
-            //names
             names = new string[itemCount];
-            names[0] = "smile";
-            names[1] = "grass";
-
-            //descriptions
             descriptions = new string[itemCount];
+
+            //smile
+            textures[0] = Game.GetTexture("../../../Resources/mouse test.png");
+            stackSizes[0] = defaultStackSize;
+            names[0] = "smile";
             descriptions[0] = "its a smile";
-            descriptions[1] = "its some grass\ndid you actually take the time to read this sentence\nits a whole sentence\nI mean come on dude";
+
+            //grass
+            textures[1] = Game.GetTexture("../../../Resources/high quality grass.png");
+            stackSizes[1] = defaultStackSize;
+            names[1] = "grass";
+            descriptions[1] = "its some grass";
+
+            //samon
+            textures[2] = Game.GetTexture("../../../Resources/samon.png");
+            stackSizes[2] = defaultStackSize;
+            names[2] = "samon";
+            descriptions[2] = "without the L";
+
+
         }
         //gets texture baed on item ID
         public static Texture GetTexture(int ID)

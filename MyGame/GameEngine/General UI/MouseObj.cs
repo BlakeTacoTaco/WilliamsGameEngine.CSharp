@@ -59,7 +59,7 @@ namespace MyGame.GameEngine
             itemSprite.Position = position;
             text.Position = position + new Vector2f(4 * 13, 4 * 12);
 
-            textbox.position = position;
+            textbox.position = position + new Vector2f(20,0);
             textbox.UpdateDisplay();
 
             //old mouse status

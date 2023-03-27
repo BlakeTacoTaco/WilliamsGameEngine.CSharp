@@ -71,7 +71,9 @@ namespace MyGame
                 else { tempVelocity.Y = -1; }
 
                 velocity += tempVelocity * elapsed.AsSeconds() * speed;
+                friction = 500;
             }
+            else { friction = 2000; }
             Move(elapsed);
 
 

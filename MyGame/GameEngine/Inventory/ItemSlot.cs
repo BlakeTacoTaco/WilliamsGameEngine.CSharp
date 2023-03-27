@@ -48,9 +48,12 @@ namespace MyGame.GameEngine.Inventory
         }
         public override void Hover()
         {
-            Game._Mouse.textbox.setBothText(ItemDat.GetName(_item.ID), ItemDat.GetDesc(_item.ID));
-            Game._Mouse.isTextBoxShowing = true;
-            base.Hover();
+            if (parent.open)
+            {
+                Game._Mouse.textbox.setBothText(ItemDat.GetName(_item.ID), ItemDat.GetDesc(_item.ID));
+                Game._Mouse.isTextBoxShowing = true;
+                base.Hover();
+            }
         }
         public override void Update(Time elapsed)
         {

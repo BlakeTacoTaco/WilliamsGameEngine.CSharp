@@ -28,7 +28,7 @@ namespace MyGame
 
             for (int i = 0; i < 30; i++)
             {
-                FloorItem flooritem = new FloorItem(new Item(Game.Random.Next(2), 99), new Vector2f(Game.Random.Next(800), Game.Random.Next(800)));
+                FloorItem flooritem = new FloorItem(new Item(Game.Random.Next(3), 99), new Vector2f(Game.Random.Next(800), Game.Random.Next(800)));
                 AddGameObject(flooritem);
             }
 
