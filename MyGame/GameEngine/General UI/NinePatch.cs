@@ -11,15 +11,37 @@ namespace MyGame.GameEngine.General_UI
 {
     internal class NinePatch : GameObject
     {
+        //this object is a rectangle that can be scaled without the border being messed up
+        //its good for UI that all has the same background style but different dimensions
+        //it works by cutting the texture into nine peices and only scaling the sides on one axis, the middle on both axis, and not scaling the corners at all
+
+        //would look something like this
+        /*
+           -----------------------                  ------------------------------------
+           |      |       |      |                  |      |                    |      |
+           |      |       |      |                  |      |                    |      |
+           |------|-------|------|                  |------|--------------------|------|
+           |      |       |      |                  |      |                    |      |
+           |      |       |      |      --->        |      |                    |      |
+           |      |       |      |                  |      |                    |      |
+           |------|-------|------|                  |      |                    |      |
+           |      |       |      |                  |      |                    |      |
+           |      |       |      |                  |      |                    |      |
+           -----------------------                  |      |                    |      |
+                                                    |------|--------------------|------|
+            see how the margins are the same        |      |                    |      |
+            thickness? (in practice you wouldn't    |      |                    |      |
+            see the margins)                        ------------------------------------
+         */
         private Sprite[] patches;
         public Vector2f position;
-        private Vector2f size;
-        private Vector2f scale;
-        private int topMargin;
-        private int bottomMargin;
+        private Vector2f size;            //what the dimensions of the rectangle are (these are multiplied by the scale)
+        public Vector2f scale;            //scale of rectangle (for controling how thick the margins are)
+        private int topMargin;            //how wide the margins are on all sides of the rectangle
+        private int bottomMargin; 
         private int leftMargin;
         private int rightMargin;
-        private Vector2f[] localPositions;
+        private Vector2f[] localPositions; //stores the position of each patch relative to the corner of the object
         public NinePatch(Texture texture, int topMargin, int bottomMargin, int leftMargin, int rightMargin, Vector2f position, Vector2f size, Vector2f scale)
         {
             this.position = position;
@@ -41,7 +63,7 @@ namespace MyGame.GameEngine.General_UI
             }
 
 
-            //cut textures into appropriate peices
+            //cut textures into peices
             patches[0].TextureRect = new IntRect(0, 0, leftMargin, topMargin);
             patches[1].TextureRect = new IntRect(leftMargin, 0,(int)texture.Size.X - rightMargin - leftMargin, topMargin);
             patches[2].TextureRect = new IntRect((int)texture.Size.X - rightMargin, 0, rightMargin, topMargin);
@@ -58,6 +80,7 @@ namespace MyGame.GameEngine.General_UI
         }
         public override void Draw()
         {
+            //draws all the patches
             for (int i =  0; i < patches.Length; i++)
             {
                 patches[i].Position = localPositions[i] + position;
@@ -101,7 +124,8 @@ namespace MyGame.GameEngine.General_UI
             patches[7].Scale = new Vector2f(scales.X, scale.Y);
             patches[8].Scale = scale;
 
-            for(int i = 0; i < localPositions.Length; i++)
+            //adjusts local positions based on scale
+            for (int i = 0; i < localPositions.Length; i++)
             {
                 localPositions[i] = new Vector2f(localPositions[i].X * scale.X, localPositions[i].Y * scale.Y);
             }

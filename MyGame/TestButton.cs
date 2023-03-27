@@ -21,10 +21,6 @@ namespace MyGame
         {
             Game.RenderWindow.Draw(_sprite);
         }
-        public override void Hover()
-        {
-
-        }
         public override void ReleaseLeft()
         {
             Game._Mouse.inputEaten = true;

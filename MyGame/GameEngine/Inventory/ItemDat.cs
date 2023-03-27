@@ -37,7 +37,7 @@ namespace MyGame.GameEngine.Inventory
             //descriptions
             descriptions = new string[itemCount];
             descriptions[0] = "its a smile";
-            descriptions[1] = "its some grass";
+            descriptions[1] = "its some grass\ndid you actually take the time to read this sentence\nits a whole sentence\nI mean come on dude";
         }
         //gets texture baed on item ID
         public static Texture GetTexture(int ID)

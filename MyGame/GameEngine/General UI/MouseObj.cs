@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GameEngine;
+using MyGame.GameEngine.General_UI;
 using MyGame.GameEngine.Inventory;
 using SFML.Graphics;
 using SFML.System;
@@ -25,6 +26,9 @@ namespace MyGame.GameEngine
         public Item item;
         private readonly Sprite itemSprite;
         private readonly SFML.Graphics.Text text;
+
+        public TextBox textbox;
+        public bool isTextBoxShowing;
         public MouseObj()
         {
             itemSprite = new Sprite();
@@ -37,11 +41,14 @@ namespace MyGame.GameEngine
             text.OutlineColor = Color.Black;
             text.OutlineThickness = 4;
             SetItem(new Item(-1, 0));
+            textbox = new TextBox("number 15","burger king\nfoot lettuce",new Vector2f(100,100),new Vector2f(4,4));
+            isTextBoxShowing = false;
         }
         public override void Draw()
         {
             Game.RenderWindow.Draw(itemSprite);
             Game.RenderWindow.Draw(text);
+            if (isTextBoxShowing) { textbox.Draw(); isTextBoxShowing = false; }
         }
         public override void Update(Time elapsed)
         {
@@ -51,6 +58,9 @@ namespace MyGame.GameEngine
             position = Game.GetMousePos();
             itemSprite.Position = position;
             text.Position = position + new Vector2f(4 * 13, 4 * 12);
+
+            textbox.position = position;
+            textbox.UpdateDisplay();
 
             //old mouse status
             leftLast = leftClicked;

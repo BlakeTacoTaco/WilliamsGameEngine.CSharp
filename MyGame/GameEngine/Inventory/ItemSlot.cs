@@ -21,7 +21,6 @@ namespace MyGame.GameEngine.Inventory
         public bool selected = false;
         private Texture selectedTexture;
         private Texture defaultTexture;
-        private bool hovered = false;
 
         public ItemSlot(Inventory parent, int ID, Vector2f scale, Vector2f position)
         {
@@ -47,6 +46,16 @@ namespace MyGame.GameEngine.Inventory
             text.OutlineThickness = 4;
             text.DisplayedString = Convert.ToString(_item.amount);
         }
+        public override void Hover()
+        {
+            Game._Mouse.textbox.setBothText(ItemDat.GetName(_item.ID), ItemDat.GetDesc(_item.ID));
+            Game._Mouse.isTextBoxShowing = true;
+            base.Hover();
+        }
+        public override void Update(Time elapsed)
+        {
+            base.Update(elapsed);
+        }
         public override void Draw()
         {
             if (parent.open)
@@ -54,11 +63,6 @@ namespace MyGame.GameEngine.Inventory
                 Game.RenderWindow.Draw(_sprite);
                 Game.RenderWindow.Draw(_itemSprite);
                 Game.RenderWindow.Draw(text);
-                if(hovered)
-                {
-                    //draw description and name of item
-                    hovered = false;
-                }
             }
         }
         public override void HoldLeft()
@@ -91,10 +95,6 @@ namespace MyGame.GameEngine.Inventory
         {
             selected = true;
             _sprite.Texture = selectedTexture;
-        }
-        public override void Hover()
-        {
-            hovered = true;
         }
     }
 }
