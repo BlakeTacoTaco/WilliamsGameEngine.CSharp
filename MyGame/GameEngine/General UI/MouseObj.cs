@@ -55,12 +55,11 @@ namespace MyGame.GameEngine
             //un eats input
             inputEaten = false;
 
-            position = Game.GetMousePos();
-            itemSprite.Position = position;
+            position = Game.GetLocalMousePos();
+            itemSprite.Position = Game._Camera.ToLocalPos(Game.CurrentScene.tileMap.SnapToTile(Game.GetGlobalMousePos()));
             text.Position = position + new Vector2f(4 * 13, 4 * 12);
 
             textbox.position = position + new Vector2f(20,0);
-            textbox.UpdateDisplay();
 
             //old mouse status
             leftLast = leftClicked;

@@ -28,8 +28,8 @@ namespace MyGame.GameEngine.Inventory
             //smile
             textures[0] = Game.GetTexture("../../../Resources/mouse test.png");
             stackSizes[0] = defaultStackSize;
-            names[0] = "smile";
-            descriptions[0] = "its a smile";
+            names[0] = "silly guy";
+            descriptions[0] = "got too silly";
 
             //grass
             textures[1] = Game.GetTexture("../../../Resources/high quality grass.png");
@@ -39,7 +39,7 @@ namespace MyGame.GameEngine.Inventory
 
             //samon
             textures[2] = Game.GetTexture("../../../Resources/samon.png");
-            stackSizes[2] = defaultStackSize;
+            stackSizes[2] = 2;
             names[2] = "samon";
             descriptions[2] = "without the L";
 

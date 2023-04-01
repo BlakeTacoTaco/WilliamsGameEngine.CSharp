@@ -20,7 +20,7 @@ namespace MyGame
         private Sprite _shadow;
         public Player player = null;
         private FloatRect _Detection;
-        private const float range = 300f;
+        private const float range = 900f;
         private const float speed = 2000f;
         public FloorItem(Item item, Vector2f position)
         {

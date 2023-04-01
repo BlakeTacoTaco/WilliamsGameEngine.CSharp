@@ -28,7 +28,7 @@ namespace MyGame
         public override void Update(Time elapsed)
         {
             Move(elapsed);
-            //Game.RenderWindow.Position += (Vector2i)(new Vector2f(velocity.X * elapsed.AsSeconds(), velocity.Y * elapsed.AsSeconds()));
+            position = Game.GetGlobalMousePos();
         }
     }
 }

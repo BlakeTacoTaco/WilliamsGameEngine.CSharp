@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MyGame.GameEngine;
 using MyGame.GameEngine.General_UI;
+using MyGame.GameEngine.TileMap;
 using SFML.Graphics;
 using SFML.System;
 
@@ -10,11 +11,11 @@ namespace GameEngine
     // The Scene manages all the GameObjects currently in the game.
     class Scene
     {
-        // @TODO I need to make a function for removing dead UI elements
-        // the distinction between gameobject and ui is made so the UI draws on top
         private readonly List<GameObject> _gameObjects = new List<GameObject>();
 
         private readonly List<GameObject> _uiElements = new List<GameObject>();
+
+        public readonly TileMap tileMap = new TileMap();
 
         // Puts a GameObject into the scene.
         public void AddGameObject(GameObject gameObject)
@@ -40,8 +41,8 @@ namespace GameEngine
             Game.RenderWindow.DispatchEvents();
 
             HandleCollisions();
-            UpdateGameObjects(time);
             ClickCheck();
+            UpdateGameObjects(time);
             RemoveDeadGameObjects();
             DrawGameObjects();
 
@@ -96,6 +97,7 @@ namespace GameEngine
         // This function calls draw on each of our game objects.
         private void DrawGameObjects()
         {
+            tileMap.Draw();
             foreach (var gameObject in _gameObjects) { gameObject.Draw(); }
             foreach (var gameObject in _uiElements) { gameObject.Draw(); }
             Game._Mouse.Draw();
@@ -120,26 +122,32 @@ namespace GameEngine
         //checks to see if anything has been clicked
         private void ClickCheck()
         {
-            foreach (var gameObject in _uiElements) 
+            if (!Game._Mouse.inputEaten)
             {
-                if(gameObject is MouseInterface)
+                foreach (var gameObject in _uiElements)
                 {
-                    if(gameObject.GetCollisionRect().Contains(Game._Mouse.position.X, Game._Mouse.position.Y))
+                    if (gameObject is MouseInterface)
                     {
-                        //type casts the object reference as a mouseinterface so it can call the coresponding functions
-                        MouseInterface gameObject2 = (MouseInterface)gameObject;
+                        if (gameObject.GetCollisionRect().Contains(Game._Mouse.position.X, Game._Mouse.position.Y))
+                        {
+                            //type casts the object reference as a mouseinterface so it can call the coresponding functions
+                            MouseInterface gameObject2 = (MouseInterface)gameObject;
 
-                        //Right
-                        if (Game._Mouse.IsRightJustReleased())     { gameObject2.ReleaseRight(); }
-                        else if (Game._Mouse.IsRightJustPressed()) { gameObject2.PressRight(); }
-                        else if (Game._Mouse.IsRightPressed())     { gameObject2.HoldRight(); }
+                            //Right
+                            if (Game._Mouse.IsRightJustReleased()) { gameObject2.ReleaseRight(); }
+                            else if (Game._Mouse.IsRightJustPressed()) { gameObject2.PressRight(); }
+                            else if (Game._Mouse.IsRightPressed()) { gameObject2.HoldRight(); }
 
-                        //left
-                        if (Game._Mouse.IsLeftJustReleased()) { gameObject2.ReleaseLeft(); }
-                        else if (Game._Mouse.IsLeftJustPressed()) { gameObject2.PressLeft(); }
-                        else if (Game._Mouse.IsLeftPressed()) { gameObject2.HoldLeft(); }
+                            //left
+                            if (Game._Mouse.IsLeftJustReleased()) { gameObject2.ReleaseLeft(); }
+                            else if (Game._Mouse.IsLeftJustPressed()) { gameObject2.PressLeft(); }
+                            else if (Game._Mouse.IsLeftPressed()) { gameObject2.HoldLeft(); }
 
-                        else { gameObject2.Hover(); }
+                            else { gameObject2.Hover(); }
+
+                            Game._Mouse.inputEaten = true;
+                            break;
+                        }
                     }
                 }
             }

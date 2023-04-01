@@ -1,4 +1,5 @@
 ﻿using GameEngine;
+using MyGame.GameEngine.General_UI;
 using SFML.Graphics;
 using SFML.System;
 using System;
@@ -51,6 +52,7 @@ namespace MyGame.GameEngine.Inventory
             if (parent.open)
             {
                 Game._Mouse.textbox.setBothText(ItemDat.GetName(_item.ID), ItemDat.GetDesc(_item.ID));
+                Game._Mouse.textbox.UpdateDisplay();
                 Game._Mouse.isTextBoxShowing = true;
                 base.Hover();
             }

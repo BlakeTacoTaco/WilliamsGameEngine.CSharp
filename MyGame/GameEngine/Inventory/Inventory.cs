@@ -91,24 +91,31 @@ namespace MyGame.GameEngine.Inventory
         }
         public void SlotClicked(int ID) //for when one slot is clicked
         {
-            //swaps slots if they are dissimilar
-            if (slots[ID]._item.ID != Game._Mouse.item.ID)
+            if (Keyboard.IsKeyPressed(Keyboard.Key.LShift))
             {
-                Item temp = slots[ID]._item;
-                slots[ID].SetItem(Game._Mouse.item);
-                Game._Mouse.SetItem(temp);
+                slots[ID].SetItem(new Item(-1, 0));
             }
-            //merges slots into 1 if they fit
-            else if (ItemDat.GetStackSize(slots[ID]._item.ID) >= slots[ID]._item.amount + Game._Mouse.item.amount)
-            {
-                slots[ID].SetItem(new Item(slots[ID]._item.ID, slots[ID]._item.amount + Game._Mouse.item.amount));
-                Game._Mouse.SetItem(new Item(-1, 0));
-            }
-            //fills up slot an puts rest in mouse if they don't fit in one slot
             else
             {
-                Game._Mouse.SetItem(new Item(Game._Mouse.item.ID, (Game._Mouse.item.amount + slots[ID]._item.amount) % ItemDat.GetStackSize(Game._Mouse.item.ID)));
-                slots[ID].SetItem(new Item(Game._Mouse.item.ID, ItemDat.GetStackSize(Game._Mouse.item.ID)));
+                //swaps slots if they are dissimilar
+                if (slots[ID]._item.ID != Game._Mouse.item.ID)
+                {
+                    Item temp = slots[ID]._item;
+                    slots[ID].SetItem(Game._Mouse.item);
+                    Game._Mouse.SetItem(temp);
+                }
+                //merges slots into 1 if they fit
+                else if (ItemDat.GetStackSize(slots[ID]._item.ID) >= slots[ID]._item.amount + Game._Mouse.item.amount)
+                {
+                    slots[ID].SetItem(new Item(slots[ID]._item.ID, slots[ID]._item.amount + Game._Mouse.item.amount));
+                    Game._Mouse.SetItem(new Item(-1, 0));
+                }
+                //fills up slot an puts rest in mouse if they don't fit in one slot
+                else
+                {
+                    Game._Mouse.SetItem(new Item(Game._Mouse.item.ID, (Game._Mouse.item.amount + slots[ID]._item.amount) % (ItemDat.GetStackSize(Game._Mouse.item.ID))));
+                    slots[ID].SetItem(new Item(Game._Mouse.item.ID, ItemDat.GetStackSize(Game._Mouse.item.ID)));
+                }
             }
         }
         public void Sort()
