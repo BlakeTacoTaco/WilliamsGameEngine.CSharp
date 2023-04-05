@@ -15,6 +15,16 @@ namespace GameEngine
     // The Game manages scenes and runs the main game loop.
     static class Game
     {
+        //how long has it been since you started the save (in seconds)
+        //its a float because it will last like forever
+        //2^32 = 4,294,967,296
+        //4,294,967,296 / (60 * 60) = 1,193,046.4
+        //one million hours should last way longer than any player will ever play
+        //thats 136 years
+        //if one player has enogh dedication to play my game for 136 years their fricking immortal
+        //you would have to pass down a single save of my game for generations to break the time system
+        public static float time = 0;
+
         // The number of frames that will be drawn to the screen in one second.
         private const int FramesPerSecond = 60;
 

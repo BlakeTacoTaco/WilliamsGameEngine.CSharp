@@ -111,7 +111,7 @@ namespace MyGame.GameEngine.Inventory
                     Game._Mouse.SetItem(new Item(-1, 0));
                 }
                 //fills up slot an puts rest in mouse if they don't fit in one slot
-                else
+                else if (!(slots[ID]._item.amount == ItemDat.GetStackSize(slots[ID]._item.ID) & Game._Mouse.item.amount == ItemDat.GetStackSize(slots[ID]._item.ID)))
                 {
                     Game._Mouse.SetItem(new Item(Game._Mouse.item.ID, (Game._Mouse.item.amount + slots[ID]._item.amount) % (ItemDat.GetStackSize(Game._Mouse.item.ID))));
                     slots[ID].SetItem(new Item(Game._Mouse.item.ID, ItemDat.GetStackSize(Game._Mouse.item.ID)));
@@ -161,6 +161,10 @@ namespace MyGame.GameEngine.Inventory
             {
                 slots[i].Deselect();
             }
+        }
+        public override Vector2f GetPosition()
+        {
+            throw new NotImplementedException();
         }
     }
 }

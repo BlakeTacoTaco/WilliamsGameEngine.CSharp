@@ -51,7 +51,10 @@ namespace MyGame
             if (player != null)
             {
                 //adds item to inventory if gets close enough
-                if(player.GetCollisionRect().Intersects(_sprite.GetGlobalBounds())) 
+                FloatRect bounds = _sprite.GetLocalBounds();
+                bounds.Top = position.Y;
+                bounds.Left = position.X;
+                if (player.GetCollisionRect().Intersects(bounds)) 
                 {
                     player.GiveItem(_item);
                     if(_item.amount <= 0)
@@ -63,7 +66,7 @@ namespace MyGame
 
                 //moves item towards player
                 Vector2f tempVelocity = new Vector2f(0, 0);
-                Vector2f distanceToPlayer = new Vector2f(player.position.X - position.X, player.position.Y - position.Y);
+                Vector2f distanceToPlayer = new Vector2f(player.position.X - position.X, player.position.Y - position.Y) + new Vector2f(8 * 4, 8 * 4);
 
                 if(distanceToPlayer.X > 0) { tempVelocity.X = 1; }
                 else { tempVelocity.X = -1; }
@@ -88,7 +91,7 @@ namespace MyGame
         }
         public override FloatRect GetCollisionRect()
         {
-            Vector2f localCorner = Game._Camera.ToLocalPos(new Vector2f (position.X - (range / 2), position.Y - (range / 2)));
+            Vector2f localCorner = new Vector2f(position.X - (range / 2), position.Y - (range / 2));
             _Detection.Top = localCorner.Y;
             _Detection.Left = localCorner.X;
             return _Detection;

@@ -28,7 +28,6 @@ namespace MyGame
         public override void Update(Time elapsed)
         {
             Move(elapsed);
-            position = Game.GetGlobalMousePos();
         }
     }
 }

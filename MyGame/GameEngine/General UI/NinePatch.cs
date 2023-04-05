@@ -130,5 +130,9 @@ namespace MyGame.GameEngine.General_UI
                 localPositions[i] = new Vector2f(localPositions[i].X * scale.X, localPositions[i].Y * scale.Y);
             }
         }
+        public override Vector2f GetPosition()
+        {
+            return position;
+        }
     }
 }

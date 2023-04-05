@@ -1,8 +1,6 @@
-﻿separate tilemaps into chunks
-make tile colisions
+﻿make tile colisions
 add tile entities
 add item types (fish, placables, fishing tools)
 add placing of tile entities
 add right clicking an inventory slot to take half or to deposit one
 make real sprites lol
-fix bug where it deletes item if you try to put it into a slot of the same type while the mouse and slot are both full

@@ -25,5 +25,9 @@ namespace MyGame.GameEngine.TileMap
         {
             
         }
+        public override Vector2f GetPosition()
+        {
+            return _sprite.Position;
+        }
     }
 }

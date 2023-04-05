@@ -40,14 +40,17 @@ namespace GameEngine
             // Handle any keyboard, mouse events, etc. for our game window.
             Game.RenderWindow.DispatchEvents();
 
-            HandleCollisions();
             ClickCheck();
             UpdateGameObjects(time);
+            HandleCollisions();
             RemoveDeadGameObjects();
             DrawGameObjects();
 
             // Draw the window as updated by the game objects.
             Game.RenderWindow.Display();
+
+            //updates time based on time elapsed
+            Game.time += time.AsSeconds();
         }
 
         // This method lets game objects respond to collisions.

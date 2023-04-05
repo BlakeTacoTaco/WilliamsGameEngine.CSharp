@@ -45,5 +45,9 @@ namespace MyGame.GameEngine
         {
             return _sprite.GetGlobalBounds();
         }
+        public override Vector2f GetPosition()
+        {
+            return _sprite.Position;
+        }
     }
 }

@@ -2,7 +2,6 @@
 using MyGame.GameEngine.TileMap;
 using SFML.System;
 using SFML.Graphics;
-using MyGame.GameEngine;
 using MyGame.GameEngine.Inventory;
 using MyGame.GameEngine.General_UI;
 
@@ -23,6 +22,9 @@ namespace MyGame
                 FloorItem flooritem = new FloorItem(new Item(Game.Random.Next(3), 99), new Vector2f(Game.Random.Next(2000), Game.Random.Next(2000)));
                 AddGameObject(flooritem);
             }
+            Table table = new Table(this);
+            table.position = new Vector2f(16 * 4 * 32, 16 * 4 * 32);
+            tileMap.AddTileEntity(table, this);
         }
     }
 }

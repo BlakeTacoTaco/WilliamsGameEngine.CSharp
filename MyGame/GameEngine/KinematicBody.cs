@@ -37,5 +37,9 @@ namespace MyGame.GameEngine
         {
             
         }
+        public override Vector2f GetPosition()
+        {
+            return position;
+        }
     }
 }

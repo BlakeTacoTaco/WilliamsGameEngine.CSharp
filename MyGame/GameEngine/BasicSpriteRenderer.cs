@@ -299,5 +299,9 @@ namespace GameEngine
             // no frames, then the sprite is not drawable.
             return _animations.Count > 0 && _currentAnimation != null;
         }
+        public override Vector2f GetPosition()
+        {
+            return _sprite.Position;
+        }
     }
 }

@@ -67,5 +67,6 @@ namespace GameEngine
         public virtual void HandleCollision(GameObject otherGameObject)
         {
         }
+        public abstract Vector2f GetPosition();
     }
 }

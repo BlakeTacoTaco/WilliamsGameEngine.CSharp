@@ -56,7 +56,8 @@ namespace MyGame.GameEngine
             inputEaten = false;
 
             position = Game.GetLocalMousePos();
-            itemSprite.Position = Game._Camera.ToLocalPos(Game.CurrentScene.tileMap.SnapToTile(Game.GetGlobalMousePos()));
+            //itemSprite.Position = Game._Camera.ToLocalPos(Game.CurrentScene.tileMap.SnapToTile(Game.GetGlobalMousePos()));
+            itemSprite.Position = position;
             text.Position = position + new Vector2f(4 * 13, 4 * 12);
 
             textbox.position = position + new Vector2f(20,0);
@@ -72,8 +73,6 @@ namespace MyGame.GameEngine
             if (Mouse.IsButtonPressed(Mouse.Button.Right)) { rightClicked = true; }
             else { rightClicked = false; };
 
-            //makes render window follow mouse cursor
-            //Game.RenderWindow.Position = Mouse.GetPosition() - new Vector2i(800,450);
         }
         //inventory stuff
         public void SetItem(Item item)
@@ -117,6 +116,10 @@ namespace MyGame.GameEngine
         public bool IsRightPressed()
         {
             return rightClicked;
+        }
+        public override Vector2f GetPosition()
+        {
+            return position;
         }
     }
 }

@@ -90,5 +90,9 @@ namespace MyGame.GameEngine.General_UI
             UpdateDisplay();
         }
         public override void Update(Time elapsed) { }
+        public override Vector2f GetPosition()
+        {
+            return position;
+        }
     }
 }
