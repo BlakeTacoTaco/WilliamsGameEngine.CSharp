@@ -27,6 +27,7 @@ namespace MyGame
             _sprite.Scale = new Vector2f(4, 4);
             scene.AddUiElement(inventory);
             SetCollisionCheckEnabled(true);
+            AssignTag("tilecollision");
         }
         public override void Draw()
         {

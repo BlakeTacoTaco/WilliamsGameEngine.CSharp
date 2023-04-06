@@ -39,7 +39,7 @@ namespace MyGame.GameEngine.Inventory
 
             //samon
             textures[2] = Game.GetTexture("../../../Resources/samon.png");
-            stackSizes[2] = 2;
+            stackSizes[2] = defaultStackSize;
             names[2] = "samon";
             descriptions[2] = "without the L";
 

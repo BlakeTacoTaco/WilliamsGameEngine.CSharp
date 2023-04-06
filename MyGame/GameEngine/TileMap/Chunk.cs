@@ -17,7 +17,6 @@ namespace MyGame.GameEngine.TileMap
         private Texture[] tileTypes;                                     //all the textures (should probably make a TileDat class                                    //how wide/tall is the chunk
         public Vector2f position = new Vector2f(0, 0);                   //position of global tilemap
         public List<TileEntity> tileEntities = new List<TileEntity> { }; //store tileEntities
-        public bool[][] passable;                                        //stores if a tile is passable or not
         private Vector2f[][] positions;
         public Tile[][] tiles;
         private int chunkSize;
@@ -34,11 +33,21 @@ namespace MyGame.GameEngine.TileMap
                 for (int j = 0; j < tiles.Length; j++)
                 {
                     tiles[i][j] = new Tile(scale);
-                    SetTile(i, j, 1);
+
+
+                    if (Game.Random.Next(10) == 0)
+                    {
+                        SetTile(i, j, 0);
+                    }
+                    else { SetTile(i, j, 1); }
 
                     positions[i][j] = new Vector2f (i * 16 * scale.X, j * 16 * scale.Y) + position;
                 }
             }
+        }
+        public Tile GetTile(int x, int y)
+        {
+            return tiles[x][y];
         }
         public void SetTile(int x, int y, int id)
         {

@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using GameEngine;
 using MyGame.GameEngine.TileEntites;
+using System.Net.Http.Headers;
+using System.Diagnostics;
 
 namespace MyGame.GameEngine.TileMap
 {
@@ -18,12 +20,19 @@ namespace MyGame.GameEngine.TileMap
         private int loadSize;
         private Texture[] tileTypes;
         private int chunkSize = 16;
+        public FloatRect tileRect = new FloatRect(0, 0, 16 * 4, 16 * 4);
+        private bool[] collisions;
 
         public TileMap()
         {
             tileTypes = new Texture[] {
                 Game.GetTexture("../../../Resources/mouse test.png"),
                 Game.GetTexture("../../../Resources/high quality grass.png")
+            };
+            collisions = new bool[]
+            {
+                false,
+                true
             };
             GlobalPosition = new Vector2f(0, 0);
             loadSize = 3;
@@ -38,6 +47,30 @@ namespace MyGame.GameEngine.TileMap
                     loadedChunks[i][j].UpdatePositions();
                 }
             }
+            debug1.Texture = Game.GetTexture("../../../Resources/2x2table.png");
+            debug2.Texture = Game.GetTexture("../../../Resources/2x2table.png");
+        }
+        public Tile GetTile(Vector2i position)
+        {
+            Vector2i chunkPos = new Vector2i(position.X / chunkSize, position.Y / chunkSize);
+            if (position.X >= 0 && position.Y >= 0)
+            {
+                if (chunkPos.X >= 0 && chunkPos.X < loadedChunks.Length)
+                {
+                    if (chunkPos.Y >= 0 && chunkPos.Y < loadedChunks[chunkPos.X].Length)
+                    {
+                        return loadedChunks[chunkPos.X][chunkPos.Y].GetTile(position.X - (chunkPos.X * chunkSize), position.Y - (chunkPos.Y * chunkSize));
+                    }
+                }
+            }
+            return null;
+        }
+        public bool HasCollisions(Vector2i position)
+        {
+            Tile tile = GetTile(position);
+            if (tile == null) { return false; }
+            if (tile._type == -1) { return false; }
+            return !(collisions[tile._type]);
         }
         public override void Update(Time elapsed) { }
         public override void Draw()
@@ -97,6 +130,31 @@ namespace MyGame.GameEngine.TileMap
         public override Vector2f GetPosition()
         {
             return GlobalPosition;
+        }
+        public void CollisionCheck(GameObject colider)
+        {
+            FloatRect box = colider.GetCollisionRect();
+            Vector2f topCorner = new Vector2f(box.Left, box.Top);
+            Vector2f bottomCorner = topCorner + new Vector2f(box.Width, box.Height);
+
+            Vector2i tileTopCorner = ToTilePos(topCorner) + new Vector2i(-1,-1);
+            Vector2i tileBottomCorner = ToTilePos(bottomCorner) + new Vector2i(1, 1);
+
+            for (int i = tileTopCorner.X; i < tileBottomCorner.X; i++)
+            {
+                for (int j = tileTopCorner.Y; j < tileBottomCorner.Y; j++)
+                {
+                    if (HasCollisions(new Vector2i(i, j)))
+                    {
+                        FloatRect collision = tileRect;
+                        collision.Top = j * 16 * 4;
+                        collision.Left = i * 16 * 4;
+                        Collider tileCol = new Collider(collision);
+                        if (box.Intersects(collision))
+                        colider.HandleCollision(tileCol);
+                    }
+                }
+            }
         }
     }
 }

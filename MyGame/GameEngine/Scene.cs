@@ -43,6 +43,7 @@ namespace GameEngine
             ClickCheck();
             UpdateGameObjects(time);
             HandleCollisions();
+            HandleTileCollisions();
             RemoveDeadGameObjects();
             DrawGameObjects();
 
@@ -152,6 +153,16 @@ namespace GameEngine
                             break;
                         }
                     }
+                }
+            }
+        }
+        private void HandleTileCollisions()
+        {
+            foreach (var gamobject in _gameObjects)
+            {
+                if (gamobject.HasTag("tilecollision"))
+                {
+                    tileMap.CollisionCheck(gamobject);
                 }
             }
         }
