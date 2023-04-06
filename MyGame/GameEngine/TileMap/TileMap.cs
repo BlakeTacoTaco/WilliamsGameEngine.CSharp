@@ -47,8 +47,6 @@ namespace MyGame.GameEngine.TileMap
                     loadedChunks[i][j].UpdatePositions();
                 }
             }
-            debug1.Texture = Game.GetTexture("../../../Resources/2x2table.png");
-            debug2.Texture = Game.GetTexture("../../../Resources/2x2table.png");
         }
         public Tile GetTile(Vector2i position)
         {
