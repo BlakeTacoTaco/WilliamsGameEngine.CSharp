@@ -121,5 +121,9 @@ namespace MyGame.GameEngine
         {
             return position;
         }
+        public override void SetPosition(Vector2f position)
+        {
+            this.position = position;
+        }
     }
 }

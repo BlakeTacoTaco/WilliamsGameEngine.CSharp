@@ -16,6 +16,7 @@ namespace MyGame
         public TestKinematic()
         {
             this._sprite.Texture = Game.GetTexture("../../../Resources/mouse test.png");
+            AssignTag("tilecollision");
             this._sprite.Scale = new Vector2f(4,4);
             velocity = new Vector2f(500,500);
             this.friction = 200;
@@ -28,6 +29,17 @@ namespace MyGame
         public override void Update(Time elapsed)
         {
             Move(elapsed);
+        }
+        public override void HandleCollision(GameObject otherGameObject)
+        {
+            base.HandleCollision(otherGameObject);
+        }
+        public override FloatRect GetCollisionRect()
+        {
+            FloatRect box = _sprite.GetGlobalBounds();
+            box.Left = position.X;
+            box.Top = position.Y;
+            return box;
         }
     }
 }

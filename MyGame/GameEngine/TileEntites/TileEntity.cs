@@ -37,5 +37,9 @@ namespace MyGame.GameEngine.TileEntites
             box.Top = position.Y;
             return box;
         }
+        public override void SetPosition(Vector2f position)
+        {
+            this.position = position;
+        }
     }
 }

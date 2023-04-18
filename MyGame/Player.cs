@@ -16,11 +16,11 @@ namespace MyGame
 {
     internal class Player : GameObject
     {
-        private Inventory inventory;
+        private ButtonInventory inventory;
         private Sprite _sprite = new Sprite();
         private float speed = 1000;
         public Vector2f position;
-        public Player(Inventory inventory, Scene scene)
+        public Player(ButtonInventory inventory, Scene scene)
         {
             this.inventory = inventory;
             _sprite.Texture = Game.GetTexture("../../../Resources/mouse test.png");
@@ -65,54 +65,16 @@ namespace MyGame
         }
         public override void HandleCollision(GameObject otherGameObject)
         {
-            if(otherGameObject.HasTag("impass"))
-            {
-                FloatRect box = otherGameObject.GetCollisionRect();
-                Vector2f pos = otherGameObject.GetPosition();
-                Vector2f dist = new Vector2f(pos.X - position.X - 8 * 4, pos.Y- position.Y - 8 * 4);
-                dist += new Vector2f(box.Width, box.Height) / 2;
-
-                if (Math.Abs(dist.X) < Math.Abs(dist.Y))
-                {
-                    if (dist.Y > 0)
-                    {
-                        position.Y = pos.Y - 16 * 4;
-                    }
-                    else
-                    {
-                        position.Y = pos.Y + box.Height;
-                    }
-                }
-                else
-                {
-                    if (dist.X > 0)
-                    {
-                        position.X = pos.X - 16 * 4;
-                    }
-                    else
-                    {
-                        position.X = pos.X + box.Width;
-                    }
-                }
-               //else if (pos.X + box.Width > position.X)
-               //{
-               //    position.X = box.Width + pos.X;
-               //}
-               //
-               //if (pos.Y > position.Y)
-               //{
-               //    position.Y = pos.Y - 16 * 4;
-               //}
-               //else if (pos.Y + box.Height > position.Y)
-               //{
-               //    position.Y = box.Height + pos.Y;
-               //}
-                Game._Camera.position = position - new Vector2f(808, 458);
-            }
+            base.HandleCollision(otherGameObject);
+            Game._Camera.position = position - new Vector2f(808, 458);
         }
         public override Vector2f GetPosition()
         {
             return position;
+        }
+        public override void SetPosition(Vector2f position)
+        {
+            this.position = position;
         }
     }
 }

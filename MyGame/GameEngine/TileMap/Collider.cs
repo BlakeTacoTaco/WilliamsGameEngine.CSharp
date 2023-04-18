@@ -33,5 +33,10 @@ namespace MyGame.GameEngine.TileMap
         {
             return new Vector2f(collider.Left, collider.Top);
         }
+        public override void SetPosition(Vector2f position)
+        {
+            collider.Top = position.Y;
+            collider.Left = position.X;
+        }
     }
 }

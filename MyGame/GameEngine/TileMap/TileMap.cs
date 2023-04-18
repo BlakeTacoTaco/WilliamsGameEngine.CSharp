@@ -57,7 +57,7 @@ namespace MyGame.GameEngine.TileMap
                 {
                     if (chunkPos.Y >= 0 && chunkPos.Y < loadedChunks[chunkPos.X].Length)
                     {
-                        return loadedChunks[chunkPos.X][chunkPos.Y].GetTile(position.X - (chunkPos.X * chunkSize), position.Y - (chunkPos.Y * chunkSize));
+                        return loadedChunks[chunkPos.X][chunkPos.Y].GetTile(position.X % 16, position.Y % 16);
                     }
                 }
             }
@@ -128,6 +128,18 @@ namespace MyGame.GameEngine.TileMap
         public override Vector2f GetPosition()
         {
             return GlobalPosition;
+        }
+        public override void SetPosition(Vector2f position)
+        {
+            GlobalPosition = position;
+            for (int i = 0; i < loadedChunks.Length; i++)
+            {
+                for (int j = 0; j < loadedChunks[i].Length; j++)
+                {
+                    loadedChunks[i][j].position = new Vector2f(i * 16 * chunkSize * 4, j * 16 * chunkSize * 4);
+                    loadedChunks[i][j].UpdatePositions();
+                }
+            }
         }
         public void CollisionCheck(GameObject colider)
         {

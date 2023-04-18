@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MyGame.GameEngine;
 using MyGame.GameEngine.General_UI;
+using MyGame.GameEngine.Inventory;
 using MyGame.GameEngine.TileMap;
 using SFML.Graphics;
 using SFML.System;
@@ -154,6 +155,10 @@ namespace GameEngine
                         }
                     }
                 }
+            }
+            if(!Game._Mouse.inputEaten && Game._Mouse.IsLeftPressed())
+            {
+                ItemDat.UseItem();
             }
         }
         private void HandleTileCollisions()

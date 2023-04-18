@@ -35,7 +35,7 @@ namespace MyGame.GameEngine.TileMap
                     tiles[i][j] = new Tile(scale);
 
 
-                    if (Game.Random.Next(10) == 0)
+                    if (Game.Random.Next((int)(5)) == 0)
                     {
                         SetTile(i, j, 0);
                     }
@@ -90,6 +90,11 @@ namespace MyGame.GameEngine.TileMap
         public override Vector2f GetPosition()
         {
             return position;
+        }
+        public override void SetPosition(Vector2f position)
+        {
+            this.position = position;
+            UpdatePositions();
         }
     }
 }

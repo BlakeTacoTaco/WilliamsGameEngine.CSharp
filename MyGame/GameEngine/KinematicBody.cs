@@ -1,4 +1,5 @@
 ﻿using GameEngine;
+using SFML.Graphics;
 using SFML.System;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,49 @@ namespace MyGame.GameEngine
         public override Vector2f GetPosition()
         {
             return position;
+        }
+        public override void SetPosition(Vector2f position)
+        {
+            this.position = position;
+        }
+        public override void HandleCollision(GameObject otherGameObject)
+        {
+            if (otherGameObject.HasTag("impass"))
+            {
+                Vector2f position = GetPosition();
+                FloatRect box = otherGameObject.GetCollisionRect();
+                Vector2f pos = otherGameObject.GetPosition();
+                Vector2f dist = new Vector2f(pos.X - position.X - 8 * 4, pos.Y - position.Y - 8 * 4);
+                dist += new Vector2f(box.Width, box.Height) / 2;
+
+                if (Math.Abs(dist.X) < Math.Abs(dist.Y))
+                {
+                    if (dist.Y > 0)
+                    {
+                        position.Y = pos.Y - 16 * 4;
+                        velocity.Y = 0;
+                    }
+                    else
+                    {
+                        position.Y = pos.Y + box.Height;
+                        velocity.Y = 0;
+                    }
+                }
+                else
+                {
+                    if (dist.X > 0)
+                    {
+                        position.X = pos.X - 16 * 4;
+                        velocity.X = 0;
+                    }
+                    else
+                    {
+                        position.X = pos.X + box.Width;
+                        velocity.X = 0;
+                    }
+                }
+                SetPosition(position);
+            }
         }
     }
 }

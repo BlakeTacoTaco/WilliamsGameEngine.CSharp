@@ -14,7 +14,7 @@ namespace MyGame.GameEngine.Inventory
 {
     internal class ItemSlot : Button
     {
-        private Inventory parent;
+        private ButtonInventory parent;
         public int ID;
         public Item _item;
         private readonly Sprite _itemSprite;
@@ -23,7 +23,7 @@ namespace MyGame.GameEngine.Inventory
         private Texture selectedTexture;
         private Texture defaultTexture;
 
-        public ItemSlot(Inventory parent, int ID, Vector2f scale, Vector2f position)
+        public ItemSlot(ButtonInventory parent, int ID, Vector2f scale, Vector2f position)
         {
             this.parent = parent;
             this.ID = ID;

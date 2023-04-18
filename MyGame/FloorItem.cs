@@ -84,10 +84,8 @@ namespace MyGame
         }
         public override void HandleCollision(GameObject otherGameObject)
         {
-            if(otherGameObject is Player)
-            {
-                player = (Player)otherGameObject;
-            }
+            if (otherGameObject is Player) { player = (Player)otherGameObject; }
+            else { base.HandleCollision(otherGameObject); }
         }
         public override FloatRect GetCollisionRect()
         {

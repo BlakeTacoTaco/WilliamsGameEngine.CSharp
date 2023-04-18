@@ -11,8 +11,8 @@ namespace MyGame.GameEngine.Inventory
 {
     internal class SortButton : Button
     {
-        Inventory _parent;
-        public SortButton (Inventory parent)
+        ButtonInventory _parent;
+        public SortButton (ButtonInventory parent)
         {
             _parent = parent;
             _sprite = new Sprite();

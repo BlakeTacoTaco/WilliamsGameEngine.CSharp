@@ -49,5 +49,9 @@ namespace MyGame.GameEngine
         {
             return _sprite.Position;
         }
+        public override void SetPosition(Vector2f position)
+        {
+            _sprite.Position = position;
+        }
     }
 }

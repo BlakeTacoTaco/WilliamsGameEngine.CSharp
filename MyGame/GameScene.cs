@@ -14,7 +14,7 @@ namespace MyGame
             TestKinematic testKinematic = new TestKinematic();
             AddGameObject(testKinematic);
 
-            Inventory inventory = new Inventory(this);
+            ButtonInventory inventory = new ButtonInventory(this);
             Player player = new Player(inventory, this);
             AddGameObject(player);
             for (int i = 0; i < 50; i++)

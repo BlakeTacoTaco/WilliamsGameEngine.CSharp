@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SFML.Graphics;
 using SFML.System;
 
@@ -66,7 +67,40 @@ namespace GameEngine
         // Use this to specify what happens when this object collides with another object.
         public virtual void HandleCollision(GameObject otherGameObject)
         {
+            if (otherGameObject.HasTag("impass"))
+            {
+                Vector2f position = GetPosition();
+                FloatRect box = otherGameObject.GetCollisionRect();
+                Vector2f pos = otherGameObject.GetPosition();
+                Vector2f dist = new Vector2f(pos.X - position.X - 8 * 4, pos.Y - position.Y - 8 * 4);
+                dist += new Vector2f(box.Width, box.Height) / 2;
+
+                if (Math.Abs(dist.X) < Math.Abs(dist.Y))
+                {
+                    if (dist.Y > 0)
+                    {
+                        position.Y = pos.Y - 16 * 4;
+                    }
+                    else
+                    {
+                        position.Y = pos.Y + box.Height;
+                    }
+                }
+                else
+                {
+                    if (dist.X > 0)
+                    {
+                        position.X = pos.X - 16 * 4;
+                    }
+                    else
+                    {
+                        position.X = pos.X + box.Width;
+                    }
+                }
+                SetPosition(position);
+            }
         }
         public abstract Vector2f GetPosition();
+        public abstract void SetPosition(Vector2f position);
     }
 }

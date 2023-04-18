@@ -11,8 +11,8 @@ namespace MyGame.GameEngine.Inventory
 {
     internal class TrashSlot : Button
     {
-        Inventory _parent;
-        public TrashSlot(Inventory parent)
+        ButtonInventory _parent;
+        public TrashSlot(ButtonInventory parent)
         {
             _parent = parent;
             _sprite = new Sprite();
