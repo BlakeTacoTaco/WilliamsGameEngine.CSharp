@@ -37,6 +37,10 @@ namespace GameEngine
         {
             _isDead = true;
         }
+        public void UnDead()
+        {
+            _isDead = false;
+        }
 
         // Update is called every frame. Use this to prepare to draw (move, perform AI, etc.).
         public abstract void Update(Time elapsed);

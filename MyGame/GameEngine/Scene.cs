@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using MyGame;
 using MyGame.GameEngine;
 using MyGame.GameEngine.General_UI;
 using MyGame.GameEngine.Inventory;
+using MyGame.GameEngine.TileEntites;
 using MyGame.GameEngine.TileMap;
 using SFML.Graphics;
 using SFML.System;
@@ -41,12 +43,19 @@ namespace GameEngine
             // Handle any keyboard, mouse events, etc. for our game window.
             Game.RenderWindow.DispatchEvents();
 
-            ClickCheck();
-            UpdateGameObjects(time);
-            HandleCollisions();
-            HandleTileCollisions();
-            RemoveDeadGameObjects();
-            DrawGameObjects();
+            if (!(time.AsSeconds() >= 0.1))
+            {
+                ClickCheck();
+                UpdateGameObjects(time);
+                HandleCollisions();
+                HandleTileCollisions();
+                RemoveDeadGameObjects();
+                DrawGameObjects();
+            }
+            else
+            {
+                DrawGameObjects();
+            }
 
             // Draw the window as updated by the game objects.
             Game.RenderWindow.Display();
@@ -73,12 +82,25 @@ namespace GameEngine
                 // See if this game object is colliding with any other game object.
                 for (int j = 0; j < _gameObjects.Count; j++)
                 {
+                    
                     var otherGameObject = _gameObjects[j];
+
 
                     // Don't check an object colliding with itself.
                     if (gameObject == otherGameObject) continue;
 
                     if (gameObject.IsDead()) return;
+
+
+                    if (gameObject is Player && otherGameObject is UsableTileEntity)
+                    {
+                        Player player = (Player)gameObject;
+                        UsableTileEntity tileEntity = (UsableTileEntity)otherGameObject;
+                        if(player.GetCollisionRect().Intersects(tileEntity.GetUseCollision()))
+                        {
+                            tileEntity.InCollision(player);
+                        }
+                    }
 
                     // When we find a collision, invoke the collision handler for both objects.
                     if (collisionRect.Intersects(otherGameObject.GetCollisionRect()))
@@ -97,6 +119,7 @@ namespace GameEngine
             Game._Mouse.Update(time);
             for (int i = 0; i < _gameObjects.Count; i++) { _gameObjects[i].Update(time); }
             for (int i = 0; i < _uiElements.Count; i++) { _uiElements[i].Update(time); }
+            Game._Mouse.inputEaten = false;
         }
 
         // This function calls draw on each of our game objects.
@@ -150,8 +173,10 @@ namespace GameEngine
 
                             else { gameObject2.Hover(); }
 
-                            Game._Mouse.inputEaten = true;
-                            break;
+                            if (Game._Mouse.inputEaten == true)
+                            {
+                                break;
+                            }
                         }
                     }
                 }

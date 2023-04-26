@@ -15,8 +15,9 @@ namespace MyGame.GameEngine.TileEntites
         public Vector2i tileDimensions; //how many tiles it takes up
         public Vector2f position;
         internal float lastLoaded;      //how long since it was last loaded (works up to like 1,000,000 hours)
+        internal float topMargin;
         public virtual void Clicked() { }
-        public override void Draw() { sprite.Position = Game._Camera.ToLocalPos(position); Game.RenderWindow.Draw(sprite); }
+        public override void Draw() { sprite.Position = position - new Vector2f(0,topMargin * sprite.Scale.Y); sprite.Position = Game._Camera.ToLocalPos(sprite.Position); Game.RenderWindow.Draw(sprite); }
         public override void Update(Time elapsed) { }
         public virtual void LongUpdate(float time) { }//what happens to it after a long time has passed since it was loaded
         public void Initialize(Scene scene)
@@ -35,6 +36,7 @@ namespace MyGame.GameEngine.TileEntites
             FloatRect box = sprite.GetGlobalBounds();
             box.Left = position.X;
             box.Top = position.Y;
+            box.Height -= topMargin * sprite.Scale.Y;
             return box;
         }
         public override void SetPosition(Vector2f position)

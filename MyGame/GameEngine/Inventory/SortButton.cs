@@ -23,6 +23,7 @@ namespace MyGame.GameEngine.Inventory
             if (_parent.open)
             {
                 _parent.Sort();
+                Game._Mouse.inputEaten = true;
             }
         }
         public override void Draw()

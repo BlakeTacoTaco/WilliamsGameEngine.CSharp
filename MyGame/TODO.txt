@@ -1,6 +1,0 @@
-﻿make tile colisions
-add tile entities
-add item types (fish, placables, fishing tools)
-add placing of tile entities
-add right clicking an inventory slot to take half or to deposit one
-make real sprites lol

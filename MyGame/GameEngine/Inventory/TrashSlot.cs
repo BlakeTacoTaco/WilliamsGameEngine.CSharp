@@ -23,6 +23,7 @@ namespace MyGame.GameEngine.Inventory
             if (_parent.open)
             {
                 Game._Mouse.SetItem(new Item(-1, 0));
+                Game._Mouse.inputEaten = true;
             }
         }
         public override void Draw()

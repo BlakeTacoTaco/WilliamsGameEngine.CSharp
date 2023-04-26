@@ -1,0 +1,7 @@
+﻿add placing of tile entities
+finish adding tile entity ui activation
+add proper ui activaiton
+add right clicking an inventory slot to take half or to deposit one
+make real sprites lol
+collision layers
+

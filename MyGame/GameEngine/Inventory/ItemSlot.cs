@@ -72,7 +72,7 @@ namespace MyGame.GameEngine.Inventory
         }
         public override void HoldLeft()
         {
-            if (parent.open) { Select(); }
+            if (parent.open) { Select(); base.HoldLeft(); }
         }
         public void SetItem(Item item)
         {

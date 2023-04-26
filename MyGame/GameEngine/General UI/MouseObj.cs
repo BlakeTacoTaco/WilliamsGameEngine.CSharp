@@ -52,8 +52,6 @@ namespace MyGame.GameEngine
         }
         public override void Update(Time elapsed)
         {
-            //un eats input
-            inputEaten = false;
 
             position = Game.GetLocalMousePos();
             //itemSprite.Position = Game._Camera.ToLocalPos(Game.CurrentScene.tileMap.SnapToTile(Game.GetGlobalMousePos()));

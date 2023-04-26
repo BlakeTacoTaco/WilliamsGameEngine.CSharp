@@ -54,6 +54,8 @@ namespace MyGame
                 FloatRect bounds = _sprite.GetLocalBounds();
                 bounds.Top = position.Y;
                 bounds.Left = position.X;
+                bounds.Left -= bounds.Width;
+                bounds.Top -= bounds.Height;
                 if (player.GetCollisionRect().Intersects(bounds)) 
                 {
                     player.GiveItem(_item);

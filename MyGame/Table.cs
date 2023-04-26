@@ -20,6 +20,7 @@ namespace MyGame
             sprite.Texture = Game.GetTexture("../../../Resources/2x2table.png");
             sprite.Scale = new Vector2f(4, 4);
             tileDimensions = new Vector2i(2, 2);
+            topMargin = 4;
         }
     }
 }

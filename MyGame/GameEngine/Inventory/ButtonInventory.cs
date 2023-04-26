@@ -1,4 +1,5 @@
 ﻿using GameEngine;
+using MyGame.GameEngine.General_UI;
 using SFML.System;
 using SFML.Window;
 using System;
@@ -7,35 +8,42 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using static System.Reflection.Metadata.BlobBuilder;
 
 namespace MyGame.GameEngine.Inventory
 {
-    internal class ButtonInventory : Inventory
+    internal class ButtonInventory : Inventory , Menu
     {
         internal ItemSlot[] slots;
         internal TrashSlot trash;
         internal SortButton sort;
-        public bool open = false;
-        public ButtonInventory(Scene scene)
+        internal bool player;
+        public Vector2f position = new Vector2f();
+        public bool inventoryRequired { get; }
+        public bool open { get; set; }
+
+        public ButtonInventory(Scene scene, Vector2f position,bool player)
         {
+            this.player = player;
             slots = new ItemSlot[sizex * sizey];
             _items = new Item[sizex * sizey];
             for (int i = 0; i < sizex * sizey; i++)
             {
-                slots[i] = new ItemSlot(this, i, scale, new Vector2f((i % sizex) * scale.X * 20, (i / sizex) * scale.Y * 20));
-                _items[i] = new Item(Game.Random.Next(4) - 1, Game.Random.Next(80) + 1);
+                slots[i] = new ItemSlot(this, i, scale, new Vector2f((i % sizex) * scale.X * 20, (i / sizex) * scale.Y * 20) + position);
+                _items[i] = new Item(-1, 0);
                 scene.AddUiElement(slots[i]);
             }
-            trash = new TrashSlot(this);
-            trash._sprite.Scale = scale;
-            trash._sprite.Position = new Vector2f(((sizex * 20) + 2) * scale.X, (sizey - 1) * 20 * scale.Y);
-            scene.AddUiElement(trash);
-
+            if (player)
+            {
+                trash = new TrashSlot(this);
+                trash._sprite.Scale = scale;
+                scene.AddUiElement(trash);
+            }
+            inventoryRequired = !player;
             sort = new SortButton(this);
             sort._sprite.Scale = scale;
-            sort._sprite.Position = new Vector2f(((sizex * 20) + 2) * scale.X, (sizey - 2) * 20 * scale.Y);
             scene.AddUiElement(sort);
+            SetPosition(position);
+            UpdateSlots();
         }
         public override void Update(Time elapsed)
         {
@@ -89,7 +97,7 @@ namespace MyGame.GameEngine.Inventory
         {
             if (Keyboard.IsKeyPressed(Keyboard.Key.LShift))
             {
-                slots[ID].SetItem(new Item(-1, 0));
+                _items[ID] = new Item(-1, 0);
             }
             else
             {
@@ -125,6 +133,10 @@ namespace MyGame.GameEngine.Inventory
         public void ToggleOpen()
         {
             open = !open;
+            UpdateOpen();
+        }
+        public void UpdateOpen()
+        {
             for (int i = 0; i < slots.Length; i++)
             {
                 slots[i].Deselect();
@@ -135,18 +147,28 @@ namespace MyGame.GameEngine.Inventory
             base.AddItem(item);
             UpdateSlots();
         }
-        public override Vector2f GetPosition()
-        {
-            throw new NotImplementedException();
-        }
-        public override void SetPosition(Vector2f position)
-        {
-            throw new NotImplementedException();
-        }
         public override void Sort()
         {
             base.Sort();
             UpdateSlots();
+        }
+        public override Vector2f GetPosition()
+        {
+            return position;
+        }
+        public override void SetPosition(Vector2f position)
+        {
+            for (int i = 0; i < sizex * sizey; i++)
+            {
+                slots[i].SetPosition(new Vector2f((i % sizex) * scale.X * 20, (i / sizex) * scale.Y * 20) + position);
+            }
+            if (player) { trash._sprite.Position = new Vector2f(((sizex * 20) + 2) * scale.X, 1 * 20 * scale.Y) + position; }
+            sort._sprite.Position = new Vector2f(((sizex * 20) + 2) * scale.X, 0) + position;
+        }
+        public void SetOpen(bool open)
+        {
+            this.open = open;
+            UpdateOpen();
         }
     }
 }

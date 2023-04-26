@@ -11,6 +11,7 @@ using SFML.Window;
 using System.Transactions;
 using MyGame.GameEngine.Inventory;
 using MyGame.GameEngine.General_UI;
+using MyGame.GameEngine.TileEntites;
 
 namespace MyGame
 {
@@ -20,6 +21,7 @@ namespace MyGame
         private Sprite _sprite = new Sprite();
         private float speed = 1000;
         public Vector2f position;
+        public UsableTileEntity useEntity = null;
         public Player(ButtonInventory inventory, Scene scene)
         {
             this.inventory = inventory;
@@ -42,6 +44,7 @@ namespace MyGame
             if (Keyboard.IsKeyPressed(Keyboard.Key.S)) { position.Y += speed * delta; }
             if (Keyboard.IsKeyPressed(Keyboard.Key.A)) { position.X -= speed * delta; }
             if (Keyboard.IsKeyPressed(Keyboard.Key.D)) { position.X += speed * delta; }
+            if (BetterKeyboard.IsKeyJustReleased(Keyboard.Key.Q) && useEntity != null) { useEntity.Use(this); }
             //camera movement
             Game._Camera.position = position - new Vector2f(808, 458);
 
@@ -51,6 +54,7 @@ namespace MyGame
                 inventory.ToggleOpen();
             }
             _sprite.Position = Game._Camera.ToLocalPos(position);
+            useEntity = null;
         }
         public override FloatRect GetCollisionRect()
         {
@@ -75,6 +79,10 @@ namespace MyGame
         public override void SetPosition(Vector2f position)
         {
             this.position = position;
+        }
+        public void OpenInventory(bool set)
+        {
+            inventory.SetOpen(set);
         }
     }
 }

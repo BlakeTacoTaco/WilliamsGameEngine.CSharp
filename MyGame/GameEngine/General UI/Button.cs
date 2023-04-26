@@ -34,7 +34,7 @@ namespace MyGame.GameEngine
         //left mouse
         public virtual void ReleaseLeft() { }
         public virtual void PressLeft() { }
-        public virtual void HoldLeft() { }
+        public virtual void HoldLeft() { Game._Mouse.inputEaten = true; }
 
         //right mouse
         public virtual void ReleaseRight() { }
