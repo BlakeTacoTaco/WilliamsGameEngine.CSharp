@@ -28,8 +28,8 @@ namespace MyGame.Implementations
         public bool open { get; set; }
         private NinePatch background;
         private TackleButton button;
+        private ProgressBar bar;
         public bool eatKeyboardInputs { get; }
-        Text progressDisplay;
         public TackleFishMenu()
         {
             button = new TackleButton(new Vector2f(4,4),new Vector2f(1920 / 2,1080 / 2),this);
@@ -40,20 +40,18 @@ namespace MyGame.Implementations
             inventoryRequired = false;
             open = false;
             background = new NinePatch(Game.GetTexture("../../../Resources/item slot.png"), 2, 2, 2, 2, new Vector2f(400, 100), new Vector2f(1920 - 800, 400), new Vector2f(4, 4));
-            progressDisplay = new Text();
-            progressDisplay.Font = Game.GetFont("../../../Resources/Courneuf-Regular.ttf");
-            progressDisplay.CharacterSize = 30;
 
+            bar = new ProgressBar(new Vector2f(0,0), 0.5f , 2, Game.GetTexture("../../../Resources/Progressbar.png"), Game.GetTexture("../../../Resources/item slot.png"),  new Vector2f(4,4));
         }
         public override void Draw()
         {
             background.Draw();
-            progressDisplay.DisplayedString = Convert.ToString(progress);
-            Game.RenderWindow.Draw(progressDisplay);
+            bar.Draw();
         }
         public override void Update(Time elapsed)
         {
             progress -= elapsed.AsSeconds() * 0.1f;
+            bar.SetProgress(progress);
         }
         public void DealDamage()
         {
