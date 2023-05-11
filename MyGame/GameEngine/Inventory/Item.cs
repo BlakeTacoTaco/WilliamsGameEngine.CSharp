@@ -10,7 +10,7 @@ using SFML.Graphics.Glsl;
 
 namespace MyGame.GameEngine.Inventory
 {
-    internal class Item
+    public class Item
     {
         public int ID;
         public int amount;

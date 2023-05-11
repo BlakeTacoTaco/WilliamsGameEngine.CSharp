@@ -14,18 +14,16 @@ namespace MyGame.GameEngine.TileMap
     internal class Chunk : GameObject
     {
         public Vector2f scale = new Vector2f(4,4);                       //scale of tilemap
-        private Texture[] tileTypes;                                     //all the textures (should probably make a TileDat class                                    //how wide/tall is the chunk
         public Vector2f position = new Vector2f(0, 0);                   //position of global tilemap
         public List<TileEntity> tileEntities = new List<TileEntity> { }; //store tileEntities
         private Vector2f[][] positions;
         public Tile[][] tiles;
         private int chunkSize;
-        public Chunk(Texture[] tiletypes, int chunkSize)
+        public Chunk(int chunkSize)
         {
             this.chunkSize = chunkSize;
             tiles = new Tile[chunkSize][];                   //stores each tile
             positions = new Vector2f[chunkSize][];      //stores positions of each tile
-            this.tileTypes = tiletypes;
             for (int i = 0; i < tiles.Length; i++)
             {
                 tiles[i] = new Tile[chunkSize];
@@ -34,12 +32,7 @@ namespace MyGame.GameEngine.TileMap
                 {
                     tiles[i][j] = new Tile(scale);
 
-
-                    if (Game.Random.Next((int)(5)) == 0)
-                    {
-                        SetTile(i, j, 0);
-                    }
-                    else { SetTile(i, j, 1); }
+                    SetTile(i, j, Game.Random.Next(2) + 1);
 
                     positions[i][j] = new Vector2f (i * 16 * scale.X, j * 16 * scale.Y) + position;
                 }
@@ -53,7 +46,7 @@ namespace MyGame.GameEngine.TileMap
         {
             if (id != -1)
             {
-                tiles[x][y]._sprite.Texture = tileTypes[id];
+                tiles[x][y]._sprite.Texture = TileDat.GetTexture(id);
                 tiles[x][y]._type = id;
             }
             else { tiles[x][y]._type = -1; }

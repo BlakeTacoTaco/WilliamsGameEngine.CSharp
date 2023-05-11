@@ -20,6 +20,7 @@ namespace MyGame.GameEngine.Inventory
         public Vector2f position = new Vector2f();
         public bool inventoryRequired { get; }
         public bool open { get; set; }
+        public bool eatKeyboardInputs { get; }
 
         public ButtonInventory(Scene scene, Vector2f position,bool player)
         {
@@ -39,6 +40,7 @@ namespace MyGame.GameEngine.Inventory
                 scene.AddUiElement(trash);
             }
             inventoryRequired = !player;
+            eatKeyboardInputs = false;
             sort = new SortButton(this);
             sort._sprite.Scale = scale;
             scene.AddUiElement(sort);
@@ -141,6 +143,9 @@ namespace MyGame.GameEngine.Inventory
             {
                 slots[i].Deselect();
             }
+
+            if (!open) { this.MakeDead(); }
+            else { this.UnDead(); }
         }
         public override void AddItem(Item item)
         {
@@ -169,6 +174,22 @@ namespace MyGame.GameEngine.Inventory
         {
             this.open = open;
             UpdateOpen();
+        }
+        public override void MakeDead()
+        {
+            base.MakeDead();
+            foreach(ItemSlot slot in slots) { slot.MakeDead(); }
+            if (player) { trash.MakeDead(); }
+            sort.MakeDead();
+        }
+        public override void UnDead()
+        {
+            base.UnDead();
+            Game.CurrentScene.AddUiElement(this);
+            foreach (ItemSlot slot in slots) { slot.UnDead(); Game.CurrentScene.AddUiElement(slot); }
+            if (player) { trash.UnDead(); Game.CurrentScene.AddUiElement(trash); }
+            sort.UnDead();
+            Game.CurrentScene.AddUiElement(sort);
         }
     }
 }

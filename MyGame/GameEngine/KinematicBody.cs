@@ -19,11 +19,11 @@ namespace MyGame.GameEngine
             float delta = elapsed.AsSeconds();
 
             //friction
-            if (Math.Abs(velocity.X) < 20) { velocity.X = 0; }
+            if (Math.Abs(velocity.X) < 1) { velocity.X = 0; }
             else if (velocity.X > 0) { velocity.X += -friction * delta; }
             else if (velocity.X < 0) { velocity.X += friction * delta; }
 
-            if (Math.Abs(velocity.Y) < 20) { velocity.Y = 0; }
+            if (Math.Abs(velocity.Y) < 1) { velocity.Y = 0; }
             else if (velocity.Y > 0) { velocity.Y += -friction * delta; }
             else if (velocity.Y < 0) { velocity.Y += friction * delta; }
 

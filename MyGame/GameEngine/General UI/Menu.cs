@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GameEngine;
+using MyGame.GameEngine.Inventory;
 
 namespace MyGame.GameEngine.General_UI
 {
@@ -10,6 +12,7 @@ namespace MyGame.GameEngine.General_UI
     {
         bool inventoryRequired { get; } //whether or not you need to have your inventory open to use that menu
         bool open { get; set; }
+        bool eatKeyboardInputs { get; }
         public virtual void SetOpen(bool open)
         {
             this.open = open;

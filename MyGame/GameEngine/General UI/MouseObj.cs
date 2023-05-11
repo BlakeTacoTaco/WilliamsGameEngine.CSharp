@@ -9,8 +9,6 @@ using MyGame.GameEngine.Inventory;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
-using static System.Formats.Asn1.AsnWriter;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace MyGame.GameEngine
 {

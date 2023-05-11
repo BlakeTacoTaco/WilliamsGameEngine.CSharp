@@ -5,7 +5,7 @@ using SFML.Graphics;
 using MyGame.GameEngine.Inventory;
 using MyGame.GameEngine.General_UI;
 
-namespace MyGame
+namespace MyGame.Implementations
 {
     class GameScene : Scene
     {
@@ -14,7 +14,7 @@ namespace MyGame
             TestKinematic testKinematic = new TestKinematic();
             AddGameObject(testKinematic);
 
-            ButtonInventory inventory = new ButtonInventory(this, new Vector2f(10,10),true);
+            ButtonInventory inventory = new ButtonInventory(this, new Vector2f(10, 10), true);
             Player player = new Player(inventory, this);
             AddGameObject(player);
             for (int i = 0; i < 50; i++)
@@ -28,7 +28,10 @@ namespace MyGame
 
             Chest chest = new Chest(this);
             chest.position = new Vector2f(16 * 4 * 34, 16 * 4 * 32);
-            tileMap.AddTileEntity(chest,this);
+            tileMap.AddTileEntity(chest, this);
+
+            DebugInfo debug = new DebugInfo();
+            AddUiElement(debug);
         }
     }
 }

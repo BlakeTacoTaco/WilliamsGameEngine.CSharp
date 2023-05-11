@@ -1,11 +1,11 @@
 ﻿using GameEngine;
 
-namespace MyGame
+namespace MyGame.Implementations
 {
     static class MyGameb
     {
-        public const int WindowWidth = 1600;
-        public const int WindowHeight = 900;
+        public const int WindowWidth = 1920;
+        public const int WindowHeight = 1081;
 
         private const string WindowTitle = "Rare Fishe Market";
 

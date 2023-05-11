@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyGame
+namespace MyGame.Implementations
 {
     internal class Chest : UsableTileEntity
     {
@@ -18,22 +18,13 @@ namespace MyGame
         public override void Use(Player player)
         {
             open = !open;
-            if(open)
-            {
-                inventory.UnDead();
-                Game.CurrentScene.AddUiElement(inventory);
-                player.OpenInventory(true);
-                inventory.open = true;
-            }
-            else
-            {
-                inventory.MakeDead();
-                inventory.open = false;
-            }
+
+            if (open) { player.OpenMenu(inventory); }
+            else { player.CloseMenu(inventory); }
         }
         public Chest(Scene scene)
         {
-            inventory = new ButtonInventory(scene, new Vector2f(10,20 + (4 * 20 * 4)),false);
+            inventory = new ButtonInventory(scene, new Vector2f(10, 20 + 4 * 20 * 4), false);
             sprite = new Sprite();
             sprite.Texture = Game.GetTexture("../../../Resources/chest.png");
             sprite.Scale = new Vector2f(4, 4);
@@ -42,11 +33,9 @@ namespace MyGame
             topMargin = 6;
             Initialize(scene);
         }
-        public override void OutCollision()
+        public override void OutCollision(Player player)
         {
-            inventory.MakeDead();
-            open = false;
-            inventory.open = false;
+            player.CloseMenu(inventory);
         }
     }
 }

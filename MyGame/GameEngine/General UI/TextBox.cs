@@ -60,18 +60,18 @@ namespace MyGame.GameEngine.General_UI
             bottomText.Position = position + new Vector2f(2.5f * scale.X, 7 * scale.Y);
 
             //finds height
-            float height = topText.GetLocalBounds().Height + bottomText.GetLocalBounds().Height;
-            height += (9 * scale.Y);
+            float height = (topText.GetGlobalBounds().Height + bottomText.GetGlobalBounds().Height);
+            height += 30;
 
             //finds width
             float width;
             //figures out if the top or bottom text is wider
-            if (topText.GetLocalBounds().Width > bottomText.GetLocalBounds().Width) { width = topText.GetLocalBounds().Width; }
-            else { width = bottomText.GetLocalBounds().Width; }
-            width += 6 * scale.X;
+            if (topText.GetGlobalBounds().Width > bottomText.GetGlobalBounds().Width) { width = topText.GetGlobalBounds().Width; }
+            else { width = bottomText.GetGlobalBounds().Width; }
+            width += 24;
 
             //sets background to proper size to fit both texts
-            background.SetSize(new Vector2f(width / scale.X, height / scale.Y));
+            background.SetSize(new Vector2f(width, height));
         }
         public void setTopText(string text)
         {

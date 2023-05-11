@@ -4,11 +4,12 @@ using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
 using SFML.Window;
-using MyGame;
 using System.Reflection;
 using MyGame.GameEngine;
 using MyGame.GameEngine.Inventory;
 using MyGame.GameEngine.General_UI;
+using MyGame.GameEngine.TileMap;
+using MyGame.Implementations;
 
 namespace GameEngine
 {
@@ -26,7 +27,7 @@ namespace GameEngine
         public static float time = 0;
 
         // The number of frames that will be drawn to the screen in one second.
-        private const int FramesPerSecond = 60;
+        private const int FramesPerSecond = 60000;
 
         // We keep a current and next scene so the scene can be changed mid-frame.
         private static Scene _currentScene;
@@ -64,7 +65,7 @@ namespace GameEngine
             _initialized = true;
 
             // Create the render window.
-            _window = new RenderWindow(new VideoMode(windowWidth, windowHeight), windowTitle);
+            _window = new RenderWindow(new VideoMode(windowWidth, windowHeight), windowTitle, Styles.Fullscreen);
             _window.SetFramerateLimit(FramesPerSecond);
 
             // Add a method to be called whenever the "Closed" event fires.
@@ -77,6 +78,7 @@ namespace GameEngine
             _Mouse = new MouseObj();
 
             ItemDat.Initialize();
+            TileDat.Initialize();
         }
 
         // Called whenever you try to close the game window.
@@ -170,8 +172,7 @@ namespace GameEngine
             Vector2f mousPos = (Vector2f)Mouse.GetPosition();
             Vector2f windowPos = (Vector2f)_window.Position;
 
-            return new Vector2f((mousPos.X - windowPos.X - 11) * ((float)MyGameb.WindowWidth / (float)_window.Size.X), ((mousPos.Y - windowPos.Y - 45) * ((float)MyGameb.WindowHeight / (float)_window.Size.Y)));
-            //return new Vector2f((mousPos.X - windowPos.X - 7) * ((float)MyGameb.WindowWidth / (float)_window.Size.X), ((mousPos.Y - windowPos.Y - 30) * ((float)MyGameb.WindowHeight / (float)_window.Size.Y)));
+            return new Vector2f((mousPos.X - windowPos.X) * ((float)MyGameb.WindowWidth / (float)_window.Size.X), ((mousPos.Y - windowPos.Y) * ((float)MyGameb.WindowHeight / (float)_window.Size.Y)));
         }
         public static Vector2f GetGlobalMousePos()
         {

@@ -36,6 +36,7 @@ namespace MyGame.GameEngine.General_UI
         private Sprite[] patches;
         public Vector2f position;
         private Vector2f size;            //what the dimensions of the rectangle are (these are multiplied by the scale)
+        private Vector2f unScaledSize;
         public Vector2f scale;            //scale of rectangle (for controling how thick the margins are)
         private int topMargin;            //how wide the margins are on all sides of the rectangle
         private int bottomMargin; 
@@ -49,7 +50,7 @@ namespace MyGame.GameEngine.General_UI
             this.bottomMargin = bottomMargin;
             this.leftMargin = leftMargin;
             this.rightMargin = rightMargin;
-            this.size = new Vector2f(4,4);
+            this.unScaledSize = size;
             this.scale = scale;
             patches = new Sprite[9];
 
@@ -76,7 +77,7 @@ namespace MyGame.GameEngine.General_UI
             patches[7].TextureRect = new IntRect(leftMargin, (int)texture.Size.Y - bottomMargin, (int)texture.Size.X - rightMargin - leftMargin, bottomMargin);
             patches[8].TextureRect = new IntRect((int)texture.Size.X - rightMargin, (int)texture.Size.Y - bottomMargin, rightMargin, bottomMargin);
 
-            SetSize(size);
+            SetSize(unScaledSize);
         }
         public override void Draw()
         {
@@ -94,7 +95,8 @@ namespace MyGame.GameEngine.General_UI
         }
         public void SetSize(Vector2f size)
         {
-            this.size = size;
+            this.unScaledSize = size;
+            this.size = new Vector2f(unScaledSize.X / scale.X, unScaledSize.Y / scale.Y ) ;
 
             //puts sprites in appropriate locations
             localPositions[0] = new Vector2f(0, 0);
@@ -129,6 +131,10 @@ namespace MyGame.GameEngine.General_UI
             {
                 localPositions[i] = new Vector2f(localPositions[i].X * scale.X, localPositions[i].Y * scale.Y);
             }
+        }
+        public Vector2f GetSize()
+        {
+            return unScaledSize;
         }
         public override Vector2f GetPosition()
         {

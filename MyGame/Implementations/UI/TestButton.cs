@@ -7,15 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyGame
+namespace MyGame.Implementations
 {
     internal class TestButton : Button
     {
         public TestButton()
         {
-            this._sprite = new Sprite();
-            this._sprite.Texture = Game.GetTexture("../../../Resources/high quality grass.png");
-            this._sprite.Scale = new SFML.System.Vector2f(4, 4);
+            _sprite = new Sprite();
+            _sprite.Texture = Game.GetTexture("../../../Resources/high quality grass.png");
+            _sprite.Scale = new SFML.System.Vector2f(4, 4);
         }
         public void draw()
         {

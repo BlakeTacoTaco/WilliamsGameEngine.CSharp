@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyGame
+namespace MyGame.Implementations
 {
     internal class FloorItem : KinematicBody
     {
@@ -56,12 +56,12 @@ namespace MyGame
                 bounds.Left = position.X;
                 bounds.Left -= bounds.Width;
                 bounds.Top -= bounds.Height;
-                if (player.GetCollisionRect().Intersects(bounds)) 
+                if (player.GetCollisionRect().Intersects(bounds))
                 {
                     player.GiveItem(_item);
-                    if(_item.amount <= 0)
+                    if (_item.amount <= 0)
                     {
-                        this.MakeDead();
+                        MakeDead();
                         return;
                     }
                 }
@@ -70,7 +70,7 @@ namespace MyGame
                 Vector2f tempVelocity = new Vector2f(0, 0);
                 Vector2f distanceToPlayer = new Vector2f(player.position.X - position.X, player.position.Y - position.Y) + new Vector2f(8 * 4, 8 * 4);
 
-                if(distanceToPlayer.X > 0) { tempVelocity.X = 1; }
+                if (distanceToPlayer.X > 0) { tempVelocity.X = 1; }
                 else { tempVelocity.X = -1; }
                 if (distanceToPlayer.Y > 0) { tempVelocity.Y = 1; }
                 else { tempVelocity.Y = -1; }
@@ -91,7 +91,7 @@ namespace MyGame
         }
         public override FloatRect GetCollisionRect()
         {
-            Vector2f localCorner = new Vector2f(position.X - (range / 2), position.Y - (range / 2));
+            Vector2f localCorner = new Vector2f(position.X - range / 2, position.Y - range / 2);
             _Detection.Top = localCorner.Y;
             _Detection.Left = localCorner.X;
             return _Detection;

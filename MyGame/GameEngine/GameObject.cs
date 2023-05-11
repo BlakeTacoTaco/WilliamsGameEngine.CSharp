@@ -33,11 +33,11 @@ namespace GameEngine
             return _isDead;
         }
 
-        public void MakeDead()
+        public virtual void MakeDead()
         {
             _isDead = true;
         }
-        public void UnDead()
+        public virtual void UnDead()
         {
             _isDead = false;
         }

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using MyGame;
 using MyGame.GameEngine;
 using MyGame.GameEngine.General_UI;
 using MyGame.GameEngine.Inventory;
 using MyGame.GameEngine.TileEntites;
 using MyGame.GameEngine.TileMap;
+using MyGame.Implementations;
 using SFML.Graphics;
 using SFML.System;
 
@@ -19,6 +19,7 @@ namespace GameEngine
         private readonly List<GameObject> _uiElements = new List<GameObject>();
 
         public readonly TileMap tileMap = new TileMap();
+        private string lastAdded; //last thing to be added to the scene
 
         // Puts a GameObject into the scene.
         public void AddGameObject(GameObject gameObject)
@@ -30,6 +31,15 @@ namespace GameEngine
         public void AddUiElement(GameObject gameObject)
         {
             _uiElements.Add(gameObject);
+            if (gameObject.ToString() != lastAdded)
+            {
+                Console.Write("\nspawned: " + gameObject.ToString() + " ");
+            }
+            else
+            {
+                Console.Write("r");
+            }
+            lastAdded = gameObject.ToString();
         }
 
         // Called by the Game instance once per frame.
@@ -65,6 +75,7 @@ namespace GameEngine
         }
 
         // This method lets game objects respond to collisions.
+
         private void HandleCollisions()
         {
             for (int i = 0; i < _gameObjects.Count; i++)

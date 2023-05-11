@@ -8,18 +8,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyGame
+namespace MyGame.Implementations
 {
     internal class TestKinematic : KinematicBody
     {
         Sprite _sprite = new Sprite();
         public TestKinematic()
         {
-            this._sprite.Texture = Game.GetTexture("../../../Resources/mouse test.png");
+            _sprite.Texture = Game.GetTexture("../../../Resources/mouse test.png");
             AssignTag("tilecollision");
-            this._sprite.Scale = new Vector2f(4,4);
-            velocity = new Vector2f(500,500);
-            this.friction = 200;
+            _sprite.Scale = new Vector2f(4, 4);
+            velocity = new Vector2f(500, 500);
+            friction = 200;
         }
         public override void Draw()
         {

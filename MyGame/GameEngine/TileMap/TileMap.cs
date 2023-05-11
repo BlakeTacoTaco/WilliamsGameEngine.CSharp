@@ -10,6 +10,7 @@ using GameEngine;
 using MyGame.GameEngine.TileEntites;
 using System.Net.Http.Headers;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace MyGame.GameEngine.TileMap
 {
@@ -18,17 +19,12 @@ namespace MyGame.GameEngine.TileMap
         private Chunk[][] loadedChunks;
         private Vector2f GlobalPosition;
         private int loadSize;
-        private Texture[] tileTypes;
         private int chunkSize = 16;
         public FloatRect tileRect = new FloatRect(0, 0, 16 * 4, 16 * 4);
         private bool[] collisions;
 
         public TileMap()
         {
-            tileTypes = new Texture[] {
-                Game.GetTexture("../../../Resources/mouse test.png"),
-                Game.GetTexture("../../../Resources/high quality grass.png")
-            };
             collisions = new bool[]
             {
                 false,
@@ -42,7 +38,7 @@ namespace MyGame.GameEngine.TileMap
                 loadedChunks[i] = new Chunk[loadSize];
                 for(int j = 0; j < loadedChunks[i].Length; j++)
                 {
-                    loadedChunks[i][j] = new Chunk(tileTypes, chunkSize);
+                    loadedChunks[i][j] = new Chunk(chunkSize);
                     loadedChunks[i][j].position = new Vector2f(i * 16 * chunkSize * 4, j * 16 * chunkSize * 4);
                     loadedChunks[i][j].UpdatePositions();
                 }
@@ -68,14 +64,22 @@ namespace MyGame.GameEngine.TileMap
             Tile tile = GetTile(position);
             if (tile == null) { return false; }
             if (tile._type == -1) { return false; }
-            return !(collisions[tile._type]);
+            return (TileDat.HasCollisions(tile._type));
         }
         public override void Update(Time elapsed) { }
         public override void Draw()
         {
-            for (int i = 0; i < loadedChunks.Length; i++)
+            float chunkSize = 16 * 16 * 4;
+            Vector2f halfChunk = new Vector2f(chunkSize / 2, chunkSize / 2);
+            Vector2i cameraTopCorner = ToChunkPos(Game._Camera.position - halfChunk) + new Vector2i(0, 0);
+            Vector2i cameraBottomCorner = ToChunkPos(Game._Camera.position + new Vector2f(1920, 1080)) + new Vector2i(1,1);
+            if (cameraBottomCorner.X > loadedChunks.Length) { cameraBottomCorner.X = loadedChunks.Length; }
+            if (cameraBottomCorner.Y > loadedChunks[0].Length) { cameraBottomCorner.Y = loadedChunks[0].Length; }
+            if (cameraTopCorner.X < 0) { cameraTopCorner.X = 0; }
+            if (cameraTopCorner.Y < 0) { cameraTopCorner.Y = 0; }
+            for (int i = cameraTopCorner.X; i < cameraBottomCorner.X; i++)
             {
-                for(int j= 0; j < loadedChunks[i].Length; j++)
+                for(int j= cameraTopCorner.Y; j < cameraBottomCorner.Y; j++)
                 {
                     loadedChunks[i][j].Draw();
                 }

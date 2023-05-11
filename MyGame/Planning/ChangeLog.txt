@@ -1,0 +1,19 @@
+﻿5/5/2023:
+	-made dots collide in tackle minigame
+	-made dots get to the end and increase/decrease progress in tackle minigame
+	-filled out goal sheet 1
+5/8/2023
+	-simplified tackle minigame to not use dots
+	-added moving button instead of clicking anywhere
+5/9/2023
+	-made it so NinePatch class's size atribute is not affected by scale
+	-moved around pieces of TackleFishMenu
+	-found problem with texbox sizes due to that change but realized it was always a problem I just didn't notice. it is most likely a problem with 
+	Text.GetGlobalBounds() being extremely inconsistent. Talked with Mr.Magruder about it but it seems like I am going to have to make my own method
+	for getting the bounds of text.
+5/10/2023
+	-no 2nd perdiod today so not much
+	-updated changelog for the 8th and 9th
+5/11/2023
+	-fixed text boxes
+	

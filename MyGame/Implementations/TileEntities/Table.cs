@@ -8,7 +8,7 @@ using MyGame.GameEngine.TileEntites;
 using SFML.Graphics;
 using SFML.System;
 
-namespace MyGame
+namespace MyGame.Implementations
 {
     internal class Table : TileEntity
     {
