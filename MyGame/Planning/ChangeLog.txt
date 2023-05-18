@@ -15,6 +15,12 @@
 	-no 2nd perdiod today so not much
 	-updated changelog for the 8th and 9th
 5/11/2023
-	-fixed text boxes
+	-fixed text boxes. turns out it was an issue with the margins not being scaled.
 	-added ProgressBar Class
 	-added progress bar to TackleFishMenu
+	-removed old files from old TackleFishMenu system
+	-removed dark corners of grass texture
+5/15/2023
+	-TackleFishMenu now closes inventory when opened (added support for future menus)
+5/18/2023
+	-removing tileEntities works now

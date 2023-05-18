@@ -11,6 +11,8 @@ using MyGame.GameEngine.TileEntites;
 using System.Net.Http.Headers;
 using System.Diagnostics;
 using System.Globalization;
+using static System.Formats.Asn1.AsnWriter;
+using System.IO;
 
 namespace MyGame.GameEngine.TileMap
 {
@@ -21,15 +23,9 @@ namespace MyGame.GameEngine.TileMap
         private int loadSize;
         private int chunkSize = 16;
         public FloatRect tileRect = new FloatRect(0, 0, 16 * 4, 16 * 4);
-        private bool[] collisions;
 
         public TileMap()
         {
-            collisions = new bool[]
-            {
-                false,
-                true
-            };
             GlobalPosition = new Vector2f(0, 0);
             loadSize = 3;
             loadedChunks = new Chunk[loadSize][];
@@ -126,6 +122,61 @@ namespace MyGame.GameEngine.TileMap
                 {
                     loadedChunks[chunkPos.X][chunkPos.Y].AddTileEntity(tileEntity);
                     scene.AddGameObject(tileEntity);
+                }
+            }
+        }
+        public TileEntity GetHighestTileEntity(Vector2f position)
+        {
+            Vector2i chunkPos = ToChunkPos(position);
+            Vector2i offset = new Vector2i(0, 0);
+            if (position.X % (chunkSize * 16 * 4) >  chunkSize * 8 * 4)
+            {
+                offset.X = 1;
+            }
+            else
+            {
+                offset.X = -1;
+            }
+            if (position.Y % (chunkSize * 16 * 4) > chunkSize * 8 * 4)
+            {
+                offset.Y = 1;
+            }
+            else
+            {
+                offset.Y = -1;
+            }
+            TileEntity temp;
+
+            if (chunkPos.Y < loadedChunks.Length && chunkPos.Y < loadedChunks[0].Length && chunkPos.X >= 0 && chunkPos.Y >= 0)
+            {
+                temp = loadedChunks[chunkPos.X][chunkPos.Y].GetHighestTileEntity(position);
+                if (temp != null) { return temp; }
+            }
+            if (chunkPos.X + offset.X < loadedChunks.Length && chunkPos.Y < loadedChunks[0].Length   &&   chunkPos.X + offset.X >= 0  && chunkPos.Y >= 0)
+            {
+                temp = loadedChunks[chunkPos.X + offset.X][chunkPos.Y].GetHighestTileEntity(position);
+                if (temp != null) { return temp; }
+            }
+            if (chunkPos.Y < loadedChunks.Length && chunkPos.Y + offset.Y < loadedChunks[0].Length && chunkPos.X >= 0 && chunkPos.Y + offset.Y >= 0)
+            {
+                temp = loadedChunks[chunkPos.X][chunkPos.Y + offset.Y].GetHighestTileEntity(position);
+                if (temp != null) { return temp; }
+            }
+            if (chunkPos.X + offset.X < loadedChunks.Length && chunkPos.Y  + offset.Y < loadedChunks[0].Length && chunkPos.X + offset.X >= 0 && chunkPos.Y  + offset.Y >= 0)
+            {
+                temp = loadedChunks[chunkPos.X + offset.X][chunkPos.Y + offset.Y].GetHighestTileEntity(position);
+                return temp;
+            }
+            return null;
+        }
+        public void RemoveTileEntity(TileEntity tileEntity)
+        {
+            Vector2i chunkPos = ToChunkPos(tileEntity.position);
+            if (chunkPos.X >= 0 && chunkPos.X < loadedChunks.Length)
+            {
+                if (chunkPos.Y >= 0 && chunkPos.Y < loadedChunks[chunkPos.X].Length)
+                {
+                    loadedChunks[chunkPos.X][chunkPos.Y].RemoveTileEntity(tileEntity);
                 }
             }
         }

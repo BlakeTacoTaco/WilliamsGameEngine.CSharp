@@ -80,6 +80,22 @@ namespace MyGame.GameEngine.TileMap
         {
             tileEntities.Add(tileEntity);
         }
+        public void RemoveTileEntity(TileEntity tileEntity)
+        {
+            tileEntities.Remove(tileEntity);
+            tileEntity.MakeDead();
+        }
+        public TileEntity GetHighestTileEntity(Vector2f position)
+        {
+            for(int i = 0; i < tileEntities.Count; i++)
+            {
+                if (tileEntities[i].GetCollisionRect().Contains(position.X, position.Y))
+                {
+                    return tileEntities[i];
+                }
+            }
+            return null;
+        }
         public override Vector2f GetPosition()
         {
             return position;

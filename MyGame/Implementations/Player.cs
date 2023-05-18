@@ -31,6 +31,7 @@ namespace MyGame.Implementations
             scene.AddUiElement(inventory);
             SetCollisionCheckEnabled(true);
             AssignTag("tilecollision");
+            inventory.AddItem(new Item(3, 1));
         }
         public override void Draw()
         {
@@ -56,14 +57,17 @@ namespace MyGame.Implementations
                 if (!menu.eatKeyboardInputs)
                 {
                     if (BetterKeyboard.IsKeyJustReleased(Keyboard.Key.Q) && useEntity != null) { useEntity.Use(this); }
-                    if (BetterKeyboard.IsKeyJustPressed(Keyboard.Key.T)) { OpenMenu(new TackleFishMenu()); }
-                    if (BetterKeyboard.IsKeyJustReleased(Keyboard.Key.E)) { OpenInventory(!inventory.open); }
+                    if (BetterKeyboard.IsKeyJustPressed(Keyboard.Key.T)) { OpenMenu(new TackleFishMenu(this)); }
+                    if (!menu.inventoryDisabled)
+                    {
+                        if (BetterKeyboard.IsKeyJustReleased(Keyboard.Key.E)) { OpenInventory(!inventory.open); }
+                    }
                 }
             }
             else
             {
                 if (BetterKeyboard.IsKeyJustReleased(Keyboard.Key.Q) && useEntity != null) { useEntity.Use(this); }
-                if (BetterKeyboard.IsKeyJustPressed(Keyboard.Key.T)) { OpenMenu(new TackleFishMenu()); }
+                if (BetterKeyboard.IsKeyJustPressed(Keyboard.Key.T)) { OpenMenu(new TackleFishMenu(this)); }
                 if (BetterKeyboard.IsKeyJustReleased(Keyboard.Key.E)) { OpenInventory(!inventory.open); }
             }
 
@@ -108,6 +112,7 @@ namespace MyGame.Implementations
             this.menu = menu;
             menu.SetOpen(true);
             if (menu.inventoryRequired) { OpenInventory(true); }
+            if (menu.inventoryDisabled) { OpenInventory(false); }
         }
         public void CloseMenu(Menu menu)
         {

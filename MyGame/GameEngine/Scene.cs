@@ -37,7 +37,7 @@ namespace GameEngine
             }
             else
             {
-                Console.Write("r");
+                Console.Write("+");
             }
             lastAdded = gameObject.ToString();
         }
@@ -192,7 +192,7 @@ namespace GameEngine
                     }
                 }
             }
-            if(!Game._Mouse.inputEaten && Game._Mouse.IsLeftPressed())
+            if ((!Game._Mouse.inputEaten && Game._Mouse.IsLeftPressed()) || (!Game._Mouse.inputEaten && Game._Mouse.IsLeftJustReleased()))
             {
                 ItemDat.UseItem();
             }

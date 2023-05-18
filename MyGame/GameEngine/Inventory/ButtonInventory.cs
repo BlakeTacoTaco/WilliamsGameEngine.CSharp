@@ -19,6 +19,7 @@ namespace MyGame.GameEngine.Inventory
         internal bool player;
         public Vector2f position = new Vector2f();
         public bool inventoryRequired { get; }
+        public bool inventoryDisabled { get; }
         public bool open { get; set; }
         public bool eatKeyboardInputs { get; }
 
@@ -40,6 +41,7 @@ namespace MyGame.GameEngine.Inventory
                 scene.AddUiElement(trash);
             }
             inventoryRequired = !player;
+            inventoryDisabled = false;
             eatKeyboardInputs = false;
             sort = new SortButton(this);
             sort._sprite.Scale = scale;

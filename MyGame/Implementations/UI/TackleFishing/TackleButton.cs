@@ -21,11 +21,12 @@ namespace MyGame.Implementations.UI.TackleFishing
             _sprite.Texture = Game.GetTexture("../../../Resources/samon.png");
             _sprite.Scale = scale;
             _sprite.Position = position;
+            _sprite.Origin = new Vector2f(8, 8);
         }
         public override void ReleaseLeft()
         {
             parent.DealDamage();
-            this.SetPosition(parent.GetNewButtonPos(this.GetPosition()));
+            this.SetPosition(parent.GetNewButtonPos(this.GetPosition(),100));
         }
     }
 }

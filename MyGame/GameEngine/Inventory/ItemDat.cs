@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.Design;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,7 +20,7 @@ namespace MyGame.GameEngine.Inventory
         private static string[] names;
         private static string[] descriptions;
         private static ItemUse[] itemFunctions;
-        public const int itemCount = 3;
+        public const int itemCount = 4;
         public static void Initialize()
         {
             //initialize data
@@ -50,6 +51,13 @@ namespace MyGame.GameEngine.Inventory
             names[2] = "samon";
             descriptions[2] = "without the L";
             itemFunctions[2] = new PlaceTile(-1);
+
+            //pickaxe
+            textures[3] = Game.GetTexture("../../../Resources/pickaxe.png");
+            stackSizes[3] = 1;
+            names[3] = "pickaxe";
+            descriptions[3] = "lets you break things other than the floor";
+            itemFunctions[3] = new RemoveTileEntity();
         }
         //gets texture baed on item ID
         public static Texture GetTexture(int ID)
@@ -81,7 +89,10 @@ namespace MyGame.GameEngine.Inventory
         {
             if (Game._Mouse.item.ID >= 0)
             {
-                itemFunctions[Game._Mouse.item.ID].Use();
+                if (itemFunctions[Game._Mouse.item.ID] != null)
+                {
+                    itemFunctions[Game._Mouse.item.ID].Use();
+                }
             }
         }
     }

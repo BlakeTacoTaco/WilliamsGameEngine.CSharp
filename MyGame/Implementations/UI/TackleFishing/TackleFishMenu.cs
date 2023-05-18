@@ -1,5 +1,6 @@
 ﻿using GameEngine;
 using MyGame.GameEngine.General_UI;
+using MyGame.GameEngine.Inventory;
 using MyGame.Implementations.UI.TackleFishing;
 using SFML.Graphics;
 using SFML.System;
@@ -21,27 +22,32 @@ namespace MyGame.Implementations
         it works by having you click a constantly moving button to make projectiles that 'damage' the fish
         it was going to be a cps test but the carp tunnel was too bad.
          */
+        private Player player;
         private Vector2f position;
         private float difficulty;
         private float progress;
         public bool inventoryRequired { get; }
+        public bool inventoryDisabled { get; }
         public bool open { get; set; }
         private NinePatch background;
         private TackleButton button;
-        private ProgressBar bar;
+        private HorizontalProgressBar bar;
         public bool eatKeyboardInputs { get; }
-        public TackleFishMenu()
+        public TackleFishMenu(Player player)
         {
-            button = new TackleButton(new Vector2f(4,4),new Vector2f(1920 / 2,1080 / 2),this);
-            Game.CurrentScene.AddUiElement(button);
+            this.player = player;
             eatKeyboardInputs = true;
             difficulty = 1;
             progress = 0.5f;
             inventoryRequired = false;
+            inventoryDisabled = true;
             open = false;
             background = new NinePatch(Game.GetTexture("../../../Resources/item slot.png"), 2, 2, 2, 2, new Vector2f(400, 100), new Vector2f(1920 - 800, 400), new Vector2f(4, 4));
 
-            bar = new ProgressBar(new Vector2f(0,0), 0.5f , 2, Game.GetTexture("../../../Resources/Progressbar.png"), Game.GetTexture("../../../Resources/item slot.png"),  new Vector2f(4,4));
+            bar = new HorizontalProgressBar(new Vector2f(background.position.X, background.position.Y + background.GetSize().Y - 4), 0.5f , 2, Game.GetTexture("../../../Resources/Progressbar.png"), Game.GetTexture("../../../Resources/item slot.png"),  new Vector2f(4,4));
+
+            button = new TackleButton(new Vector2f(4, 4), new Vector2f(background.position.X + (background.GetSize().X / 2) - 32, background.position.Y + (background.GetSize().Y / 2) - 32), this);
+            Game.CurrentScene.AddUiElement(button);
         }
         public override void Draw()
         {
@@ -52,18 +58,29 @@ namespace MyGame.Implementations
         {
             progress -= elapsed.AsSeconds() * 0.1f;
             bar.SetProgress(progress);
+            if(progress > 1)
+            {
+                player.CloseMenu(this);
+                player.GiveItem(new Item(2,1));
+            }
+            else if (progress < 0)
+            {
+                player.CloseMenu(this);
+            }
+            button.SetPosition(GetNewButtonPos(button.GetPosition(), 1));
+            button._sprite.Rotation += Game.Random.Next(3) - 1;
         }
         public void DealDamage()
         {
             progress += 0.1f;
         }
-        public Vector2f GetNewButtonPos(Vector2f original)
+        public Vector2f GetNewButtonPos(Vector2f original, int dist)
         {
-            Vector2f output = original + new Vector2f(Game.Random.Next(200) - 100, Game.Random.Next(200) - 100);
-            if (output.X < background.position.X) { output.X = background.position.X; }
-            if (output.Y < background.position.Y) { output.Y = background.position.Y; }
-            if (output.X > background.position.X + background.GetSize().X - 64) { output.X = background.position.X + background.GetSize().X - 64; }
-            if (output.Y > background.position.Y + background.GetSize().Y - 64) { output.Y = background.position.Y + background.GetSize().Y - 64; }
+            Vector2f output = original + new Vector2f(Game.Random.Next(dist * 2 + 1) - dist, Game.Random.Next(dist * 2 + 1) - dist);
+            if (output.X < background.position.X + 12 + 32) { output.X = background.position.X + 12 + 32; }
+            if (output.Y < background.position.Y + 12 + 32) { output.Y = background.position.Y + 12 + 32; }
+            if (output.X > background.position.X + background.GetSize().X - 64 - 12) { output.X = background.position.X + background.GetSize().X - 64 - 12; }
+            if (output.Y > background.position.Y + background.GetSize().Y - 64 - 12) { output.Y = background.position.Y + background.GetSize().Y - 64 - 12; }
             return output;
         }
         public override void SetPosition(Vector2f position) { this.position = position; }
