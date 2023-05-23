@@ -12,7 +12,7 @@
 	Text.GetGlobalBounds() being extremely inconsistent. Talked with Mr.Magruder about it but it seems like I am going to have to make my own method
 	for getting the bounds of text.
 5/10/2023
-	-no 2nd perdiod today so not much
+	-no 2nd period today so not much
 	-updated changelog for the 8th and 9th
 5/11/2023
 	-fixed text boxes. turns out it was an issue with the margins not being scaled.
@@ -20,7 +20,17 @@
 	-added progress bar to TackleFishMenu
 	-removed old files from old TackleFishMenu system
 	-removed dark corners of grass texture
+	-made fish rotate randomly
 5/15/2023
 	-TackleFishMenu now closes inventory when opened (added support for future menus)
 5/18/2023
 	-removing tileEntities works now
+	-elected not to add chunk loading because the world is finite and each area/room shouldn't be too big       (and I'm lazy)
+5/19/2023
+	-changed walls to be thinner
+	-filled out goal sheet
+	-player starts farther out
+5/22/2023
+	-nothing because was gone for doctors appt
+5/23/2023
+	-added loading

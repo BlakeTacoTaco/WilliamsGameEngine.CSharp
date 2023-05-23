@@ -13,6 +13,7 @@ using System.Diagnostics;
 using System.Globalization;
 using static System.Formats.Asn1.AsnWriter;
 using System.IO;
+using MyGame.Implementations;
 
 namespace MyGame.GameEngine.TileMap
 {
@@ -27,18 +28,43 @@ namespace MyGame.GameEngine.TileMap
         public TileMap()
         {
             GlobalPosition = new Vector2f(0, 0);
-            loadSize = 3;
+            loadSize = 10;
             loadedChunks = new Chunk[loadSize][];
             for (int i = 0; i< loadedChunks.Length; i++) 
             {
                 loadedChunks[i] = new Chunk[loadSize];
                 for(int j = 0; j < loadedChunks[i].Length; j++)
                 {
-                    loadedChunks[i][j] = new Chunk(chunkSize);
-                    loadedChunks[i][j].position = new Vector2f(i * 16 * chunkSize * 4, j * 16 * chunkSize * 4);
-                    loadedChunks[i][j].UpdatePositions();
+                    loadedChunks[i][j] = new Chunk(chunkSize, new Vector2f(i * 16 * chunkSize * 4, j * 16 * chunkSize * 4));
                 }
             }
+        }
+        public TileMap(string fileName)
+        {
+            StreamReader reader = new StreamReader(fileName);
+            loadSize = Convert.ToInt32(reader.ReadLine());
+            GlobalPosition = new Vector2f(0, 0);
+            loadedChunks = new Chunk[loadSize][];
+            for (int i = 0; i < loadedChunks.Length; i++)
+            {
+                loadedChunks[i] = new Chunk[loadSize];
+                for (int j = 0; j < loadedChunks[i].Length; j++)
+                {
+                    loadedChunks[i][j] = new Chunk(chunkSize, new Vector2f(i * 16 * chunkSize * 4, j * 16 * chunkSize * 4));
+                    for (int i2 = 0; i2 < 16; i2++)
+                    {
+                        string[] x = reader.ReadLine().Split(",");
+                        int[] x2 = new int[16];
+                        for(int j2 = 0; j2 < x.Length; j2++)
+                        {
+                            x2[j2] = Convert.ToInt32(x[j2]);
+                            loadedChunks[i][j].SetTile(i2, j2, x2[j2]);
+                            Console.WriteLine(i + "," + j + "    "  + i2 + "," + j2);
+                        }
+                    }
+                }
+            }
+            reader.Close();
         }
         public Tile GetTile(Vector2i position)
         {

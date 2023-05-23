@@ -14,11 +14,13 @@ namespace GameEngine
     // The Scene manages all the GameObjects currently in the game.
     class Scene
     {
+        public Player player;
+
         private readonly List<GameObject> _gameObjects = new List<GameObject>();
 
         private readonly List<GameObject> _uiElements = new List<GameObject>();
 
-        public readonly TileMap tileMap = new TileMap();
+        public TileMap tileMap = new TileMap();
         private string lastAdded; //last thing to be added to the scene
 
         // Puts a GameObject into the scene.

@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GameEngine;
 using SFML.Graphics;
+using SFML.System;
 
 namespace MyGame.GameEngine.TileMap
 {
@@ -14,7 +15,8 @@ namespace MyGame.GameEngine.TileMap
     {
         private static Texture[] textures;
         private static bool[] collisions;
-        private const int tileAmount = 3;
+        private static Vector2f[] spriteOffsets;
+        private const int tileAmount = 4;
 
         public static void Initialize()
         {
@@ -22,13 +24,22 @@ namespace MyGame.GameEngine.TileMap
             {
                 Game.GetTexture("../../../Resources/mouse test.png"),
                 Game.GetTexture("../../../Resources/high quality grass.png"),
-                Game.GetTexture("../../../Resources/water.png")
+                Game.GetTexture("../../../Resources/water.png"),
+                Game.GetTexture("../../../Resources/dirtWall.png")
             };
             collisions = new bool[tileAmount]
             {
                 true,
                 false,
-                false
+                false,
+                true
+            };
+            spriteOffsets = new Vector2f[tileAmount]
+            {
+                new Vector2f(0, 0),
+                new Vector2f(0, 0),
+                new Vector2f(0, 0),
+                new Vector2f(0,-8)
             };
             
         }
@@ -45,6 +56,13 @@ namespace MyGame.GameEngine.TileMap
             if (id >= tileAmount) { return false; }
             if (id < -1) { return false; }
             return collisions[id];
+        }
+        public static Vector2f GetOffset(int id)
+        {
+            if (id == -1) { return new Vector2f(0,0); }
+            if (id >= tileAmount) { return new Vector2f(0, 0); }
+            if (id < -1) { return new Vector2f(0, 0); }
+            return spriteOffsets[id];
         }
     }
 }

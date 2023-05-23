@@ -18,6 +18,11 @@ namespace MyGame.GameEngine.TileMap
         {
             _sprite.Scale = scale;
         }
+        public Tile(Vector2f scale, int type)
+        {
+            _sprite.Scale = scale;
+            _type = type;
+        }
         public override void Draw()
         {
             Game.RenderWindow.Draw(_sprite);
