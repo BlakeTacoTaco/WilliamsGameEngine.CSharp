@@ -12,6 +12,7 @@ using System.Transactions;
 using MyGame.GameEngine.Inventory;
 using MyGame.GameEngine.General_UI;
 using MyGame.GameEngine.TileEntites;
+using MyGame.GameEngine.TileMap;
 
 namespace MyGame.Implementations
 {
@@ -72,6 +73,7 @@ namespace MyGame.Implementations
             }
 
             if (BetterKeyboard.IsKeyJustReleased(Keyboard.Key.Tilde)) { Environment.Exit(1); }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.F)) { Game.CurrentScene.tileMap.SaveTo("../../../Resources/TestTileMap.txt"); }
 
             useEntity = null;
             //camera movement

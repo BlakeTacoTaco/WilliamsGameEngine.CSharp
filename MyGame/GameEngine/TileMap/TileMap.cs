@@ -39,9 +39,9 @@ namespace MyGame.GameEngine.TileMap
                 }
             }
         }
-        public TileMap(string fileName)
+        public TileMap(string path) //load a tilemap from memory
         {
-            StreamReader reader = new StreamReader(fileName);
+            StreamReader reader = new StreamReader(path);
             loadSize = Convert.ToInt32(reader.ReadLine());
             GlobalPosition = new Vector2f(0, 0);
             loadedChunks = new Chunk[loadSize][];
@@ -59,12 +59,32 @@ namespace MyGame.GameEngine.TileMap
                         {
                             x2[j2] = Convert.ToInt32(x[j2]);
                             loadedChunks[i][j].SetTile(i2, j2, x2[j2]);
-                            Console.WriteLine(i + "," + j + "    "  + i2 + "," + j2);
                         }
                     }
                 }
             }
             reader.Close();
+        }
+        public void SaveTo(string path)
+        {
+            StreamWriter writer = new StreamWriter(path);
+            writer.WriteLine(loadSize);
+            for (int i = 0; i < loadedChunks.Length; i++)
+            {
+                for (int j = 0; j < loadedChunks[i].Length; j++)
+                {
+                    for (int i2 = 0; i2 < 16; i2++)
+                    {
+                        for (int j2 = 0; j2 < 16; j2++)
+                        {
+                            writer.Write(loadedChunks[i][j].GetTile(i2, j2)._type);
+                            if(j2 != 15) { writer.Write(","); }
+                            else { writer.WriteLine(); }
+                        }
+                    }
+                }
+            }
+            writer.Close();
         }
         public Tile GetTile(Vector2i position)
         {

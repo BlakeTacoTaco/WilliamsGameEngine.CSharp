@@ -17,6 +17,7 @@ namespace MyGame.GameEngine.Item_Uses
         }
         public void Use()
         {
+            if(!Game._Mouse.IsLeftPressed()) { return; }
             if(Game._Mouse.inputEaten) { return; }
             if (Game.CurrentScene.tileMap.GetTile(Game.CurrentScene.tileMap.ToTilePos(Game.GetGlobalMousePos())) == null) { return; }
             if (Game.CurrentScene.tileMap.GetTile(Game.CurrentScene.tileMap.ToTilePos(Game.GetGlobalMousePos()))._type == tileType) { return; }
