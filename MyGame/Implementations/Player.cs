@@ -33,6 +33,7 @@ namespace MyGame.Implementations
             SetCollisionCheckEnabled(true);
             AssignTag("tilecollision");
             inventory.AddItem(new Item(3, 1));
+            inventory.AddItem(new Item(4, 1));
         }
         public override void Draw()
         {
@@ -59,9 +60,12 @@ namespace MyGame.Implementations
                 {
                     if (BetterKeyboard.IsKeyJustReleased(Keyboard.Key.Q) && useEntity != null) { useEntity.Use(this); }
                     if (BetterKeyboard.IsKeyJustPressed(Keyboard.Key.T)) { OpenMenu(new TackleFishMenu(this)); }
-                    if (!menu.inventoryDisabled)
+                    if (menu != null)
                     {
-                        if (BetterKeyboard.IsKeyJustReleased(Keyboard.Key.E)) { OpenInventory(!inventory.open); }
+                        if (!menu.inventoryDisabled)
+                        {
+                            if (BetterKeyboard.IsKeyJustReleased(Keyboard.Key.E)) { OpenInventory(!inventory.open); }
+                        }
                     }
                 }
             }

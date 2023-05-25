@@ -76,8 +76,10 @@ namespace MyGame.GameEngine
             this.item = item;
             item.MakeValid();
             itemSprite.Texture = ItemDat.GetTexture(item.ID);
+            itemSprite.TextureRect = new IntRect(new Vector2i(0,0), (Vector2i)itemSprite.Texture.Size);
             if (item.amount > 0) { text.DisplayedString = Convert.ToString(item.amount); }
             else { text.DisplayedString = " "; }
+            itemSprite.Scale = ItemDat.GetScale(item.ID);
         }
 
         //LEFT

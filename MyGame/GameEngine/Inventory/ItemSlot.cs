@@ -37,7 +37,7 @@ namespace MyGame.GameEngine.Inventory
             _itemSprite = new Sprite();
             _itemSprite.Texture = ItemDat.GetTexture(_item.ID);
             _itemSprite.Position = position + new Vector2f(2 * scale.X, 2 * scale.Y);
-            _itemSprite.Scale = scale;
+            _itemSprite.Scale = ItemDat.GetScale(_item.ID);
             text = new Text();
             text.Font = Game.GetFont("../../../Resources/Courneuf-Regular.ttf");
             text.Position = _itemSprite.Position + new Vector2f(scale.X * 13, scale.Y * 12);
@@ -88,6 +88,8 @@ namespace MyGame.GameEngine.Inventory
         public void UpdateSlot()
         {
             _itemSprite.Texture = ItemDat.GetTexture(_item.ID);
+            _itemSprite.Scale = ItemDat.GetScale(_item.ID);
+            _itemSprite.TextureRect = new IntRect(new Vector2i(0, 0), (Vector2i)_itemSprite.Texture.Size);
             if (_item.amount > 0) { text.DisplayedString = Convert.ToString(_item.amount); }
             else { text.DisplayedString = " "; }
         }

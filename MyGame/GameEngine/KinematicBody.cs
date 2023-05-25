@@ -32,7 +32,7 @@ namespace MyGame.GameEngine
         }
         public override void Draw()//meant to be overidden
         {
-            base.Draw();
+
         }
         public override void Update(Time elapsed)//meant to be overidden
         {

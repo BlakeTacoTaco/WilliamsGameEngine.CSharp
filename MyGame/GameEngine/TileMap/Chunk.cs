@@ -33,7 +33,7 @@ namespace MyGame.GameEngine.TileMap
                 {
                     tiles[i][j] = new Tile(scale);
 
-                    SetTile(i, j, Game.Random.Next(2) + 1);
+                    SetTile(i, j, 1);
                     if(i * 16 * scale.X + position.X <= 16 * 14 * scale.X || j * 16 * scale.Y + position.Y <= 16 * 9 * scale.Y)
                     {
                         SetTile(i, j, 3);

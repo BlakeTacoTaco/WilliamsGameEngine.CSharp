@@ -20,7 +20,7 @@ namespace GameEngine
 
         private readonly List<GameObject> _uiElements = new List<GameObject>();
 
-        public TileMap tileMap = new TileMap();
+        public TileMap tileMap;
         private string lastAdded; //last thing to be added to the scene
 
         // Puts a GameObject into the scene.

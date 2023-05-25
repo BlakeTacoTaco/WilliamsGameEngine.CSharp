@@ -11,7 +11,6 @@ using MyGame.GameEngine.TileEntites;
 using System.Net.Http.Headers;
 using System.Diagnostics;
 using System.Globalization;
-using static System.Formats.Asn1.AsnWriter;
 using System.IO;
 using MyGame.Implementations;
 
@@ -77,9 +76,18 @@ namespace MyGame.GameEngine.TileMap
                     {
                         for (int j2 = 0; j2 < 16; j2++)
                         {
+                            //adds human readabilty but is removable without breaking anything
+                            if(loadedChunks[i][j].GetTile(i2, j2)._type != -1 && loadedChunks[i][j].GetTile(i2, j2)._type < 10) { writer.Write(" "); }
+
+                            //writes data and commas to file
                             writer.Write(loadedChunks[i][j].GetTile(i2, j2)._type);
                             if(j2 != 15) { writer.Write(","); }
                             else { writer.WriteLine(); }
+
+                            //writes colored text to console (causes a lot of lag)
+                            //Console.BackgroundColor = (ConsoleColor)(loadedChunks[i][j].GetTile(i2, j2)._type + 1);
+                            //Console.Write("  ");
+                            //if (j2 == 15) { Console.BackgroundColor = ConsoleColor.Black; Console.Write("\n"); }
                         }
                     }
                 }

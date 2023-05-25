@@ -12,12 +12,13 @@ namespace MyGame.Implementations
         public GameScene()
         {
             this.tileMap = new TileMap("../../../Resources/TestTileMap.txt");
+            //tileMap = new TileMap();
             TestKinematic testKinematic = new TestKinematic();
             AddGameObject(testKinematic);
 
             ButtonInventory inventory = new ButtonInventory(this, new Vector2f(10, 10), true);
             Player player = new Player(inventory, this);
-            player.position = new Vector2f(80,100) * 64;
+            player.position = new Vector2f(700,700);
             AddGameObject(player);
             for (int i = 0; i < 50; i++)
             {
