@@ -20,7 +20,7 @@
 	-added progress bar to TackleFishMenu
 	-removed old files from old TackleFishMenu system
 	-removed dark corners of grass texture
-	-made fish rotate randomly
+	-made fish rotate randomly in TackleFishMenu
 5/15/2023
 	-TackleFishMenu now closes inventory when opened (added support for future menus)
 5/18/2023
@@ -37,3 +37,7 @@
 5/24/2023
 	-added TileMap saving
 	-fixed clicthrough issues with placing
+5/25/2023
+	-added printing colored text to the console while saving (causes a lot of lag but is commented out)
+	-put dopess, among us, loss, and silly collective in TestTileMap
+	-changed tilemap extention to .tm

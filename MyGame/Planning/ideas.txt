@@ -28,6 +28,14 @@ fish happiness
 	-higher quality fish (sell for more)
 	-craft faster and stuff
 
+the bank is called the riverbank
+
+River Cred (like street cred)
+	-allows you into exclusive markets and fishing spots with rarer fish
+	-slightly better prices
+	-goes up from selling high quality fish
+	-goes down from having a monopoly
+
 Fish Ideas
 	-electric eels
 		-toss car battery into ocean

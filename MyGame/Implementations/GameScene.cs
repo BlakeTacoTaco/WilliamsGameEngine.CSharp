@@ -11,7 +11,7 @@ namespace MyGame.Implementations
     {
         public GameScene()
         {
-            this.tileMap = new TileMap("../../../Resources/TestTileMap.txt");
+            this.tileMap = new TileMap("../../../Resources/TestTileMap.tm");
             //tileMap = new TileMap();
             TestKinematic testKinematic = new TestKinematic();
             AddGameObject(testKinematic);

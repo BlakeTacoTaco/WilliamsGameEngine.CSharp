@@ -77,7 +77,7 @@ namespace MyGame.Implementations
             }
 
             if (BetterKeyboard.IsKeyJustReleased(Keyboard.Key.Tilde)) { Environment.Exit(1); }
-            if (Keyboard.IsKeyPressed(Keyboard.Key.F)) { Game.CurrentScene.tileMap.SaveTo("../../../Resources/TestTileMap.txt"); }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.F)) { Game.CurrentScene.tileMap.SaveTo("../../../Resources/TestTileMap.tm"); }
 
             useEntity = null;
             //camera movement
