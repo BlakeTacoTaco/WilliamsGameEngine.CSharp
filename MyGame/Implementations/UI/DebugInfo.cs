@@ -11,7 +11,7 @@ namespace MyGame.Implementations
 {
     internal class DebugInfo : GameObject
     {
-        private Text text;
+        internal Text text;
         int listIndex = 0;
         float[] list = new float[60];
         public DebugInfo()

@@ -16,12 +16,12 @@ namespace MyGame.Implementations
     internal class FloorItem : KinematicBody
     {
         public Item _item;
-        private Sprite _sprite;
-        private Sprite _shadow;
+        internal Sprite _sprite;
+        internal Sprite _shadow;
         public Player player = null;
-        private FloatRect _Detection;
-        private const float range = 900f;
-        private const float speed = 2000f;
+        internal FloatRect _Detection;
+        internal const float range = 900f;
+        internal const float speed = 2000f;
         public FloorItem(Item item, Vector2f position)
         {
             _item = item;

@@ -13,7 +13,7 @@ namespace MyGame.Implementations
 {
     internal class Chest : UsableTileEntity
     {
-        private ButtonInventory inventory;
+        internal ButtonInventory inventory;
         bool open = false;
         public override void Use(Player player)
         {

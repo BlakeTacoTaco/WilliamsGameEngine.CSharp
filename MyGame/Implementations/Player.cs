@@ -18,14 +18,15 @@ namespace MyGame.Implementations
 {
     internal class Player : GameObject
     {
-        private ButtonInventory inventory;
-        private Sprite _sprite = new Sprite();
-        private float speed = 1000;
+        internal ButtonInventory inventory;
+        internal Sprite _sprite = new Sprite();
+        internal float speed = 1000;
         public Vector2f position;
         public UsableTileEntity useEntity = null;
-        private Menu menu;
+        internal Menu menu;
         public Player(ButtonInventory inventory, Scene scene)
         {
+            stopsTiles = true;
             this.inventory = inventory;
             _sprite.Texture = Game.GetTexture("../../../Resources/mouse test.png");
             _sprite.Scale = new Vector2f(4, 4);
@@ -33,7 +34,7 @@ namespace MyGame.Implementations
             SetCollisionCheckEnabled(true);
             AssignTag("tilecollision");
             inventory.AddItem(new Item(3, 1));
-            inventory.AddItem(new Item(4, 1));
+            inventory.AddItem(new Item(4, 99));
         }
         public override void Draw()
         {
@@ -59,7 +60,6 @@ namespace MyGame.Implementations
                 if (!menu.eatKeyboardInputs)
                 {
                     if (BetterKeyboard.IsKeyJustReleased(Keyboard.Key.Q) && useEntity != null) { useEntity.Use(this); }
-                    if (BetterKeyboard.IsKeyJustPressed(Keyboard.Key.T)) { OpenMenu(new TackleFishMenu(this)); }
                     if (menu != null)
                     {
                         if (!menu.inventoryDisabled)
@@ -72,7 +72,6 @@ namespace MyGame.Implementations
             else
             {
                 if (BetterKeyboard.IsKeyJustReleased(Keyboard.Key.Q) && useEntity != null) { useEntity.Use(this); }
-                if (BetterKeyboard.IsKeyJustPressed(Keyboard.Key.T)) { OpenMenu(new TackleFishMenu(this)); }
                 if (BetterKeyboard.IsKeyJustReleased(Keyboard.Key.E)) { OpenInventory(!inventory.open); }
             }
 

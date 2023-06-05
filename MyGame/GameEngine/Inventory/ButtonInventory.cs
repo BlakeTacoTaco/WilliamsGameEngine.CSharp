@@ -127,7 +127,7 @@ namespace MyGame.GameEngine.Inventory
             }
             UpdateSlots();
         }
-        private void UpdateSlots()
+        internal void UpdateSlots()
         {
             for (int i = 0; i < slots.Length; i++)
             {

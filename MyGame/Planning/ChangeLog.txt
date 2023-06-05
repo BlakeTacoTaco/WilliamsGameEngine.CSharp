@@ -41,3 +41,11 @@
 	-added printing colored text to the console while saving (causes a lot of lag but is commented out)
 	-put dopess, among us, loss, and silly collective in TestTileMap
 	-changed tilemap extention to .tm
+5/26/2023
+	-added camera bounds
+5/30/2023 
+	-started work on bubbles
+6/2/2023 
+	-finished bubbles kinda
+	-filled out goal sheet
+	-NOTE:past few days have been absent because of medical and other stuff

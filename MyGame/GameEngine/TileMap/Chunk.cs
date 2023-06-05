@@ -16,9 +16,9 @@ namespace MyGame.GameEngine.TileMap
         public Vector2f scale = new Vector2f(4,4);                       //scale of tilemap
         public Vector2f position = new Vector2f(0, 0);                   //position of global tilemap
         public List<TileEntity> tileEntities = new List<TileEntity> { }; //store tileEntities
-        private Vector2f[][] positions;
+        internal Vector2f[][] positions;
         public Tile[][] tiles;
-        private int chunkSize;
+        internal int chunkSize;
         public Chunk(int chunkSize, Vector2f position)
         {
             this.position = position;

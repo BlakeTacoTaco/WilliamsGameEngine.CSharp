@@ -15,15 +15,15 @@ namespace MyGame.GameEngine
     internal class MouseObj : GameObject
     {
         public Vector2f position = new Vector2f(0,0);
-        private bool leftLast = false;    //if the left mouse was clicked last frame
-        private bool leftClicked = false; //if the left mouse button is currently pressed
-        private bool rightLast = false;    //if the right mouse was clicked last frame
-        private bool rightClicked = false; //if the right mouse button is currently pressed
+        internal bool leftLast = false;    //if the left mouse was clicked last frame
+        internal bool leftClicked = false; //if the left mouse button is currently pressed
+        internal bool rightLast = false;    //if the right mouse was clicked last frame
+        internal bool rightClicked = false; //if the right mouse button is currently pressed
         public bool inputEaten = false;   //keeps track of if the input was eaten or not. for example if you have a button on top of a clickable object in
                                           //the world it will have the button eat the input so it doesn't click two things at once.
         public Item item;
-        private readonly Sprite itemSprite;
-        private readonly SFML.Graphics.Text text;
+        internal readonly Sprite itemSprite;
+        internal readonly SFML.Graphics.Text text;
 
         public TextBox textbox;
         public bool isTextBoxShowing;

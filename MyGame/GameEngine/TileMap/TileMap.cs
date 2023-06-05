@@ -18,10 +18,10 @@ namespace MyGame.GameEngine.TileMap
 {
     internal class TileMap : GameObject
     {
-        private Chunk[][] loadedChunks;
-        private Vector2f GlobalPosition;
-        private int loadSize;
-        private int chunkSize = 16;
+        internal Chunk[][] loadedChunks;
+        internal Vector2f GlobalPosition;
+        internal int loadSize;
+        internal int chunkSize = 16;
         public FloatRect tileRect = new FloatRect(0, 0, 16 * 4, 16 * 4);
 
         public TileMap()
@@ -168,17 +168,23 @@ namespace MyGame.GameEngine.TileMap
                 }
             }
         }
-        public void AddTileEntity(TileEntity tileEntity, Scene scene)
+        public bool AddTileEntity(TileEntity tileEntity, Scene scene)
         {
             Vector2i chunkPos = ToChunkPos(tileEntity.position);
             if (chunkPos.X >= 0 && chunkPos.X < loadedChunks.Length)
             {
                 if (chunkPos.Y >= 0 && chunkPos.Y < loadedChunks[chunkPos.X].Length)
                 {
+                    foreach (GameObject i in scene._gameObjects)
+                    {
+                        if (i.GetCollisionRect().Intersects(tileEntity.GetCollisionRect()) && i.stopsTiles) { return false; }
+                    }
                     loadedChunks[chunkPos.X][chunkPos.Y].AddTileEntity(tileEntity);
                     scene.AddGameObject(tileEntity);
+                    return true;
                 }
             }
+            return false;
         }
         public TileEntity GetHighestTileEntity(Vector2f position)
         {

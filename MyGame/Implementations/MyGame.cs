@@ -7,9 +7,9 @@ namespace MyGame.Implementations
         public const int WindowWidth = 1920;
         public const int WindowHeight = 1081;
 
-        private const string WindowTitle = "Rare Fishe Market";
+        internal const string WindowTitle = "Rare Fishe Market";
 
-        private static void Main(string[] args)
+        internal static void Main(string[] args)
         {
             // Initialize the game.
             Game.Initialize(WindowWidth, WindowHeight, WindowTitle);

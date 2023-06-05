@@ -8,12 +8,14 @@ namespace GameEngine
     // This class represents every object in your game, such as the player, enemies, and so on.
     abstract class GameObject
     {
-        private bool _isCollisionCheckEnabled;
+        public bool stopsTiles = false; //if it stops you from placing things with collision
 
-        private bool _isDead;
+        internal bool _isCollisionCheckEnabled;
+
+        internal bool _isDead;
 
         // Using a set prevents duplicates.
-        private readonly HashSet<string> _tags = new HashSet<string>();
+        internal readonly HashSet<string> _tags = new HashSet<string>();
 
         // Tags let you annotate your objects so you can identify them later
         // (such as "player").

@@ -19,7 +19,7 @@ namespace MyGame.GameEngine.TileEntites
         public abstract void Use(Player player);
         public virtual FloatRect GetUseCollision()
         {
-            FloatRect box = sprite.GetGlobalBounds();
+            FloatRect box = GetCollisionRect();
             box.Left = position.X - useDist;
             box.Top = position.Y - useDist;
             box.Width += (useDist * 2);

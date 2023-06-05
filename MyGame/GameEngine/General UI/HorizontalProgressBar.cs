@@ -11,10 +11,10 @@ namespace MyGame.GameEngine.General_UI
 {
     internal class HorizontalProgressBar : GameObject
     {
-        private NinePatch background;
-        private Sprite bar;
-        private float progress;
-        private int margin;
+        internal NinePatch background;
+        internal Sprite bar;
+        internal float progress;
+        internal int margin;
         public HorizontalProgressBar(Vector2f position, float progress, int margin, Texture bar, Texture background, Vector2f scale)
         {
             this.bar = new Sprite();

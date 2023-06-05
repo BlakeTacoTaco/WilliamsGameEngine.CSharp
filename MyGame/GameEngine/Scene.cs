@@ -16,12 +16,13 @@ namespace GameEngine
     {
         public Player player;
 
-        private readonly List<GameObject> _gameObjects = new List<GameObject>();
+        public readonly List<GameObject> _gameObjects = new List<GameObject>();
 
-        private readonly List<GameObject> _uiElements = new List<GameObject>();
+        internal readonly List<GameObject> _uiElements = new List<GameObject>();
 
         public TileMap tileMap;
-        private string lastAdded; //last thing to be added to the scene
+
+        internal string lastAdded; //last thing to be added to the scene
 
         // Puts a GameObject into the scene.
         public void AddGameObject(GameObject gameObject)
@@ -78,7 +79,7 @@ namespace GameEngine
 
         // This method lets game objects respond to collisions.
 
-        private void HandleCollisions()
+        internal void HandleCollisions()
         {
             for (int i = 0; i < _gameObjects.Count; i++)
             {
@@ -126,7 +127,7 @@ namespace GameEngine
         }
 
         // This function calls update on each of our game objects.
-        private void UpdateGameObjects(Time time)
+        internal virtual void UpdateGameObjects(Time time)
         {
             BetterKeyboard.Update();
             Game._Mouse.Update(time);
@@ -136,7 +137,7 @@ namespace GameEngine
         }
 
         // This function calls draw on each of our game objects.
-        private void DrawGameObjects()
+        internal virtual void DrawGameObjects()
         {
             tileMap.Draw();
             foreach (var gameObject in _gameObjects) { gameObject.Draw(); }
@@ -145,7 +146,7 @@ namespace GameEngine
         }
 
         // This function removes objects that indicate they are dead from the scene.
-        private void RemoveDeadGameObjects()
+        internal void RemoveDeadGameObjects()
         {
             // This is a "lambda", which is a fancy name for an anonymous function.
             // It's "anonymous" because it doesn't have a name. We've declared a variable
@@ -161,7 +162,7 @@ namespace GameEngine
             _uiElements.RemoveAll(isDead);
         }
         //checks to see if anything has been clicked
-        private void ClickCheck()
+        internal void ClickCheck()
         {
             if (!Game._Mouse.inputEaten)
             {
@@ -199,7 +200,7 @@ namespace GameEngine
                 ItemDat.UseItem();
             }
         }
-        private void HandleTileCollisions()
+        internal void HandleTileCollisions()
         {
             foreach (var gamobject in _gameObjects)
             {

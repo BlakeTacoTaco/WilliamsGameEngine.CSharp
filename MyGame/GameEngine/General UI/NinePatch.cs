@@ -33,16 +33,16 @@ namespace MyGame.GameEngine.General_UI
             thickness? (in practice you      |      |                    |      |
             wouldn't see the margins)        ------------------------------------
          */
-        private Sprite[] patches;
+        internal Sprite[] patches;
         public Vector2f position;
-        private Vector2f size;            //what the dimensions of the rectangle are (these are multiplied by the scale)
-        private Vector2f unScaledSize;
+        internal Vector2f size;            //what the dimensions of the rectangle are (these are multiplied by the scale)
+        internal Vector2f unScaledSize;
         public Vector2f scale;            //scale of rectangle (for controling how thick the margins are)
-        private int topMargin;            //how wide the margins are on all sides of the rectangle
-        private int bottomMargin; 
-        private int leftMargin;
-        private int rightMargin;
-        private Vector2f[] localPositions; //stores the position of each patch relative to the corner of the object
+        internal int topMargin;            //how wide the margins are on all sides of the rectangle
+        internal int bottomMargin; 
+        internal int leftMargin;
+        internal int rightMargin;
+        internal Vector2f[] localPositions; //stores the position of each patch relative to the corner of the object
         public NinePatch(Texture texture, int topMargin, int bottomMargin, int leftMargin, int rightMargin, Vector2f position, Vector2f size, Vector2f scale)
         {
             this.position = position;

@@ -4,10 +4,11 @@ using SFML.System;
 using SFML.Graphics;
 using MyGame.GameEngine.Inventory;
 using MyGame.GameEngine.General_UI;
+using MyGame.GameEngine;
 
 namespace MyGame.Implementations
 {
-    class GameScene : Scene
+    class GameScene : Zone
     {
         public GameScene()
         {
@@ -35,8 +36,14 @@ namespace MyGame.Implementations
             chest.position = new Vector2f(16 * 4 * 34, 16 * 4 * 32);
             tileMap.AddTileEntity(chest, this);
 
+            FishBubbles fishBubbles = new FishBubbles(this);
+            fishBubbles.SetPosition(new Vector2f(16 * 30, 16 * 30) * 4);
+            tileMap.AddTileEntity(fishBubbles, this);
+
             DebugInfo debug = new DebugInfo();
             AddUiElement(debug);
+
+            cameraBounds = new FloatRect(new Vector2f(0, 0), new Vector2f(16 * 4 * 16 * 4, 16 * 4 * 16 * 4));
         }
     }
 }

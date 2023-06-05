@@ -16,22 +16,24 @@ namespace MyGame.GameEngine
     internal class SpriteRenderer
     {
         //basic sprite data
-        private Sprite[] frames;
+        internal Sprite[] frames;
         public Vector2f position;
         public float angle = 0;
 
         //animations
-        private List<List<int>> animations = new List<List<int>>();
+        internal List<List<int>> animations = new List<List<int>>();
 
         //current animation data
-        private float lastFrame = 0; //time since last frame
-        private int currentAnimation = 0;//current animation ID (based on animations list
-        private int currentFrame;//id of current frame
-        private float secondsPerFrame;//how many seconds are in beteween each frame
+        internal float lastFrame = 0; //time since last frame
+        internal int currentAnimation = 0;//current animation ID (based on animations list
+        internal int currentFrame;//id of current frame
+        internal float secondsPerFrame;//how many seconds are in beteween each frame
         public bool playing = false;//if there is currently an animation playing
         public int defaultFrame = 0;//frame that is set to when animations are over
-        private int frameInAnimation;//frame based on animation data
-
+        internal int frameInAnimation;//frame based on animation data
+        public bool loop = false;
+        public SpriteRenderer()
+        { }
         public SpriteRenderer(Sprite[] frames, Vector2f position, int defaultFrame, Vector2f scale, Vector2f origin, List<List<int>> animations, float secondsPerFrame)
         {
             this.frames = frames;
@@ -48,13 +50,16 @@ namespace MyGame.GameEngine
         }
         public void Draw(float delta)
         {
+
+            lastFrame += delta;
             if (playing && !(frameInAnimation + 1 >= animations[currentAnimation].Count))
             {
                 //animation logic
-                lastFrame += delta;
-                if (lastFrame >= secondsPerFrame) { currentFrame = animations[currentAnimation][frameInAnimation + 1]; frameInAnimation++; }
+                if (lastFrame >= secondsPerFrame) { currentFrame = animations[currentAnimation][frameInAnimation + 1]; frameInAnimation++; lastFrame = 0; }
+                
             }
-            else { playing = false; currentFrame = defaultFrame; }
+            else if (loop == false) { playing = false; currentFrame = defaultFrame; }
+            else { currentFrame = animations[currentAnimation][0]; frameInAnimation = 0; }
 
             //end render
             frames[currentFrame].Position = position;

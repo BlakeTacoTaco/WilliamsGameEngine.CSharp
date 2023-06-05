@@ -13,10 +13,10 @@ namespace MyGame.GameEngine.TileMap
 {
     static internal class TileDat
     {
-        private static Texture[] textures;
-        private static bool[] collisions;
-        private static Vector2f[] spriteOffsets;
-        private const int tileAmount = 4;
+        internal static Texture[] textures;
+        internal static bool[] collisions;
+        internal static Vector2f[] spriteOffsets;
+        internal const int tileAmount = 4;
 
         public static void Initialize()
         {

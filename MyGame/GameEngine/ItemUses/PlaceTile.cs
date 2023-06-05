@@ -10,7 +10,7 @@ namespace MyGame.GameEngine.Item_Uses
 {
     public class PlaceTile : ItemUse
     {
-        private int tileType;
+        internal int tileType;
         public PlaceTile(int type) 
         {
             tileType = type;

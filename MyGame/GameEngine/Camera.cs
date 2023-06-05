@@ -10,7 +10,7 @@ using System.Numerics;
 
 namespace MyGame.GameEngine
 {
-    internal class Camera
+    class Camera
     {
         public Vector2f position = new Vector2f();
         //draws game object relative to camera

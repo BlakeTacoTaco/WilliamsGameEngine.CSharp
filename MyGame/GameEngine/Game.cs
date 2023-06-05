@@ -27,23 +27,23 @@ namespace GameEngine
         public static float time = 0;
 
         // The number of frames that will be drawn to the screen in one second.
-        private const int FramesPerSecond = 60000;
+        internal const int FramesPerSecond = 60000;
 
         // We keep a current and next scene so the scene can be changed mid-frame.
-        private static Scene _currentScene;
-        private static Scene _nextScene;
+        internal static Scene _currentScene;
+        internal static Scene _nextScene;
 
         // Cached textures
-        private static readonly Dictionary<string, Texture> Textures = new Dictionary<string, Texture>();
+        internal static readonly Dictionary<string, Texture> Textures = new Dictionary<string, Texture>();
 
         // Cached sounds
-        private static readonly Dictionary<string, SoundBuffer> Sounds = new Dictionary<string, SoundBuffer>();
+        internal static readonly Dictionary<string, SoundBuffer> Sounds = new Dictionary<string, SoundBuffer>();
 
         // Cached fonts
-        private static readonly Dictionary<string, Font> Fonts = new Dictionary<string, Font>();
+        internal static readonly Dictionary<string, Font> Fonts = new Dictionary<string, Font>();
 
         // The window we will draw to.
-        private static RenderWindow _window;
+        internal static RenderWindow _window;
 
         // the camera
         public static Camera _Camera;
@@ -52,7 +52,7 @@ namespace GameEngine
         public static MouseObj _Mouse;
 
         // A flag to prevent being initialized twice.
-        private static bool _initialized;
+        internal static bool _initialized;
 
         // A Random number generator we can use throughout the game. S
         public static Random Random = new Random();
@@ -82,7 +82,7 @@ namespace GameEngine
         }
 
         // Called whenever you try to close the game window.
-        private static void ClosedEventHandler(object sender, EventArgs e)
+        internal static void ClosedEventHandler(object sender, EventArgs e)
         {
             // This indicates we should close the window, so just do that.
             _window.Close();

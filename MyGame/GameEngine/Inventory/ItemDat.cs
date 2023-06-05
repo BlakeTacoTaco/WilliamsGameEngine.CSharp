@@ -15,14 +15,14 @@ namespace MyGame.GameEngine.Inventory
 {
     static class ItemDat
     {
-        private const int defaultStackSize = 99;
-        private static readonly Vector2f defaultItemScale = new Vector2f(4, 4);
-        private static Texture[] textures;
-        private static int[] stackSizes;
-        private static string[] names;
-        private static string[] descriptions;
-        private static ItemUse[] itemFunctions;
-        private static Vector2f[] itemScales;
+        internal const int defaultStackSize = 99;
+        internal static readonly Vector2f defaultItemScale = new Vector2f(4, 4);
+        internal static Texture[] textures;
+        internal static int[] stackSizes;
+        internal static string[] names;
+        internal static string[] descriptions;
+        internal static ItemUse[] itemFunctions;
+        internal static Vector2f[] itemScales;
         public const int itemCount = 5;
         public static void Initialize()
         {
@@ -69,10 +69,10 @@ namespace MyGame.GameEngine.Inventory
 
             //Tables
             textures[4] = Game.GetTexture("../../../Resources/2x2table.png");
-            stackSizes[4] = 1;
+            stackSizes[4] = 99;
             names[4] = "Table";
             descriptions[4] = "places a table";
-            itemFunctions[4] = new RemoveTileEntity();
+            itemFunctions[4] = new PlaceTileEntity();
             itemScales[4] = new Vector2f(2,2);
         }
         //gets texture baed on item ID

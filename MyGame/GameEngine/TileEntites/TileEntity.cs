@@ -26,6 +26,7 @@ namespace MyGame.GameEngine.TileEntites
             AssignTag("impass");
             position = scene.tileMap.SnapToTile(position);
             lastLoaded = Game.time;
+            stopsTiles = true;
         }
         public override Vector2f GetPosition()
         {

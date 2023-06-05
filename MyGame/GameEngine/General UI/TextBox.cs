@@ -12,12 +12,12 @@ namespace MyGame.GameEngine.General_UI
 {
     internal class TextBox : GameObject
     {
-        private Text topText;         //the header or something
-        private Text bottomText;      //the main body of the textbox
-        private NinePatch background; //the scalable background of the text
+        internal Text topText;         //the header or something
+        internal Text bottomText;      //the main body of the textbox
+        internal NinePatch background; //the scalable background of the text
         public Vector2f position;
         public Vector2f scale;
-        private bool show  = false;   //if there is no text in the box it shouldn't show anything
+        internal bool show  = false;   //if there is no text in the box it shouldn't show anything
         public TextBox(string topText, string bottomText, Vector2f position, Vector2f scale)
         {
             this.position = position;

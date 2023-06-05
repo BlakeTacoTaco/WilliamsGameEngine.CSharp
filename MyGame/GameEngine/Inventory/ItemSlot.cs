@@ -14,14 +14,14 @@ namespace MyGame.GameEngine.Inventory
 {
     internal class ItemSlot : Button
     {
-        private ButtonInventory parent;
+        internal ButtonInventory parent;
         public int ID;
         public Item _item;
-        private readonly Sprite _itemSprite;
-        private readonly Text text;
+        internal readonly Sprite _itemSprite;
+        internal readonly Text text;
         public bool selected = false;
-        private Texture selectedTexture;
-        private Texture defaultTexture;
+        internal Texture selectedTexture;
+        internal Texture defaultTexture;
 
         public ItemSlot(ButtonInventory parent, int ID, Vector2f scale, Vector2f position)
         {

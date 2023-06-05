@@ -22,16 +22,16 @@ namespace MyGame.Implementations
         it works by having you click a constantly moving button to make projectiles that 'damage' the fish
         it was going to be a cps test but the carp tunnel was too bad.
          */
-        private Player player;
-        private Vector2f position;
-        private float difficulty;
-        private float progress;
+        internal Player player;
+        internal Vector2f position;
+        internal float difficulty;
+        internal float progress;
         public bool inventoryRequired { get; }
         public bool inventoryDisabled { get; }
         public bool open { get; set; }
-        private NinePatch background;
-        private TackleButton button;
-        private HorizontalProgressBar bar;
+        internal NinePatch background;
+        internal TackleButton button;
+        internal HorizontalProgressBar bar;
         public bool eatKeyboardInputs { get; }
         public TackleFishMenu(Player player)
         {
