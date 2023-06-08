@@ -85,10 +85,10 @@ namespace MyGame.GameEngine.TileMap
                             else { writer.WriteLine(); }
 
                             //writes colored text to console (causes a lot of lag)
-                            //Console.BackgroundColor = (ConsoleColor)(loadedChunks[i][j].GetTile(i2, j2)._type + 1);
-                            //Console.Write("  ");
-                            //if (j2 == 15) { Console.BackgroundColor = ConsoleColor.Black; Console.Write("\n"); }
-                            //if (i2 == 15 && j2 == 15) { Console.WriteLine(); }
+                            Console.BackgroundColor = (ConsoleColor)(loadedChunks[i][j].GetTile(i2, j2)._type + 1);
+                            Console.Write("  ");
+                            if (j2 == 15) { Console.BackgroundColor = ConsoleColor.Black; Console.Write("\n"); }
+                            if (i2 == 15 && j2 == 15) { Console.WriteLine(); }
                         }
                     }
                 }

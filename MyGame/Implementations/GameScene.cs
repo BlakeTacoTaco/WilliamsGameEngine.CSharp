@@ -23,7 +23,7 @@ namespace MyGame.Implementations
             AddGameObject(player);
             for (int i = 0; i < 50; i++)
             {
-                FloorItem flooritem = new FloorItem(new Item(Game.Random.Next(3), 99), new Vector2f(Game.Random.Next(2000), Game.Random.Next(2000)));
+                FloorItem flooritem = new FloorItem(new Item(Game.Random.Next(7), 99), new Vector2f(Game.Random.Next(2000), Game.Random.Next(2000)));
                 AddGameObject(flooritem);
             }
             this.player = player;

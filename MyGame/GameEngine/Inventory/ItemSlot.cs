@@ -40,7 +40,7 @@ namespace MyGame.GameEngine.Inventory
             _itemSprite.Scale = ItemDat.GetScale(_item.ID);
             text = new Text();
             text.Font = Game.GetFont("../../../Resources/Courneuf-Regular.ttf");
-            text.Position = _itemSprite.Position + new Vector2f(scale.X * 13, scale.Y * 12);
+            text.Position = _itemSprite.Position + new Vector2f(scale.X * 2, scale.Y * 12);
             text.CharacterSize = 20;
             text.FillColor = Color.White;
             text.OutlineColor = Color.Black;

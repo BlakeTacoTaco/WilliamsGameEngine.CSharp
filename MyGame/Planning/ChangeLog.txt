@@ -49,3 +49,11 @@
 	-finished bubbles kinda
 	-filled out goal sheet
 	-NOTE:past few days have been absent because of medical and other stuff
+6/8/2023
+	-added ButterFish
+	-added coins
+	-added itemvalue stat
+	-moved amount number in inventory slots to the left
+	-made bubbles dissapear when you catch the fish
+	-made addItem to inventory prioritize slots of the same item instead of air
+	-made the map better

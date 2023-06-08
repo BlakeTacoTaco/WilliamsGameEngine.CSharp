@@ -1,6 +1,7 @@
 ﻿using GameEngine;
 using MyGame.GameEngine.General_UI;
 using MyGame.GameEngine.Inventory;
+using MyGame.GameEngine.TileEntites;
 using MyGame.Implementations.UI.TackleFishing;
 using SFML.Graphics;
 using SFML.System;
@@ -22,10 +23,11 @@ namespace MyGame.Implementations
         it works by having you click a constantly moving button to make projectiles that 'damage' the fish
         it was going to be a cps test but the carp tunnel was too bad.
          */
+        internal TileEntity sourceBubbles;
         internal Player player;
         internal Vector2f position;
         internal float difficulty;
-        internal float progress;
+        public float progress;
         public bool inventoryRequired { get; }
         public bool inventoryDisabled { get; }
         public bool open { get; set; }
@@ -33,8 +35,9 @@ namespace MyGame.Implementations
         internal TackleButton button;
         internal HorizontalProgressBar bar;
         public bool eatKeyboardInputs { get; }
-        public TackleFishMenu(Player player)
+        public TackleFishMenu(Player player, TileEntity sourceBubbles)
         {
+            this.sourceBubbles = sourceBubbles;
             this.player = player;
             eatKeyboardInputs = true;
             difficulty = 1;
@@ -46,7 +49,7 @@ namespace MyGame.Implementations
 
             bar = new HorizontalProgressBar(new Vector2f(background.position.X, background.position.Y + background.GetSize().Y - 4), 0.5f , 2, Game.GetTexture("../../../Resources/Progressbar.png"), Game.GetTexture("../../../Resources/item slot.png"),  new Vector2f(4,4));
 
-            button = new TackleButton(new Vector2f(4, 4), new Vector2f(background.position.X + (background.GetSize().X / 2) - 32, background.position.Y + (background.GetSize().Y / 2) - 32), this);
+            button = new ButterFishGame(new Vector2f(4, 4), new Vector2f(background.position.X + (background.GetSize().X / 2) - 32, background.position.Y + (background.GetSize().Y / 2) - 32), this);
             Game.CurrentScene.AddUiElement(button);
         }
         public override void Draw()
@@ -61,27 +64,26 @@ namespace MyGame.Implementations
             if(progress > 1)
             {
                 player.CloseMenu(this);
-                player.GiveItem(new Item(2,1));
+                player.GiveItem(button.Catch());
+                Game.CurrentScene.tileMap.RemoveTileEntity(sourceBubbles);
             }
             else if (progress < 0)
             {
                 player.CloseMenu(this);
             }
-            button.SetPosition(GetNewButtonPos(button.GetPosition(), 1));
-            button._sprite.Rotation += Game.Random.Next(3) - 1;
+            button.Update(elapsed);
         }
         public void DealDamage()
         {
             progress += 0.1f;
         }
-        public Vector2f GetNewButtonPos(Vector2f original, int dist)
+        public Vector2f KeepInBounds(Vector2f original)
         {
-            Vector2f output = original + new Vector2f(Game.Random.Next(dist * 2 + 1) - dist, Game.Random.Next(dist * 2 + 1) - dist);
-            if (output.X < background.position.X + 12 + 32) { output.X = background.position.X + 12 + 32; }
-            if (output.Y < background.position.Y + 12 + 32) { output.Y = background.position.Y + 12 + 32; }
-            if (output.X > background.position.X + background.GetSize().X - 64 - 12) { output.X = background.position.X + background.GetSize().X - 64 - 12; }
-            if (output.Y > background.position.Y + background.GetSize().Y - 64 - 12) { output.Y = background.position.Y + background.GetSize().Y - 64 - 12; }
-            return output;
+            if (original.X < background.position.X + 12 + 32) { original.X = background.position.X + 12 + 32; button.TouchLeft(); }
+            if (original.Y < background.position.Y + 12 + 32) { original.Y = background.position.Y + 12 + 32; button.TouchTop(); }
+            if (original.X > background.position.X + background.GetSize().X - 56) { original.X = background.position.X + background.GetSize().X - 56; button.TouchRight(); }
+            if (original.Y > background.position.Y + background.GetSize().Y - 56) { original.Y = background.position.Y + background.GetSize().Y - 56; button.TouchBottom(); }
+            return original;
         }
         public override void SetPosition(Vector2f position) { this.position = position; }
         public override Vector2f GetPosition() { return position; }

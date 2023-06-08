@@ -23,7 +23,8 @@ namespace MyGame.GameEngine.Inventory
         internal static string[] descriptions;
         internal static ItemUse[] itemFunctions;
         internal static Vector2f[] itemScales;
-        public const int itemCount = 5;
+        internal static float[] itemValues; //its value in silver coins
+        public const int itemCount = 7;
         public static void Initialize()
         {
             //initialize data
@@ -33,6 +34,7 @@ namespace MyGame.GameEngine.Inventory
             descriptions = new string[itemCount];
             itemFunctions = new ItemUse[itemCount];
             itemScales = new Vector2f[itemCount];
+            itemValues = new float[itemCount];
             
 
             //smile
@@ -40,8 +42,10 @@ namespace MyGame.GameEngine.Inventory
             stackSizes[0] = defaultStackSize;
             names[0] = "silly guy";
             descriptions[0] = "got too silly";
-            itemFunctions[0] = new PlaceTile(0);
+            itemFunctions[0] = new PlaceTile(3);
             itemScales[0] = defaultItemScale;
+            itemValues[0] = 1;
+
 
             //grass
             textures[1] = Game.GetTexture("../../../Resources/high quality grass.png");
@@ -50,6 +54,7 @@ namespace MyGame.GameEngine.Inventory
             descriptions[1] = "its some grass";
             itemFunctions[1] = new PlaceTile(1);
             itemScales[1] = defaultItemScale;
+            itemValues[1] = 1;
 
             //samon
             textures[2] = Game.GetTexture("../../../Resources/samon.png");
@@ -58,6 +63,7 @@ namespace MyGame.GameEngine.Inventory
             descriptions[2] = "without the L";
             itemFunctions[2] = new PlaceTile(2);
             itemScales[2] = defaultItemScale;
+            itemValues[2] = 5;
 
             //pickaxe
             textures[3] = Game.GetTexture("../../../Resources/pickaxe.png");
@@ -66,6 +72,7 @@ namespace MyGame.GameEngine.Inventory
             descriptions[3] = "lets you break things other than the floor";
             itemFunctions[3] = new RemoveTileEntity();
             itemScales[3] = defaultItemScale;
+            itemValues[3] = 100;
 
             //Tables
             textures[4] = Game.GetTexture("../../../Resources/2x2table.png");
@@ -74,6 +81,25 @@ namespace MyGame.GameEngine.Inventory
             descriptions[4] = "places a table";
             itemFunctions[4] = new PlaceTileEntity();
             itemScales[4] = new Vector2f(2,2);
+            itemValues[4] = 0;
+
+            //Butter fish
+            textures[5] = Game.GetTexture("../../../Resources/ButterFish.png");
+            stackSizes[5] = defaultStackSize;
+            names[5] = "Butter Fish";
+            descriptions[5] = "This slippery fish uses it's slimy surface\n to avoid predators";
+            itemFunctions[5] = null;
+            itemScales[5] = defaultItemScale;
+            itemValues[5] = 10;
+
+            //silver coin
+            textures[6] = Game.GetTexture("../../../Resources/Coins.png");
+            stackSizes[6] = 100000;
+            names[6] = "Silver Coins";
+            descriptions[6] = "Used to buy stuff";
+            itemFunctions[6] = null;
+            itemScales[6] = defaultItemScale;
+            itemValues[6] = 0;
         }
         //gets texture baed on item ID
         public static Texture GetTexture(int ID)

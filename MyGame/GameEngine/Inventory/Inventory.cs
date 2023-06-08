@@ -54,10 +54,19 @@ namespace MyGame.GameEngine.Inventory
             int i = 0;
             while(i < _items.Length && item.amount >= 0)
             {
+                if (_items[i].ID == item.ID)
+                {
+                    _items[i].AddItem(item);
+                }
+                i++;
+            }
+            i = 0;
+            while (i < _items.Length && item.amount >= 0)
+            {
                 _items[i].AddItem(item);
                 i++;
             }
-            
+
         }
         public override Vector2f GetPosition()
         {

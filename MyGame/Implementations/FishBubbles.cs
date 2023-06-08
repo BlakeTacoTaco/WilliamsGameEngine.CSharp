@@ -60,7 +60,7 @@ namespace MyGame.Implementations
         }
         public override void Use(Player player)
         {
-            player.OpenMenu(new TackleFishMenu(player));
+            player.OpenMenu(new TackleFishMenu(player,this));
         }
         public override void OutCollision(Player player)
         {
