@@ -7,6 +7,8 @@ namespace GameEngine
     // This class represents every object in your game, such as the player, enemies, and so on.
     abstract class GameObject
     {
+        public Vector2f position;
+
         private bool _isCollisionCheckEnabled;
 
         private bool _isDead;
@@ -14,8 +16,7 @@ namespace GameEngine
         // Using a set prevents duplicates.
         private readonly HashSet<string> _tags = new HashSet<string>();
 
-        // Tags let you annotate your objects so you can identify them later
-        // (such as "player").
+        // Tags annotate your objects so you can identify them later
         public void AssignTag(string tag)
         {
             _tags.Add(tag);
@@ -37,16 +38,12 @@ namespace GameEngine
             _isDead = true;
         }
 
-        // Update is called every frame. Use this to prepare to draw (move, perform AI, etc.).
-        public abstract void Update(Time elapsed);
-
-        // Draw is called once per frame. Use this to draw your object to the screen.
-        public virtual void Draw()
-        {
-        }
+        // Update is called every frame.
+        public virtual void Update(Time elapsed) { }
+        // Draw is called once per frame.
+        public virtual void Draw() { }
 
         // This flag indicates whether this game object should be checked for collisions.
-        // The more game objects in the scene that need to be checked, the longer it takes.
         public bool IsCollisionCheckEnabled()
         {
             return _isCollisionCheckEnabled;
@@ -63,7 +60,7 @@ namespace GameEngine
             return new FloatRect();
         }
 
-        // Use this to specify what happens when this object collides with another object.
+        // What happens when this object collides with another object.
         public virtual void HandleCollision(GameObject otherGameObject)
         {
         }

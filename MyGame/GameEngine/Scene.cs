@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MyGame.GameEngine;
 using SFML.Graphics;
 using SFML.System;
 
@@ -10,6 +11,9 @@ namespace GameEngine
     {
         // This holds our game objects.
         private readonly List<GameObject> _gameObjects = new List<GameObject>();
+
+        //the camera that things will be drawn with
+        public readonly Camera camera = new Camera();
 
         // Puts a GameObject into the scene.
         public void AddGameObject(GameObject gameObject)
