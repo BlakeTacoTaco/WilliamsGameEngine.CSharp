@@ -33,6 +33,8 @@ namespace GameEngine
             // Handle any keyboard, mouse events, etc. for our game window.
             Game.RenderWindow.DispatchEvents();
 
+            camera.Update(time);
+
             HandleCollisions();
             UpdateGameObjects(time);
             RemoveDeadGameObjects();

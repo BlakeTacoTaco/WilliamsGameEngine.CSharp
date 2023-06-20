@@ -8,7 +8,7 @@ namespace MyGame
         public const int WindowHeight = 900;
         public const float edgeBuffer = 40;
 
-        private const string WindowTitle = "Asteroids but better";
+        private const string WindowTitle = "Game Engine Test";
 
         private static void Main(string[] args)
         {
