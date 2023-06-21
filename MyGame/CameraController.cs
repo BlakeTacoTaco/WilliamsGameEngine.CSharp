@@ -16,6 +16,8 @@ namespace MyGame
     {
         public override void Update(Time elapsed)
         {
+            float zoomSens = 10f;
+
             //rotation
             if (Keyboard.IsKeyPressed(Keyboard.Key.E)) { Game.CurrentScene.camera.angle += elapsed.AsSeconds() * 120; }
             if (Keyboard.IsKeyPressed(Keyboard.Key.Q)) { Game.CurrentScene.camera.angle -= elapsed.AsSeconds() * 120; }
@@ -28,8 +30,8 @@ namespace MyGame
             if (Keyboard.IsKeyPressed(Keyboard.Key.D)) { Game.CurrentScene.camera.position.X += elapsed.AsSeconds() * 1000; }
 
             //zoom
-            if (Keyboard.IsKeyPressed(Keyboard.Key.R)) { Game.CurrentScene.camera.zoom.X += elapsed.AsSeconds() * 10; Game.CurrentScene.camera.zoom.Y += elapsed.AsSeconds() * 10; }
-            if (Keyboard.IsKeyPressed(Keyboard.Key.F)) { Game.CurrentScene.camera.zoom.X -= elapsed.AsSeconds() * 10; Game.CurrentScene.camera.zoom.Y -= elapsed.AsSeconds() * 10; }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.R)) { Game.CurrentScene.camera.zoom.X += elapsed.AsSeconds() * zoomSens; Game.CurrentScene.camera.zoom.Y += elapsed.AsSeconds() * zoomSens; }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.F)) { Game.CurrentScene.camera.zoom.X -= elapsed.AsSeconds() * zoomSens; Game.CurrentScene.camera.zoom.Y -= elapsed.AsSeconds() * zoomSens; }
             if (Game.CurrentScene.camera.zoom.X <= 0.25f) { Game.CurrentScene.camera.zoom.X = 0.25f; }
             if (Game.CurrentScene.camera.zoom.Y <= 0.25f) { Game.CurrentScene.camera.zoom.Y = 0.25f; }
         }

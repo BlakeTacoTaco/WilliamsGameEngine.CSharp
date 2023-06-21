@@ -18,6 +18,8 @@ namespace MyGame
             }
             camera.zoom = new Vector2f(4, 4);
             AddGameObject(new CameraController());
+
+            AddGameObject(new FpsDisplay());
         }
     }
 }
