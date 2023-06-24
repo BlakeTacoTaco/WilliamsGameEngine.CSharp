@@ -13,13 +13,11 @@ namespace MyGame
             {
                 SSprite sprite = new SSprite();
                 sprite.sprite.Texture = Game.GetTexture("../../../Resources/samon.png");
-                sprite.position = new Vector2f(Game.Random.Next(1600) - 800, Game.Random.Next(900) - 450);
+                sprite.position = new Vector2f((Game.Random.Next(1600) - 800) * 10, (Game.Random.Next(1600) - 800) * 10);
                 AddGameObject(sprite);
             }
             camera.zoom = new Vector2f(4, 4);
             AddGameObject(new CameraController());
-
-            AddGameObject(new FpsDisplay());
         }
     }
 }

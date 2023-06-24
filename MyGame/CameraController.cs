@@ -24,16 +24,18 @@ namespace MyGame
             if (Keyboard.IsKeyPressed(Keyboard.Key.Z)) { Game.CurrentScene.camera.angle = 0; }
 
             //position
-            if (Keyboard.IsKeyPressed(Keyboard.Key.W)) { Game.CurrentScene.camera.position.Y -= elapsed.AsSeconds() * 1000; }
-            if (Keyboard.IsKeyPressed(Keyboard.Key.A)) { Game.CurrentScene.camera.position.X -= elapsed.AsSeconds() * 1000; }
-            if (Keyboard.IsKeyPressed(Keyboard.Key.S)) { Game.CurrentScene.camera.position.Y += elapsed.AsSeconds() * 1000; }
-            if (Keyboard.IsKeyPressed(Keyboard.Key.D)) { Game.CurrentScene.camera.position.X += elapsed.AsSeconds() * 1000; }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.W)) { Game.CurrentScene.camera.position.Y -= elapsed.AsSeconds() * 1000 / Game.CurrentScene.camera.zoom.Y; }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.A)) { Game.CurrentScene.camera.position.X -= elapsed.AsSeconds() * 1000 / Game.CurrentScene.camera.zoom.X; }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.S)) { Game.CurrentScene.camera.position.Y += elapsed.AsSeconds() * 1000 / Game.CurrentScene.camera.zoom.Y; }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.D)) { Game.CurrentScene.camera.position.X += elapsed.AsSeconds() * 1000 / Game.CurrentScene.camera.zoom.X; }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Z)) { Game.CurrentScene.camera.position = new Vector2f(0,0); }
 
             //zoom
-            if (Keyboard.IsKeyPressed(Keyboard.Key.R)) { Game.CurrentScene.camera.zoom.X += elapsed.AsSeconds() * zoomSens; Game.CurrentScene.camera.zoom.Y += elapsed.AsSeconds() * zoomSens; }
-            if (Keyboard.IsKeyPressed(Keyboard.Key.F)) { Game.CurrentScene.camera.zoom.X -= elapsed.AsSeconds() * zoomSens; Game.CurrentScene.camera.zoom.Y -= elapsed.AsSeconds() * zoomSens; }
-            if (Game.CurrentScene.camera.zoom.X <= 0.25f) { Game.CurrentScene.camera.zoom.X = 0.25f; }
-            if (Game.CurrentScene.camera.zoom.Y <= 0.25f) { Game.CurrentScene.camera.zoom.Y = 0.25f; }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.R)) { Game.CurrentScene.camera.zoom.X *= 1 + elapsed.AsSeconds() * 2; Game.CurrentScene.camera.zoom.Y *= 1 + elapsed.AsSeconds() * 2; }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.F)) { Game.CurrentScene.camera.zoom.X *= 1 - elapsed.AsSeconds() * 2; Game.CurrentScene.camera.zoom.Y *= 1 - elapsed.AsSeconds() * 2; }
+            if (Game.CurrentScene.camera.zoom.X <= 0.01f) { Game.CurrentScene.camera.zoom.X = 0.01f; }
+            if (Game.CurrentScene.camera.zoom.Y <= 0.01f) { Game.CurrentScene.camera.zoom.Y = 0.01f; }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Z)) { Game.CurrentScene.camera.zoom = new Vector2f(1, 1); }
         }
     }
 }

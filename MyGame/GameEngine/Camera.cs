@@ -30,15 +30,15 @@ namespace MyGame.GameEngine
         {
             if (angle == 0)
             {
-                bounds.Top = position.Y - ((900 / zoom.Y) / 2) + drawMargin;
-                bounds.Left = position.X - ((1600 / zoom.X) / 2) + drawMargin;
+                bounds.Top = position.Y - ((900 / zoom.Y) / 2) - drawMargin;
+                bounds.Left = position.X - ((1600 / zoom.X) / 2) - drawMargin;
                 bounds.Height = 900/ zoom.Y + (drawMargin * 2);
                 bounds.Width = 1600 / zoom.X + (drawMargin * 2);
             }
             else
             {
-                bounds.Top = position.Y - ((1600 / zoom.Y) / 2) + drawMargin; 
-                bounds.Left = position.X - ((1600 / zoom.X) / 2) + drawMargin;
+                bounds.Top = position.Y - ((1600 / zoom.Y) / 2) - drawMargin; 
+                bounds.Left = position.X - ((1600 / zoom.X) / 2) - drawMargin;
                 bounds.Height = bounds.Height = 1600 / zoom.Y + (drawMargin * 2);
                 bounds.Width = bounds.Width = 1600 / zoom.X + (drawMargin * 2);
             }

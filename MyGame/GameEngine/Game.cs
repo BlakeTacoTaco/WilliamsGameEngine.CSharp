@@ -11,7 +11,7 @@ namespace GameEngine
     static class Game
     {
         // The number of frames that will be drawn to the screen in one second.
-        private const int FramesPerSecond = 60;
+        private const int FramesPerSecond = 10000;
 
         // We keep a current and next scene so the scene can be changed mid-frame.
         private static Scene _currentScene;
