@@ -1,7 +1,9 @@
 ﻿using GameEngine;
 using MyGame.GameEngine;
+using SFML.Graphics;
 using SFML.System;
 using System;
+using System.Net.Http.Headers;
 
 namespace MyGame
 {
@@ -11,13 +13,13 @@ namespace MyGame
         {
             for (int i = 0; i < 100000; i++)
             {
-                SSprite sprite = new SSprite();
-                sprite.sprite.Texture = Game.GetTexture("../../../Resources/samon.png");
-                sprite.position = new Vector2f((Game.Random.Next(1600) - 800) * 10, (Game.Random.Next(1600) - 800) * 10);
-                AddGameObject(sprite);
+                Sprite sprite = new Sprite();
+                sprite.Texture = Game.GetTexture("../../../Resources/samon.png");
+                sprite.Position = new Vector2f((Game.Random.Next(1600) - 800) * 10, (Game.Random.Next(1600) - 800) * 10);
+                StillSprite still = new StillSprite(sprite);
+                AddGameObject(still);
             }
-            camera.zoom = new Vector2f(4, 4);
-            AddGameObject(new CameraController());
+            AddGameObject(new CameraController(camera));
         }
     }
 }

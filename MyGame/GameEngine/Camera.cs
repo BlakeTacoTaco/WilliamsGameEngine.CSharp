@@ -1,74 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.Tracing;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
-using GameEngine;
+﻿using GameEngine;
 using SFML.Graphics;
 using SFML.System;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace MyGame.GameEngine
 {
-    internal class Camera : GameObject //draws objects relative to where it is
+    internal class Camera : GameObject
     {
-        //the amount the camera is zoomed in
-        internal Vector2f zoom = new Vector2f(1, 1);
-        //angle in degrees the camera is rotated
-        internal float angle = 0;
-        //where the camera can see
-        internal FloatRect bounds = new FloatRect();
-        //how far around the camera that it will draw things
-        internal float drawMargin = 32;
-        public Camera() { position = new Vector2f(0, 0); }
-        public Camera(Vector2f position)
+        private View view;
+        private FloatRect _bounds;
+        public override Vector2f _position
         {
-            this.position = position;
+            get { return view.Center; }
+            set { view.Center = value; }
+        }
+        public Vector2f _zoom
+        {
+            get { return new Vector2f(view.Size.X / 1600, view.Size.Y / 900); }
+            set { view.Size = new Vector2f(value.X * 1600, value.Y * 900); }
+        }
+        public float _rotation
+        {
+            get { return view.Rotation; }
+            set { view.Rotation = value; }
+        }
+        public Camera(View view)
+        {
+            this.view = view;
         }
         public override void Update(Time elapsed)
         {
-            if (angle == 0)
-            {
-                bounds.Top = position.Y - ((900 / zoom.Y) / 2) - drawMargin;
-                bounds.Left = position.X - ((1600 / zoom.X) / 2) - drawMargin;
-                bounds.Height = 900/ zoom.Y + (drawMargin * 2);
-                bounds.Width = 1600 / zoom.X + (drawMargin * 2);
-            }
-            else
-            {
-                bounds.Top = position.Y - ((1600 / zoom.Y) / 2) - drawMargin; 
-                bounds.Left = position.X - ((1600 / zoom.X) / 2) - drawMargin;
-                bounds.Height = bounds.Height = 1600 / zoom.Y + (drawMargin * 2);
-                bounds.Width = bounds.Width = 1600 / zoom.X + (drawMargin * 2);
-            }
+            Game.RenderWindow.SetView(view);
+            _bounds = new FloatRect(view.Center.X - (view.Size.X / 2), view.Center.Y - (view.Size.X / 2), view.Size.X, view.Size.X);
         }
-        public void RelativeDraw(SSprite sprite) //draws the sprite relative to this camera
+        public void Draw(Sprite sprite)
         {
-            //culls sprites that are offscreen
-            if(!bounds.Contains(sprite.position.X, sprite.position.Y))
+            if (sprite.GetGlobalBounds().Intersects(_bounds))
             {
-                return;
+                Game.RenderWindow.Draw(sprite);
             }
-            if (angle != 0)
-            {
-                sprite.sprite.Rotation = sprite.rotation - angle;
-                sprite.sprite.Position = VectorMath.RotateVector(new Vector2f((sprite.position.X - position.X) * zoom.X, (sprite.position.Y - position.Y) * zoom.Y), -angle);
-            }
-            else
-            {
-                sprite.sprite.Rotation = sprite.rotation;
-                sprite.sprite.Position = new Vector2f((sprite.position.X - position.X) * zoom.X, (sprite.position.Y - position.Y) * zoom.Y);
-            }
-
-            //set the scale of the sprite
-            sprite.sprite.Scale = new Vector2f(sprite.scale.X * zoom.X, sprite.scale.Y * zoom.Y);
-
-            //centers stuff
-            sprite.sprite.Position += new Vector2f(800, 450);
-
-            //draws the sprite
-            Game.RenderWindow.Draw(sprite.sprite);
         }
     }
 }

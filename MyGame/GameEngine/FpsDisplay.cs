@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyGame
+namespace MyGame.GameEngine
 {
     internal class DebugText : GameObject
     {
@@ -31,17 +31,17 @@ namespace MyGame
             lastFrames.Add(elapsed.AsSeconds());
 
             float total = 0;
-            for(int i = 0; i < lastFrames.Count; i++)
+            for (int i = 0; i < lastFrames.Count; i++)
             {
                 total += lastFrames[i];
             }
             float totalDraw = 0;
-            for(int i = 0; i < lastDraw.Count; i++)
+            for (int i = 0; i < lastDraw.Count; i++)
             {
                 totalDraw += lastDraw[i];
             }
             float totalUpdate = 0;
-            for(int i = 0; i < lastUpdate.Count; i++)
+            for (int i = 0; i < lastUpdate.Count; i++)
             {
                 totalUpdate += lastUpdate[i];
             }

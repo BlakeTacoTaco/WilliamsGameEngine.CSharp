@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using MyGame;
 using MyGame.GameEngine;
 using SFML.Graphics;
 using SFML.System;
@@ -11,6 +10,9 @@ namespace GameEngine
     // The Scene manages all the GameObjects currently in the game.
     class Scene
     {
+        //default camera
+        internal Camera camera = new Camera(Game.RenderWindow.GetView());
+
         //for keeping track of things
         private Clock clock = new Clock();
 
@@ -19,9 +21,6 @@ namespace GameEngine
 
         // This holds our game objects.
         private readonly List<GameObject> _gameObjects = new List<GameObject>();
-
-        //the camera that things will be drawn with
-        public readonly Camera camera = new Camera();
 
         // Puts a GameObject into the scene.
         public void AddGameObject(GameObject gameObject)
@@ -40,17 +39,20 @@ namespace GameEngine
 
             // Handle any keyboard, mouse events, etc. for our game window.
             Game.RenderWindow.DispatchEvents();
+
             //update
             clock.Restart();
             UpdateGameObjects(time);
             debug.GiveUpdateTime(clock.Restart());
+
             //collisions
             HandleCollisions();
+
             //ded
             RemoveDeadGameObjects();
-            camera.Update(time);
 
             //draw stuff
+            camera.Update(time);
             clock.Restart();
             DrawGameObjects();
             debug.GiveDrawTime(clock.Restart());

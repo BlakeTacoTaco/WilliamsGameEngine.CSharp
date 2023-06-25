@@ -7,7 +7,7 @@ namespace GameEngine
     // This class represents every object in your game, such as the player, enemies, and so on.
     abstract class GameObject
     {
-        public Vector2f position;
+        virtual public Vector2f _position { get; set; }
 
         private bool _isCollisionCheckEnabled;
 
