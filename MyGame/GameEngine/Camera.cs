@@ -11,37 +11,41 @@ namespace MyGame.GameEngine
 {
     internal class Camera : GameObject
     {
-        private View view;
-        private FloatRect _bounds;
+        private View _view;
         public override Vector2f _position
         {
-            get { return view.Center; }
-            set { view.Center = value; }
+            get { return _view.Center; }
+            set { _view.Center = value; }
         }
         public Vector2f _zoom
         {
-            get { return new Vector2f(view.Size.X / 1600, view.Size.Y / 900); }
-            set { view.Size = new Vector2f(value.X * 1600, value.Y * 900); }
+            get { return new Vector2f(_view.Size.X / 1600, _view.Size.Y / 900); }
+            set { _view.Size = new Vector2f(value.X * 1600, value.Y * 900); }
         }
         public float _rotation
         {
-            get { return view.Rotation; }
-            set { view.Rotation = value; }
+            get { return _view.Rotation; }
+            set { _view.Rotation = value; }
+        }
+        public FloatRect _viewport
+        {
+            get { return _view.Viewport; }
+            set { _view.Viewport = value; }
         }
         public Camera(View view)
         {
-            this.view = view;
+            this._view = view;
         }
         public override void Update(Time elapsed)
         {
-            Game.RenderWindow.SetView(view);
-            _bounds = new FloatRect(view.Center.X - (view.Size.X / 2), view.Center.Y - (view.Size.X / 2), view.Size.X, view.Size.X);
+            Game.RenderWindow.SetView(_view);
         }
-        public void Draw(Sprite sprite)
+        //when the the main loop causes the draw function to be called
+        public override void Draw(Camera camera)
         {
-            if (sprite.GetGlobalBounds().Intersects(_bounds))
+            foreach (Node child in _children)
             {
-                Game.RenderWindow.Draw(sprite);
+                child.Draw(this);
             }
         }
     }

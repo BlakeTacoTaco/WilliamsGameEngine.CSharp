@@ -52,7 +52,7 @@ namespace MyGame.GameEngine
                 "\ndraw:  \t" + Math.Round(totalDraw / lastDraw.Count * 1000, 1) + "ms" +
                 "\nupdate:\t" + Math.Round(totalUpdate / lastUpdate.Count * 1000, 1) + "ms";
         }
-        public override void Draw()
+        public override void DrawSelf(Camera camera)
         {
             Game.RenderWindow.Draw(text);
         }

@@ -11,15 +11,7 @@ namespace MyGame
     {
         public GameScene()
         {
-            for (int i = 0; i < 100000; i++)
-            {
-                Sprite sprite = new Sprite();
-                sprite.Texture = Game.GetTexture("../../../Resources/samon.png");
-                sprite.Position = new Vector2f((Game.Random.Next(1600) - 800) * 10, (Game.Random.Next(1600) - 800) * 10);
-                StillSprite still = new StillSprite(sprite);
-                AddGameObject(still);
-            }
-            AddGameObject(new CameraController(camera));
+            root.AddChild(new CameraController(_camera));
         }
     }
 }
