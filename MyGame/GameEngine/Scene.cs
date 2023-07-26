@@ -20,6 +20,9 @@ namespace GameEngine
         public Node root = new Node();
 
         // list of cameras to be rendered this frame
+        List<Camera> cameras = new List<Camera>();
+
+        //the default camera
         internal Camera _camera = new Camera(new View());
 
         // Called by the Game instance once per frame.
@@ -71,6 +74,18 @@ namespace GameEngine
         private void DrawGameObjects()
         {
             root.Draw(_camera);
+            cameras.Add(_camera);
+            foreach (Camera camera in cameras)
+            {
+                camera.DrawFrom();
+            }
+            cameras.Clear();
+        }
+
+        //Submits a camera to the draw cycle
+        public void SubmitCamera(Camera camera)
+        {
+            cameras.Add(camera);
         }
 
         // This function removes objects that indicate they are dead from the scene.

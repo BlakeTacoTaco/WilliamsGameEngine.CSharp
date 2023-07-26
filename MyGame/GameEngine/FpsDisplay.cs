@@ -54,7 +54,7 @@ namespace MyGame.GameEngine
         }
         public override void DrawSelf(Camera camera)
         {
-            Game.RenderWindow.Draw(text);
+            camera.DrawThis(text);
         }
         public void GiveDrawTime(Time time)
         {

@@ -32,21 +32,45 @@ namespace MyGame.GameEngine
             get { return _view.Viewport; }
             set { _view.Viewport = value; }
         }
+        public readonly List<Drawable> drawQueue = new List<Drawable>();
         public Camera(View view)
         {
             this._view = view;
+        }
+        public Camera()
+        {
+            _view = new View();
+            _zoom = new Vector2f(1, 1);
+            _position = new Vector2f(0, 0);
+            _rotation = 0;
         }
         public override void Update(Time elapsed)
         {
             Game.RenderWindow.SetView(_view);
         }
-        //when the the main loop causes the draw function to be called
+        //instead of drawing all of its children with the default camera this draws them with itself
         public override void Draw(Camera camera)
         {
+            Game.CurrentScene.SubmitCamera(this);
             foreach (Node child in _children)
             {
                 child.Draw(this);
             }
+        }
+        //draws everything that is using this camera
+        public void DrawFrom()
+        {
+            Game.RenderWindow.SetView(_view);
+            foreach (Drawable drawable in drawQueue)
+            {
+                Game.RenderWindow.Draw(drawable);
+            }
+            drawQueue.Clear();
+        }
+        //lets objects submit their sprites for drawing
+        public void DrawThis(Drawable drawable)
+        {
+            drawQueue.Add(drawable);
         }
     }
 }
