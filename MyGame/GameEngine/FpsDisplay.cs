@@ -11,6 +11,7 @@ namespace MyGame.GameEngine
 {
     internal class DebugText : GameObject
     {
+        public override Vector2f _position { get => text.Position; set => text.Position = value; }
         Text text = new Text();
         List<float> lastFrames = new List<float>();
         List<float> lastDraw = new List<float>();

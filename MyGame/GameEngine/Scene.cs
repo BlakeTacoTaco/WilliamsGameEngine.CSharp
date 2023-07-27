@@ -14,7 +14,7 @@ namespace GameEngine
         private Clock clock = new Clock();
 
         //debug stuff
-        private DebugText debug = new DebugText();
+        internal DebugText debug = new DebugText();
 
         // This holds our game objects.
         public Node root = new Node();
@@ -23,7 +23,7 @@ namespace GameEngine
         List<Camera> cameras = new List<Camera>();
 
         //the default camera
-        internal Camera _camera = new Camera(new View());
+        internal Camera _camera = new Camera();
 
         // Called by the Game instance once per frame.
         public void Update(Time time)
@@ -52,7 +52,6 @@ namespace GameEngine
             DrawGameObjects();
             debug.GiveDrawTime(clock.Restart());
             debug.Update(time);
-            debug.Draw(_camera);
 
             // Draw the window as updated by the game objects.
             Game.RenderWindow.Display();

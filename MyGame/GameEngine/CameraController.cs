@@ -44,6 +44,10 @@ namespace MyGame.GameEngine
             if (Keyboard.IsKeyPressed(Keyboard.Key.F)) { zoom.X *= 1 + elapsed.AsSeconds() * 2; zoom.Y *= 1 + elapsed.AsSeconds() * 2; }
             if (Keyboard.IsKeyPressed(Keyboard.Key.Z)) { zoom = new Vector2f(1, 1); }
 
+            //toggle culling
+            if (Keyboard.IsKeyPressed(Keyboard.Key.T)) { _camera._willCull = true;  }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.G)) { _camera._willCull = false; }
+
             //set everything
             _camera._zoom = zoom;
             _camera._position += movement;

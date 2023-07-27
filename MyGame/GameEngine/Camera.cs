@@ -12,6 +12,7 @@ namespace MyGame.GameEngine
     internal class Camera : GameObject
     {
         private View _view;
+        public bool _willCull = false;
         public override Vector2f _position
         {
             get { return _view.Center; }
@@ -44,10 +45,6 @@ namespace MyGame.GameEngine
             _position = new Vector2f(0, 0);
             _rotation = 0;
         }
-        public override void Update(Time elapsed)
-        {
-            Game.RenderWindow.SetView(_view);
-        }
         //instead of drawing all of its children with the default camera this draws them with itself
         public override void Draw(Camera camera)
         {
@@ -60,10 +57,49 @@ namespace MyGame.GameEngine
         //draws everything that is using this camera
         public void DrawFrom()
         {
+
+            //gets size of the camera
+            Vector2f size = _view.Size;
+            if (size.X > size.Y)
+            {
+                size.Y = size.X;
+            }
+            else
+            {
+                size.X = size.Y;
+            }
+
+            //makes size slightly longer because the dist from one corner to another on a unit square is root 2 (1.414)
+            size *= 1.414f;
+
+            FloatRect CamRegion = new FloatRect(_position - (size / 2), size);
+
+            //sets the view of the renderwindow to apply camera settings
             Game.RenderWindow.SetView(_view);
+
+            //draws all the drawables in the queue
             foreach (Drawable drawable in drawQueue)
             {
-                Game.RenderWindow.Draw(drawable);
+                //checks if it even is on screen before drawing it
+                if (_willCull)
+                {
+                    if (drawable is Sprite)
+                    {
+                        Sprite sprite = (Sprite)drawable;
+                        if (sprite.GetGlobalBounds().Intersects(CamRegion))
+                        {
+                            Game.RenderWindow.Draw(drawable);
+                        }
+                    }
+                    else
+                    {
+                        Game.RenderWindow.Draw(drawable);
+                    }
+                }
+                else
+                {
+                    Game.RenderWindow.Draw(drawable);
+                }
             }
             drawQueue.Clear();
         }
