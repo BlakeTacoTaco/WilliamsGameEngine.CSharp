@@ -51,7 +51,7 @@ namespace GameEngine
             clock.Restart();
             DrawGameObjects();
             debug.GiveDrawTime(clock.Restart());
-            debug.Update(time);
+            debug.Update(time, new Vector2f(0,0));
 
             // Draw the window as updated by the game objects.
             Game.RenderWindow.Display();
@@ -66,7 +66,7 @@ namespace GameEngine
         // This function calls update on each of our game objects.
         private void UpdateGameObjects(Time time)
         {
-            root.Update(time);
+            root.Update(time, new Vector2f(0,0));
         }
 
         // This function calls draw on each of our game objects.

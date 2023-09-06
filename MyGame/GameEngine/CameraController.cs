@@ -12,7 +12,7 @@ namespace MyGame.GameEngine
 {
     //lets the user control the camera
     //for debug purpouses only
-    internal class CameraController : GameObject
+    internal class CameraController : Node2D
     {
 
         internal Camera _camera;
@@ -20,12 +20,12 @@ namespace MyGame.GameEngine
         {
             this._camera = camera;
         }
-        public override void Update(Time elapsed)
+        public override void UpdateSelf(Time elapsed)
         {
 
             Vector2f movement = new Vector2f(0, 0);
             Vector2f zoom = _camera._zoom;
-            float rotation = _camera._rotation;
+            float rotation = _camera._rot;
 
             //rotation
             if (Keyboard.IsKeyPressed(Keyboard.Key.E)) { rotation += elapsed.AsSeconds() * 120; }
@@ -37,7 +37,7 @@ namespace MyGame.GameEngine
             if (Keyboard.IsKeyPressed(Keyboard.Key.A)) { movement.X -= elapsed.AsSeconds() * 1000 * zoom.X; }
             if (Keyboard.IsKeyPressed(Keyboard.Key.S)) { movement.Y += elapsed.AsSeconds() * 1000 * zoom.Y; }
             if (Keyboard.IsKeyPressed(Keyboard.Key.D)) { movement.X += elapsed.AsSeconds() * 1000 * zoom.X; }
-            if (Keyboard.IsKeyPressed(Keyboard.Key.Z)) { _camera._position = new Vector2f(0, 0); }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Z)) { _camera._localPos = new Vector2f(0, 0); }
 
             //zoom
             if (Keyboard.IsKeyPressed(Keyboard.Key.R)) { zoom.X /= 1 + elapsed.AsSeconds() * 2; zoom.Y /= 1 + elapsed.AsSeconds() * 2; }
@@ -50,8 +50,8 @@ namespace MyGame.GameEngine
 
             //set everything
             _camera._zoom = zoom;
-            _camera._position += movement;
-            _camera._rotation = rotation;
+            _camera._localPos += movement;
+            _camera._rot = rotation;
         }
     }
 }

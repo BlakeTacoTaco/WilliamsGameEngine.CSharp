@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 
 namespace MyGame.GameEngine
 {
-    internal class StillSprite : GameObject
+    internal class StillSprite : Node2D
     {
-        public override Vector2f _position { get => sprite.Position; set => sprite.Position = value; }
         Sprite sprite = new Sprite();
         public StillSprite()
         {
@@ -21,6 +20,7 @@ namespace MyGame.GameEngine
         //draws this sprite
         public override void DrawSelf(Camera camera)
         {
+            sprite.Position = _GlobalPos;
             camera.DrawThis(sprite);
         }
     }

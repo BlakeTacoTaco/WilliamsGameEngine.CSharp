@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace MyGame.GameEngine
 {
-    internal class DebugText : GameObject
+    internal class DebugText : Node2D
     {
-        public override Vector2f _position { get => text.Position; set => text.Position = value; }
+        public override Vector2f _localPos { get => text.Position; set => text.Position = value; }
         Text text = new Text();
         List<float> lastFrames = new List<float>();
         List<float> lastDraw = new List<float>();
@@ -26,7 +26,7 @@ namespace MyGame.GameEngine
                 lastUpdate.Add(0);
             }
         }
-        public override void Update(Time elapsed)
+        public override void UpdateSelf(Time elapsed)
         {
             lastFrames.RemoveAt(0);
             lastFrames.Add(elapsed.AsSeconds());

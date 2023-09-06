@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace MyGame.GameEngine
 {
-    internal class Camera : GameObject
+    internal class Camera : Node2D
     {
         private View _view;
         public bool _willCull = false;
-        public override Vector2f _position
+        public override Vector2f _localPos
         {
             get { return _view.Center; }
             set { _view.Center = value; }
@@ -23,7 +23,7 @@ namespace MyGame.GameEngine
             get { return new Vector2f(_view.Size.X / 1600, _view.Size.Y / 900); }
             set { _view.Size = new Vector2f(value.X * 1600, value.Y * 900); }
         }
-        public float _rotation
+        public float _rot
         {
             get { return _view.Rotation; }
             set { _view.Rotation = value; }
@@ -42,8 +42,8 @@ namespace MyGame.GameEngine
         {
             _view = new View();
             _zoom = new Vector2f(1, 1);
-            _position = new Vector2f(0, 0);
-            _rotation = 0;
+            _localPos = new Vector2f(0, 0);
+            _rot = 0;
         }
         //instead of drawing all of its children with the default camera this draws them with itself
         public override void Draw(Camera camera)
@@ -72,7 +72,7 @@ namespace MyGame.GameEngine
             //makes size slightly longer because the dist from one corner to another on a unit square is root 2 (1.414)
             size *= 1.414f;
 
-            FloatRect CamRegion = new FloatRect(_position - (size / 2), size);
+            FloatRect CamRegion = new FloatRect(_localPos - (size / 2), size);
 
             //sets the view of the renderwindow to apply camera settings
             Game.RenderWindow.SetView(_view);
