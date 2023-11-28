@@ -21,21 +21,10 @@ namespace GameEngine
         // Called by the Game instance once per frame.
         public void Update(Time time)
         {
-            // Clear the window.
-            Game.RenderWindow.Clear();
-
-            // Go through our normal sequence of game loop stuff.
-
-            // Handle any keyboard, mouse events, etc. for our game window.
-            Game.RenderWindow.DispatchEvents();
-
             HandleCollisions();
             UpdateGameObjects(time);
             RemoveDeadGameObjects();
             DrawGameObjects();
-
-            // Draw the window as updated by the game objects.
-            Game.RenderWindow.Display();
         }
 
         // This method lets game objects respond to collisions.

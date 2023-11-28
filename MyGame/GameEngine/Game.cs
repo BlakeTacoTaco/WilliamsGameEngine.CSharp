@@ -26,9 +26,6 @@ namespace GameEngine
         // Cached fonts
         private static readonly Dictionary<string, Font> Fonts = new Dictionary<string, Font>();
 
-        // The window we will draw to.
-        private static RenderWindow _window;
-
         // A flag to prevent being initialized twice.
         private static bool _initialized;
 
@@ -43,27 +40,14 @@ namespace GameEngine
             // Only initialize once.
             if (_initialized) return;
             _initialized = true;
-
-            // Create the render window.
-            _window = new RenderWindow(new VideoMode(windowWidth, windowHeight), windowTitle);
-            _window.SetFramerateLimit(FramesPerSecond);
-
-            // Add a method to be called whenever the "Closed" event fires.
-            _window.Closed += ClosedEventHandler;
         }
 
         // Called whenever you try to close the game window.
         private static void ClosedEventHandler(object sender, EventArgs e)
         {
-            // This indicates we should close the window, so just do that.
-            _window.Close();
+            
         }
 
-        // Returns a reference to the game's RenderWindow.
-        public static RenderWindow RenderWindow
-        {
-            get { return _window; }
-        }
 
         // Get a texture (pixels) from a file
         public static Texture GetTexture(string fileName)
@@ -124,7 +108,7 @@ namespace GameEngine
             Clock clock = new Clock();
 
             // Keep looping until the window closes.
-            while (_window.IsOpen)
+            while (true)
             {
                 // If the next scene has been set, swap it with the current scene.
                 if (_nextScene != null)

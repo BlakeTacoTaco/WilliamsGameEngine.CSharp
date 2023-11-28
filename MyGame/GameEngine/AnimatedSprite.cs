@@ -142,8 +142,6 @@ namespace GameEngine
             // Don't draw if we're not drawable.
             if (!IsDrawable()) return;
 
-            // Draw it.
-            Game.RenderWindow.Draw(_sprite);
         }
 
         public override void Update(Time elapsed)
