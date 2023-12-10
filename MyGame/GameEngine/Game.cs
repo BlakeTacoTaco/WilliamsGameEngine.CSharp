@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MyGame.GameEngine;
 using SFML.Audio;
 using SFML.Graphics;
 using SFML.System;
@@ -12,6 +13,13 @@ namespace GameEngine
     {
         // The number of frames that will be drawn to the screen in one second.
         private const int FramesPerSecond = 60;
+
+        public const bool SquarePixels = true;
+
+        public static char[] randomCharacters;
+
+        public static Screen screen;
+        public static Screen lastFrame;
 
         // We keep a current and next scene so the scene can be changed mid-frame.
         private static Scene _currentScene;
@@ -32,11 +40,25 @@ namespace GameEngine
         // A Random number generator we can use throughout the game. Seeded with a constant so 
         // the game plays the same every time for easy debugging.
         // @TODO: provide a method to randomize this for when they want variety.
-        public static Random Random = new Random(42);
+        public static Random Random = new Random();
 
         // Creates our render window. Must be called once at startup.
-        public static void Initialize(uint windowWidth, uint windowHeight, string windowTitle)
+        public static void Initialize(uint windowWidth, uint windowHeight)
         {
+            randomCharacters = new char[10];
+            randomCharacters[0] = '@';
+            randomCharacters[1] = '#';
+            randomCharacters[2] = '$';
+            randomCharacters[3] = '%';
+            randomCharacters[4] = '&';
+            randomCharacters[5] = '*';
+            randomCharacters[6] = '/';
+            randomCharacters[7] = '\\';
+            randomCharacters[8] = '~';
+            randomCharacters[9] = '=';
+            Console.CursorVisible = false;
+            screen = new Screen((int)windowWidth, (int)windowHeight);
+            lastFrame = new Screen((int)windowWidth, (int)windowHeight);
             // Only initialize once.
             if (_initialized) return;
             _initialized = true;

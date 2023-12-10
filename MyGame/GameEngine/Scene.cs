@@ -72,6 +72,8 @@ namespace GameEngine
         private void DrawGameObjects()
         {
             foreach (var gameObject in _gameObjects) gameObject.Draw();
+            Game.lastFrame = Game.screen;
+            Game.screen.DrawScreen();
         }
 
         // This function removes objects that indicate they are dead from the scene.
