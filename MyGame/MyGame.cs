@@ -7,8 +7,12 @@ namespace MyGame
 {
     static class MyGame
     {
+        /*
         public const int WindowWidth = 64;
         public const int WindowHeight = 30;
+        */
+        public const int WindowWidth = 117;
+        public const int WindowHeight = 62;
         
         private static void Main(string[] args)
         {

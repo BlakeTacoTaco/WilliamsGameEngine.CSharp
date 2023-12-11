@@ -32,6 +32,8 @@ namespace MyGame.GameEngine
         {
             if (y < 0 || y >= pixels.Length) { return; }
             if (x < 0 || x >= pixels[y].Length) { return; }
+            pixels[y][x] = pixel1;
+            /*
             Pixel pixel2 = pixels[y][x];
             pixel2.r = pixel1.r;
             pixel2.g = pixel1.g;
@@ -40,6 +42,7 @@ namespace MyGame.GameEngine
             pixel2.bg = pixel1.bg;
             pixel2.bb = pixel1.bb;
             pixel2.c = pixel1.c;
+            */
         }
         public void DrawScreen()
         {

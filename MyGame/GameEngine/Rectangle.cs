@@ -1,5 +1,4 @@
-﻿using MyGame.GameEngine;
-using GameEngine;
+﻿using GameEngine;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +7,16 @@ using System.Threading.Tasks;
 using SFML.System;
 using SFML.Window;
 
-namespace MyGame
+namespace MyGame.GameEngine
 {
-    internal class Rectangle: GameObject 
+    internal class Rectangle : GameObject
     {
         internal Pixel color;
         internal Vector2f size;
         public Vector2f position;
         public Vector2f velocity = new Vector2f(0, 0);
         private float acceleration = 20;
-        private float maxSpeed = 20;
+        private float maxSpeed = 2;
         public Rectangle(Pixel color, Vector2f size, Vector2f position)
         {
             this.color = color;
@@ -25,15 +24,15 @@ namespace MyGame
             this.position = position;
         }
         public Rectangle()
-        { 
+        {
             position = new Vector2f(Game.Random.Next(MyGame.WindowWidth), Game.Random.Next(MyGame.WindowHeight));
-            color = new Pixel(Game.Random.Next(255), Game.Random.Next(255), Game.Random.Next(255), Game.randomCharacters[Game.Random.Next(10)]);
+            color = new DualPixel(Game.Random.Next(255), Game.Random.Next(255), Game.Random.Next(255), Game.randomCharacters[Game.Random.Next(10)], Game.randomCharacters[Game.Random.Next(10)]);
             size = new Vector2f(Game.Random.Next(8) + 3, Game.Random.Next(8) + 3);
         }
         public override void Update(Time elapsed)
         {
-            velocity.X += ((Game.Random.Next(3) - 1) * elapsed.AsSeconds()) * acceleration;
-            velocity.Y += ((Game.Random.Next(3) - 1) * elapsed.AsSeconds()) * acceleration;
+            velocity.X += (Game.Random.Next(3) - 1) * elapsed.AsSeconds() * acceleration;
+            velocity.Y += (Game.Random.Next(3) - 1) * elapsed.AsSeconds() * acceleration;
             if (Keyboard.IsKeyPressed(Keyboard.Key.W))
             {
                 velocity.Y -= elapsed.AsSeconds() * 200;
@@ -63,7 +62,7 @@ namespace MyGame
         }
         public override void Draw()
         {
-            for(int i = 0; i < Math.Round(size.Y); i++)
+            for (int i = 0; i < Math.Round(size.Y); i++)
             {
                 for (int j = 0; j < Math.Round(size.X); j++)
                 {

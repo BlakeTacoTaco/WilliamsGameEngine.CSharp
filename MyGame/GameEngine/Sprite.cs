@@ -12,6 +12,15 @@ namespace MyGame.GameEngine
     {
         public Pixel[][] pixels;
         public Vector2f position;
+        public Sprite()
+        {
+            Pixel black = new Pixel();
+            Pixel purple = new Pixel(255,0,255);
+            pixels = new Pixel[][]{
+                new Pixel[]{purple, black},
+                new Pixel[]{black, purple }
+            };
+        }
         public Sprite(int x, int y)
         {
             pixels = new Pixel[y][];
@@ -31,7 +40,7 @@ namespace MyGame.GameEngine
             {
                 for(int j = 0; j < pixels[i].Length; j++)
                 {
-                    Game.screen.setPixel((int)Math.Round(position.X) + j, (int)Math.Round(position.Y) + i, pixels[j][i]);
+                    Game.screen.setPixel((int)Math.Round(position.X) + j, (int)Math.Round(position.Y) + i, pixels[i][j]);
                 }
             }
         }

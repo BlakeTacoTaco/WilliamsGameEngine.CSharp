@@ -1,5 +1,4 @@
 ﻿using GameEngine;
-using MyGame.GameEngine;
 using SFML.System;
 using System;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MyGame
+namespace MyGame.GameEngine
 {
     internal class OutlineRectangle : Rectangle
     {
@@ -23,7 +22,10 @@ namespace MyGame
         public OutlineRectangle()
         {
             position = new Vector2f(Game.Random.Next(MyGame.WindowWidth), Game.Random.Next(MyGame.WindowHeight));
-            color = new Pixel(Game.Random.Next(255), Game.Random.Next(255), Game.Random.Next(255), Game.randomCharacters[Game.Random.Next(10)]);
+            color = new DualPixel(Game.Random.Next(255), Game.Random.Next(255), Game.Random.Next(255), Game.randomCharacters[Game.Random.Next(10)], Game.randomCharacters[Game.Random.Next(10)]);
+            color.br = (int)(color.r / 1.5f);
+            color.bg = (int)(color.g / 1.5f);
+            color.bb = (int)(color.b / 1.5f);
             edgeColor = new Pixel(color.r / 2, color.g / 2, color.b / 2, color.br / 3, color.bg / 3, color.bb / 3, '#');
             size = new Vector2f(Game.Random.Next(8) + 3, Game.Random.Next(8) + 3);
         }
