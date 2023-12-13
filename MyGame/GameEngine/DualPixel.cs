@@ -10,6 +10,17 @@ namespace MyGame.GameEngine
     internal class DualPixel : Pixel
     {
         public char c2;
+        public DualPixel(char c1, char c2)
+        {
+            this.c = c1;
+            this.c2 = c2;
+            this.r = 255;
+            this.g = 255;
+            this.b = 255;
+            this.br = 0;
+            this.bg = 0;
+            this.bb = 0;
+        }
         public DualPixel()
         {
             r = 0;
@@ -53,6 +64,20 @@ namespace MyGame.GameEngine
             bb = b;
             c = ' ';
             c2 = ' ';
+        }
+        public DualPixel(string encoded)
+        {
+            string[] splits = encoded.Split('\t');
+            r = HexSnipReader(splits[0].Substring(0, 2));
+            g = HexSnipReader(splits[0].Substring(2, 2));
+            b = HexSnipReader(splits[0].Substring(4, 2));
+
+            r = HexSnipReader(splits[1].Substring(0, 2));
+            g = HexSnipReader(splits[1].Substring(2, 2));
+            b = HexSnipReader(splits[1].Substring(4, 2));
+
+            c = splits[2][0];
+            c2 = splits[2][1];
         }
         public override string ToString()
         {

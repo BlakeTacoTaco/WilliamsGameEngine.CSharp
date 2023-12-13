@@ -21,10 +21,17 @@ namespace GameEngine
         // Called by the Game instance once per frame.
         public void Update(Time time)
         {
-            HandleCollisions();
-            UpdateGameObjects(time);
-            RemoveDeadGameObjects();
-            DrawGameObjects();
+            if (time.AsSeconds() < 0.2f)
+            {
+                HandleCollisions();
+                UpdateGameObjects(time);
+                RemoveDeadGameObjects();
+                DrawGameObjects();
+            }
+            else
+            {
+                DrawGameObjects();
+            }
         }
 
         // This method lets game objects respond to collisions.

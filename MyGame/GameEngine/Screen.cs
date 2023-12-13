@@ -62,7 +62,7 @@ namespace MyGame.GameEngine
                     line += pix;
                     pixels[i][j] = new Pixel(0, 0, 0);
                 }
-                line = "\x1b[48;2;" + 0 + ";" + 0 + ";" + 0 + "m" + "\x1b[38;2;" + 255 + ";" + 255 + ";" + 255 + "m|" + line + "\x1b[48;2;" + 0 + ";" + 0 + ";" + 0 + "m" + "\x1b[38;2;" + 255 + ";" + 255 + ";" + 255 + "m|";
+                //line = "\x1b[48;2;" + 0 + ";" + 0 + ";" + 0 + "m" + "\x1b[38;2;" + 255 + ";" + 255 + ";" + 255 + "m|" + line + "\x1b[48;2;" + 0 + ";" + 0 + ";" + 0 + "m" + "\x1b[38;2;" + 255 + ";" + 255 + ";" + 255 + "m|";
                 Console.WriteLine(line);
             }
             Console.BackgroundColor = ConsoleColor.Black;

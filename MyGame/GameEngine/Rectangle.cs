@@ -15,8 +15,8 @@ namespace MyGame.GameEngine
         internal Vector2f size;
         public Vector2f position;
         public Vector2f velocity = new Vector2f(0, 0);
-        private float acceleration = 20;
-        private float maxSpeed = 2;
+        private float acceleration = 0;
+        private float maxSpeed = 10;
         public Rectangle(Pixel color, Vector2f size, Vector2f position)
         {
             this.color = color;
