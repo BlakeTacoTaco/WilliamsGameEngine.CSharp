@@ -1,26 +1,26 @@
 5	5
-00ff00	000000	@
-00ff3f	000000	@
-00ff7f	000000	@
-00ffbf	000000	@
-00ffff	000000	@
-3fff00	000000	@
-3fff3f	000000	@
-3fff7f	000000	@
-3fffbf	000000	@
-3fffff	000000	@
-7fff00	000000	@
-7fff3f	000000	@
-ff00ff	000000	*
-7fffbf	000000	@
-7fffff	000000	@
-bfff00	000000	@
-bfff3f	000000	@
-bfff7f	000000	@
-bfffbf	000000	@
-bfffff	000000	@
-ffff00	000000	@
-ffff3f	000000	@
-ffff7f	000000	@
-ffffbf	000000	@
-ffffff	000000	@
+000000	000000	 
+00ff3f	00ff3f	@
+00ff7f	00ff7f	@
+00ffbf	00ffbf	@
+000000	000000	 
+3fff00	3fff00	@
+3fff3f	3fff3f	@
+444444	888888	@
+3fffbf	3fffbf	@
+3fffff	3fffff	@
+7fff00	7fff00	@
+444444	888888	@
+ffffff	ffffff	Hi
+444444	888888	@
+7fffff	7fffff	@
+bfff00	bfff00	@
+bfff3f	bfff3f	@
+444444	888888	@
+bfffbf	bfffbf	@
+bfffff	bfffff	@
+000000	000000	 
+ffff3f	ffff3f	@
+ffff7f	ffff7f	@
+ffffbf	ffffbf	@
+000000	000000	 

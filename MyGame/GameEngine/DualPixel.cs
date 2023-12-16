@@ -71,11 +71,11 @@ namespace MyGame.GameEngine
             r = HexSnipReader(splits[0].Substring(0, 2));
             g = HexSnipReader(splits[0].Substring(2, 2));
             b = HexSnipReader(splits[0].Substring(4, 2));
-
-            r = HexSnipReader(splits[1].Substring(0, 2));
-            g = HexSnipReader(splits[1].Substring(2, 2));
-            b = HexSnipReader(splits[1].Substring(4, 2));
-
+            
+            br = HexSnipReader(splits[1].Substring(0, 2));
+            bg = HexSnipReader(splits[1].Substring(2, 2));
+            bb = HexSnipReader(splits[1].Substring(4, 2));
+            
             c = splits[2][0];
             c2 = splits[2][1];
         }

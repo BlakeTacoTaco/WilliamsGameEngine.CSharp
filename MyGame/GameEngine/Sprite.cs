@@ -1,5 +1,6 @@
 ﻿using GameEngine;
 using SFML.System;
+using SFML.Window;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,6 +14,9 @@ namespace MyGame.GameEngine
     {
         public Pixel[][] pixels;
         public Vector2f position;
+        public Vector2f velocity = new Vector2f(0, 0);
+        private float acceleration = 0;
+        private float maxSpeed = 10;
         public Sprite()
         {
             Pixel black = new Pixel();
@@ -46,7 +50,9 @@ namespace MyGame.GameEngine
                 pixels[i] = new Pixel[x];
                 for(int j = 0; j < pixels[i].Length; j++)
                 {
-                    pixels[i][j] = new Pixel(reader.ReadLine());
+                    string pixel = reader.ReadLine();
+                    if(pixel.Length == 15) { pixels[i][j] = new Pixel(pixel); }
+                    else { pixels[i][j] = new DualPixel(pixel); }
                 }
             }
             position = new Vector2f(0, 0);
@@ -64,7 +70,35 @@ namespace MyGame.GameEngine
         }
         public override void Update(Time elapsed)
         {
-            
+
+            velocity.X += (Game.Random.Next(3) - 1) * elapsed.AsSeconds() * acceleration;
+            velocity.Y += (Game.Random.Next(3) - 1) * elapsed.AsSeconds() * acceleration;
+            if (Keyboard.IsKeyPressed(Keyboard.Key.W))
+            {
+                velocity.Y -= elapsed.AsSeconds() * 200;
+            }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.S))
+            {
+                velocity.Y += elapsed.AsSeconds() * 200;
+            }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.A))
+            {
+                velocity.X -= elapsed.AsSeconds() * 200;
+            }
+            if (Keyboard.IsKeyPressed(Keyboard.Key.D))
+            {
+                velocity.X += elapsed.AsSeconds() * 200;
+            }
+            if (velocity.X > maxSpeed) { velocity.X = maxSpeed; }
+            if (velocity.X < -maxSpeed) { velocity.X = -maxSpeed; }
+            if (velocity.Y > maxSpeed) { velocity.Y = maxSpeed; }
+            if (velocity.Y < -maxSpeed) { velocity.Y = -maxSpeed; }
+            position.X += velocity.X * elapsed.AsSeconds();
+            position.Y += velocity.Y * elapsed.AsSeconds();
+            if (position.X < 0) { position.X = 0; velocity.X *= -1; }
+            if (position.X >= MyGame.WindowWidth) { position.X = MyGame.WindowWidth; velocity.X *= -1; }
+            if (position.Y < 0) { position.Y = 0; velocity.Y *= -1; }
+            if (position.Y >= MyGame.WindowHeight) { position.Y = MyGame.WindowHeight; velocity.Y *= -1; }
         }
         public void Save(string filelocation)
         {

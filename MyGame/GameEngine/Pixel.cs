@@ -113,9 +113,6 @@ namespace MyGame.GameEngine
             bb = HexSnipReader(splits[1].Substring(4, 2));
 
             c = splits[2][0];
-            Console.WriteLine(encoded + ": ");
-            Console.WriteLine(this);
-            Console.ForegroundColor = ConsoleColor.White;
         }
         public int HexSnipReader(string hex)
         {

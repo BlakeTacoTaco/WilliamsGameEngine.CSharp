@@ -21,17 +21,8 @@ namespace MyGame
             }
             //*/
             ///*
-            Sprite sprite = new Sprite("../../../Resources/SpriteTest.ascw");
-            /*
-            for(int i = 0; i < sprite.pixels.Length; i++)
-            {
-                for(int j = 0; j < sprite.pixels[i].Length; j++)
-                {
-                    sprite.pixels[i][j] = new Pixel(i * 255 / (sprite.pixels.Length - 1), 255, j * 255 / (sprite.pixels[i].Length - 1), '@');
-                }
-            }
-            //*/
-            sprite.Save("../../../Resources/SpriteTest.ascw");
+            Sprite sprite = new Sprite("../../../Resources/DVD.ascw");
+            //sprite.Save("../../../Resources/SpriteTest.ascw");
             AddGameObject(sprite);
             //*/
             /*
